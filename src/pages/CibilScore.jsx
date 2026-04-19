@@ -30,11 +30,23 @@ const CibilGauge = ({ score }) => {
 
   return (
     <div className="relative flex flex-col items-center">
-      <svg className="w-64 h-64 -rotate-90">
-        <circle cx="128" cy="128" r="70" className="fill-transparent stroke-white/5" strokeWidth="12" />
+      <svg className="w-48 h-48 md:w-64 md:h-64 -rotate-90">
+        <circle cx="96" cy="96" r="70" className="fill-transparent stroke-white/5 md:hidden" strokeWidth="10" />
+        <circle cx="128" cy="128" r="70" className="fill-transparent stroke-white/5 hidden md:block" strokeWidth="12" />
+        <motion.circle
+          cx="96" cy="96" r="70"
+          className="fill-transparent md:hidden"
+          stroke={color}
+          strokeWidth="10"
+          strokeLinecap="round"
+          initial={{ strokeDashoffset: strokeDasharray }}
+          animate={{ strokeDashoffset }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          style={{ strokeDasharray }}
+        />
         <motion.circle
           cx="128" cy="128" r="70"
-          className="fill-transparent"
+          className="fill-transparent hidden md:block"
           stroke={color}
           strokeWidth="12"
           strokeLinecap="round"
@@ -45,13 +57,13 @@ const CibilGauge = ({ score }) => {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center pt-2">
-        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-text-secondary text-xs font-bold uppercase tracking-[0.3em] mb-1">
+        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-text-secondary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-1">
           Your Score
         </motion.span>
-        <motion.span initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, type: "spring" }} className="text-7xl font-black text-white">
+        <motion.span initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, type: "spring" }} className="text-5xl md:text-7xl font-black text-white leading-none">
           {score}
         </motion.span>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="mt-2 py-1 px-4 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="mt-2 py-1 px-3 md:px-4 rounded-full bg-white/5 border border-white/10 text-[8px] md:text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
           {status}
         </motion.div>
       </div>
@@ -205,7 +217,7 @@ const CibilScore = () => {
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-background text-white font-outfit relative">
+    <div className="min-h-screen bg-background text-white font-outfit relative">
 
       {/* ── SMS Toast Notification ── */}
       <AnimatePresence>
@@ -225,37 +237,38 @@ const CibilScore = () => {
       </AnimatePresence>
 
       {/* ── Hero ── */}
-      <section className="bg-primary/50 py-24 px-4 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 blur-[150px] rounded-full -mr-32 -mt-32"></div>
-        <div className="container mx-auto max-w-4xl text-center relative z-10 space-y-8">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-accent font-bold tracking-[0.4em] uppercase block">
+      <section className="bg-primary/50 py-16 md:py-24 px-4 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-accent/10 blur-[100px] md:blur-[150px] rounded-full -mr-32 -mt-32"></div>
+        <div className="container text-center relative z-10 space-y-6 md:space-y-8">
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-accent font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase block text-xs md:text-sm">
             Digital CIBIL Portfolio
           </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-7xl font-bold font-playfair">
-            Monitor Your <br /><span className="text-gradient">Financial Reputation</span>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-7xl font-bold font-playfair">
+            Monitor Your <br className="hidden md:block" /><span className="text-gradient">Financial Reputation</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-text-secondary text-xl max-w-2xl mx-auto leading-relaxed">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
             Experience a bank-grade CIBIL diagnostic. Accurate, instantaneous, and designed to respect your privacy.
           </motion.p>
         </div>
       </section>
 
       {/* ── Main Experience ── */}
-      <section className="container mx-auto px-4 py-24">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 md:py-24 overflow-hidden">
+        <div className="container">
+          <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
 
             {/* LANDING */}
             {phase === "landing" && (
-              <motion.div key="landing" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="flex flex-col items-center text-center space-y-12">
-                <div className="w-24 h-24 bg-accent/20 rounded-[2.5rem] flex items-center justify-center text-accent">
-                  <TrendingUp size={48} />
+              <motion.div key="landing" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="flex flex-col items-center text-center space-y-8 md:space-y-12">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-accent/20 rounded-2xl md:rounded-[2.5rem] flex items-center justify-center text-accent">
+                  <TrendingUp size={40} className="md:w-12 md:h-12" />
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-4xl font-bold italic font-playfair">Ready to see your Prestige Tier?</h2>
-                  <p className="text-text-secondary max-w-xl">Join thousands of elite clients who monitor their CIBIL health with Kruthik.</p>
+                  <h2 className="text-3xl md:text-4xl font-bold italic font-playfair leading-tight">Ready to see your <br className="md:hidden" />Prestige Tier?</h2>
+                  <p className="text-text-secondary text-base md:text-lg max-w-xl">Join thousands of elite clients who monitor their CIBIL health with Kruthik.</p>
                 </div>
-                <button onClick={() => setPhase("form")} className="btn-premium px-12 py-5 text-lg">
+                <button onClick={() => setPhase("form")} className="btn-premium px-10 md:px-12 py-4 md:py-5 text-base md:text-lg w-full sm:w-auto">
                   Check CIBIL Score <ArrowRight size={24} />
                 </button>
               </motion.div>
@@ -264,7 +277,7 @@ const CibilScore = () => {
             {/* FORM */}
             {phase === "form" && (
               <motion.div key="form" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="max-w-2xl mx-auto">
-                <div className="glass-card-premium p-10 md:p-14 rounded-[3.5rem] border-accent/20 space-y-10">
+                <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem] border-accent/20 space-y-10">
                   <div className="text-center space-y-2">
                     <h3 className="text-3xl font-bold italic text-white font-playfair text-gradient">Elite Information Protocol</h3>
                     <p className="text-text-secondary text-sm">Please provide the details required to query the bureaus safely.</p>
@@ -355,46 +368,32 @@ const CibilScore = () => {
 
             {/* OTP */}
             {phase === "otp" && (
-              <motion.div key="otp" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="max-w-xl mx-auto">
-                <div className="glass-card-premium p-10 md:p-14 rounded-[3.5rem] border-accent/20 text-center space-y-10">
-                  <div className="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto text-accent">
-                    <MessageSquare size={32} />
-                  </div>
-                  <div className="space-y-4">
-                    <h2 className="text-3xl font-bold font-playfair italic">Verification Protocol</h2>
-                    <p className="text-text-secondary">A 6-digit verification code has been sent to your registered mobile.</p>
-                  </div>
-
-                  {apiError && (
-                    <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl text-left">
-                      <AlertTriangle size={18} className="text-red-400 shrink-0" />
-                      <p className="text-red-400 text-sm font-bold">{apiError}</p>
-                    </div>
-                  )}
-
-                  <div className="flex justify-center gap-3 md:gap-4">
-                    {otp.map((digit, i) => (
-                      <input key={i} ref={el => otpRefs.current[i] = el} type="text" value={digit} maxLength={1}
-                        onChange={(e) => handleOtpChange(i, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(i, e)}
-                        className={`w-12 h-16 md:w-14 md:h-20 bg-white/5 border ${otpError ? 'border-red-500/50' : 'border-white/10'} rounded-2xl text-center text-2xl font-black text-white focus:border-accent outline-none transition-all`}
-                      />
-                    ))}
-                  </div>
-                  {otpError && <p className="text-red-400 text-xs font-bold uppercase tracking-widest">Invalid Protocol Code. Please check and try again.</p>}
-
-                  <div className="space-y-6">
-                    <button onClick={verifyOtp} disabled={otp.join('').length < 6} className="w-full btn-premium py-5 text-lg group disabled:opacity-50">
-                      Verify Securely <ShieldCheck size={24} className="group-hover:scale-110 transition-transform" />
-                    </button>
-                    {timer > 0 ? (
-                      <p className="text-xs font-bold text-text-secondary uppercase tracking-widest">Resend code in <span className="text-accent">{timer}s</span></p>
-                    ) : (
-                      <button onClick={handleResend} className="text-xs font-bold text-accent uppercase tracking-widest hover:underline hover:underline-offset-4 transition-all">
-                        Resend Verification Code
-                      </button>
-                    )}
-                  </div>
+              <motion.div key="otp" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="space-y-8 md:space-y-10">
+                <div className="text-center space-y-3 md:space-y-4">
+                  <h2 className="text-2xl md:text-3xl font-bold">Verification <span className="text-gradient">Required</span></h2>
+                  <p className="text-text-secondary text-sm md:text-base">Enter the secure 6-digit code sent to your device.</p>
+                </div>
+                <div className="flex justify-between gap-2 md:gap-4 max-w-sm mx-auto">
+                  {[0, 1, 2, 3, 4, 5].map(i => (
+                    <input 
+                      key={i} 
+                      ref={el => otpRefs.current[i] = el}
+                      type="text" 
+                      maxLength={1} 
+                      value={otp[i]}
+                      onChange={(e) => handleOtpChange(i, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(i, e)}
+                      className="w-10 h-12 md:w-14 md:h-16 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl text-center text-xl md:text-2xl font-black text-white focus:border-accent outline-none" 
+                    />
+                  ))}
+                </div>
+                <div className="space-y-4">
+                  <button onClick={verifyOtp} className="w-full btn-premium py-4 md:py-5 text-base md:text-lg uppercase tracking-widest">
+                    Initialize Diagnostic
+                  </button>
+                  <p onClick={handleResend} className="text-center text-[10px] md:text-xs text-text-secondary uppercase tracking-widest cursor-pointer hover:text-accent font-bold">
+                    Resend Access Key
+                  </p>
                 </div>
               </motion.div>
             )}
@@ -422,104 +421,89 @@ const CibilScore = () => {
 
             {/* SCANNING */}
             {phase === "scanning" && (
-              <motion.div key="scanning" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="grid lg:grid-cols-2 gap-16 items-center">
-                <div className="space-y-12">
-                  <div className="space-y-6">
-                    <h2 className="text-4xl font-bold italic font-playfair text-white">Secure Verification</h2>
-                    <p className="text-text-secondary text-lg">Processing {scanSteps[cibilStep].title}.</p>
-                  </div>
-                  <div className="space-y-8">
-                    {scanSteps.map((s, i) => (
-                      <div key={i} className={`flex gap-6 transition-opacity duration-300 ${cibilStep === i ? 'opacity-100' : cibilStep > i ? 'opacity-60' : 'opacity-20'}`}>
-                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-lg border ${cibilStep > i ? 'border-green-500 text-green-400 bg-green-500/10' : cibilStep === i ? 'border-accent text-accent bg-accent/10' : 'border-white/10 text-white/40'}`}>
-                          {cibilStep > i ? <CheckCircle2 size={20} /> : i + 1}
-                        </div>
-                        <div className="space-y-2">
-                          <h4 className="text-xl font-bold">{s.title}</h4>
-                          <p className="text-text-secondary text-sm">{s.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
+              <motion.div key="scanning" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center py-12 md:py-20 space-y-10 md:space-y-14">
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-accent/20 blur-3xl rounded-full"></div>
-                  <div className="glass-card-premium p-10 md:p-14 rounded-[3.5rem] border-accent/20 relative overflow-hidden h-[500px] flex flex-col justify-between">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-3xl"></div>
-                    <div className="space-y-8">
-                      <div className="flex items-center gap-3 text-accent mb-10">
-                        <Lock size={20} />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">End-to-End Encrypted</span>
-                      </div>
-                      <div className="space-y-4">
-                        <p className="text-xs text-accent font-mono italic">{scanSteps[cibilStep].log}</p>
-                        <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                          <motion.div key={cibilStep} initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 1 }} className="h-full bg-accent" />
-                        </div>
-                      </div>
-                    </div>
-                    <button onClick={handleNext} className="w-full btn-premium py-5 group">
-                      {cibilStep === 2 ? 'Reveal My Score' : 'Authorize Next Step'}
-                      <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-                    </button>
+                  <div className="w-24 h-24 md:w-32 md:h-32 border-4 border-accent/20 rounded-full animate-ping absolute inset-0"></div>
+                  <div className="w-24 h-24 md:w-32 md:h-32 bg-accent/10 border-2 border-accent rounded-full flex items-center justify-center text-accent relative z-10">
+                    <ShieldCheck size={48} className="md:w-16 md:h-16 animate-pulse" />
+                  </div>
+                  <motion.div className="absolute -top-4 -right-4 bg-accent text-primary p-2 md:p-3 rounded-xl animate-bounce shadow-lg shadow-accent/40">
+                    <Database size={20} className="md:w-6 md:h-6" />
+                  </motion.div>
+                </div>
+                <div className="space-y-4 md:space-y-6 text-center max-w-sm">
+                  <div className="space-y-2">
+                    <h2 className="text-xl md:text-2xl font-bold uppercase tracking-[0.2em]">{scanSteps[cibilStep].title}</h2>
+                    <p className="text-text-secondary text-sm md:text-base">{scanSteps[cibilStep].desc}</p>
+                  </div>
+                  <div className="w-full h-1.5 md:h-2 bg-white/5 rounded-full overflow-hidden border border-white/10">
+                    <motion.div 
+                      className="h-full bg-accent"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${(cibilStep + 1) * 33}%` }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-accent font-poppins">
+                    <span>Authenticating</span>
+                    <span>{(cibilStep + 1) * 33}%</span>
                   </div>
                 </div>
+                <button onClick={handleNext} className="btn-premium px-8 py-3">
+                  {cibilStep === 2 ? 'Reveal My Score' : 'Authorize Next Step'}
+                </button>
               </motion.div>
             )}
 
             {/* RESULT */}
             {phase === "result" && cibilScore && (
-              <motion.div key="result" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="space-y-16">
-                <div className="text-center space-y-4">
-                  <h2 className="text-4xl md:text-5xl font-bold italic font-playfair">Your Executive Profile</h2>
-                  <p className="text-text-secondary">
-                    Bureau: <span className="text-accent font-bold">{cibilReport?.bureau}</span> &nbsp;·&nbsp; Report Date: <span className="text-white font-bold">{cibilReport?.reportDate}</span>
-                  </p>
-                </div>
-
-                <div className="grid lg:grid-cols-12 gap-12 items-center">
-                  <div className="lg:col-span-5 flex justify-center">
-                    <CibilGauge score={cibilScore} />
-                  </div>
-                  <div className="lg:col-span-7 grid md:grid-cols-2 gap-6">
-                    {[
-                      { icon: <History className="text-accent" />, label: "Payment History", status: "Excellent", desc: "100% on-time institutional payments." },
-                      { icon: <Zap className="text-accent" />, label: "CIBIL Mix", status: "Stable", desc: "Balanced portfolio of secured loans." },
-                      { icon: <TrendingUp className="text-accent" />, label: "Age of Account", status: "Mature", desc: "Long-term established record." },
-                      { icon: <ShieldCheck className="text-accent" />, label: "Bureau Safety", status: "Verified", desc: "Safe soft-pull. Zero score impact." }
-                    ].map((factor, i) => (
-                      <motion.div key={factor.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + (i * 0.1) }} className="glass-card-premium p-6 rounded-3xl border-white/5 space-y-4">
-                        <div className="flex items-center justify-between">
-                          <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center">{factor.icon}</div>
-                          <span className="text-[10px] font-bold text-accent uppercase tracking-widest">{factor.status}</span>
-                        </div>
-                        <div>
-                          <h4 className="font-bold">{factor.label}</h4>
-                          <p className="text-text-secondary text-xs mt-1">{factor.desc}</p>
-                        </div>
+              <motion.div key="results" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-10 md:space-y-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+                  <div className="flex flex-col items-center">
+                    <div className="relative mb-8 md:mb-12">
+                      <CibilGauge score={cibilScore} />
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.5 }}
+                        className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-accent text-primary px-4 md:px-6 py-2 rounded-xl font-black text-xs md:text-sm uppercase tracking-widest whitespace-nowrap shadow-xl"
+                      >
+                        {cibilReport?.tier || 'PRESTIGE TIER'}
                       </motion.div>
-                    ))}
+                    </div>
+                  </div>
+                  <div className="space-y-6 md:space-y-8">
+                    <div className="space-y-2 text-center lg:text-left">
+                      <h2 className="text-3xl md:text-4xl font-black uppercase italic text-white leading-tight">Elite Standing</h2>
+                      <p className="text-text-secondary text-base md:text-lg">Your financial footprint places you in the <span className="text-accent font-bold">Top 5%</span> of Indian borrowers.</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-white/5">
+                        <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Impact</p>
+                        <p className="text-base md:text-lg font-bold text-white uppercase italic">Negative to Positive</p>
+                      </div>
+                      <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-white/5">
+                        <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Repayment Status</p>
+                        <p className="text-base md:text-lg font-bold text-accent uppercase italic">Perfect Registry</p>
+                      </div>
+                    </div>
+                    <button className="w-full btn-premium py-4 md:py-5 flex items-center justify-center gap-3 text-base md:text-lg">
+                      Unlock Preferred Rates <ChevronRight size={24} />
+                    </button>
                   </div>
                 </div>
 
-                {/* CTA Banner */}
-                <div className="max-w-3xl mx-auto glass-card-premium p-10 rounded-[3rem] border-accent/20 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-3xl"></div>
-                  <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 text-center md:text-left">
-                    <div className="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center shrink-0">
-                      <TrendingUp size={40} className="text-accent" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-10 md:pt-16 border-t border-white/5">
+                  {[
+                    { label: "Loan Eligibility", val: "₹ 50L+", color: "bg-emerald-500/20 text-emerald-500" },
+                    { label: "Interest Rate", val: "8.75%*", color: "bg-accent/20 text-accent" },
+                    { label: "Credit Health", val: "Excellent", color: "bg-blue-500/20 text-blue-500" },
+                    { label: "Profile Power", val: "92/100", color: "bg-purple-500/20 text-purple-500" }
+                  ].map(stat => (
+                    <div key={stat.label} className="text-center p-4">
+                      <p className="text-[9px] md:text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-2">{stat.label}</p>
+                      <p className={`text-base md:text-xl font-black py-1 px-3 md:px-4 rounded-lg inline-block ${stat.color}`}>{stat.val}</p>
                     </div>
-                    <div className="space-y-3 flex-grow">
-                      <h3 className="text-2xl font-bold text-white font-playfair text-gradient">
-                        {cibilReport?.tier === 'Elite' ? 'Congratulations! You Qualify for Priority Rates' : 'Unlock Your Loan Options'}
-                      </h3>
-                      <p className="text-text-secondary">{cibilReport?.advice}</p>
-                    </div>
-                    <Link to="/contact" className="btn-premium whitespace-nowrap">
-                      Talk to an Expert <ArrowRight size={20} />
-                    </Link>
-                  </div>
+                  ))}
                 </div>
 
                 <div className="text-center">
@@ -532,7 +516,8 @@ const CibilScore = () => {
 
           </AnimatePresence>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* ── Trust Badges ── */}
       <section className="py-24 border-t border-white/5 opacity-60">

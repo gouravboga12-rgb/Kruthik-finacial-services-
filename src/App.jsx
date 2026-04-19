@@ -33,7 +33,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col pt-16 md:pt-0">
+      <div className="min-h-screen flex flex-col pt-20 overflow-x-hidden">
         <Navbar />
         <main className="flex-grow">
           <Routes>

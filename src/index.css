@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -15,23 +16,52 @@
   --font-playfair: "Playfair Display", "serif";
 }
 
-@layer base {
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  width: 100%;
 
-  body {
-    @apply font-outfit bg-background text-text-primary overflow-x-hidden;
+  @media (width >= 640px) {
+    max-width: 640px;
   }
-  h1, h2, h3 {
-    @apply font-playfair;
+  @media (width >= 768px) {
+    max-width: 768px;
+    padding-inline: 2rem;
+  }
+  @media (width >= 1024px) {
+    max-width: 1024px;
+    padding-inline: 4rem;
+  }
+  @media (width >= 1280px) {
+    max-width: 1280px;
+    padding-inline: 5rem;
+  }
+}
+
+@layer base {
+  html, 
+  body {
+    @apply font-outfit bg-background text-text-primary overflow-x-hidden text-base md:text-lg w-full;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    @apply font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight;
+  }
+  h2 {
+    @apply font-playfair text-3xl sm:text-4xl md:text-5xl leading-tight;
+  }
+  h3 {
+    @apply font-playfair text-2xl sm:text-3xl md:text-4xl leading-tight;
   }
 }
 
 @layer components {
   .btn-premium {
-    @apply bg-accent text-primary px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-accent-dark hover:text-white transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-accent/20;
+    @apply bg-accent text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold tracking-wide hover:bg-accent-dark hover:text-white transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-accent/20 text-sm md:text-base;
   }
   .btn-outline-gold {
-    @apply border-2 border-accent/50 text-accent px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-accent hover:text-primary transition-all active:scale-95 flex items-center justify-center gap-3;
+    @apply border-2 border-accent/50 text-accent px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold tracking-wide hover:bg-accent hover:text-primary transition-all active:scale-95 flex items-center justify-center gap-3 text-sm md:text-base;
   }
   .glass-card-premium {
     @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;

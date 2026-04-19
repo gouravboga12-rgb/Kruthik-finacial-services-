@@ -36,18 +36,18 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        'fixed w-full z-50 transition-all duration-300 px-4 py-3',
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 py-3',
         (scrolled || !isHome) ? 'bg-primary/95 backdrop-blur-md shadow-lg py-2' : 'bg-transparent'
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center border border-white/20 shadow-lg shadow-accent/20 transition-transform group-hover:scale-105">
-            <span className="text-primary font-black text-2xl">K</span>
+        <Link to="/" className="flex items-center gap-2 md:gap-3 group">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-accent rounded-xl md:rounded-2xl flex items-center justify-center border border-white/20 shadow-lg shadow-accent/20 transition-transform group-hover:scale-105 shrink-0">
+            <span className="text-primary font-black text-xl md:text-2xl">K</span>
           </div>
           <div className="flex flex-col">
-            <span className={cn("font-extrabold text-xl tracking-tight transition-colors", scrolled ? "text-white" : "text-white")}>KRUTHIK</span>
-            <span className={cn("text-[10px] font-bold tracking-[0.2em] transition-colors", scrolled ? "text-accent" : "text-accent")}>FINANCIAL SERVICES</span>
+            <span className={cn("font-extrabold text-lg md:text-xl tracking-tight transition-colors", scrolled ? "text-white" : "text-white")}>KRUTHIK</span>
+            <span className={cn("text-[8px] md:text-[10px] font-bold tracking-[0.2em] transition-colors", scrolled ? "text-accent" : "text-accent")}>FINANCIAL SERVICES</span>
           </div>
         </Link>
 
@@ -95,14 +95,14 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-background/95 backdrop-blur-xl mt-4 rounded-[2rem] shadow-2xl overflow-hidden border border-white/10"
           >
-            <div className="flex flex-col p-8 gap-6">
+            <div className="flex flex-col p-6 md:p-8 gap-4 md:gap-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    'text-lg font-bold uppercase tracking-[0.2em] p-2 transition-colors',
+                    'text-base md:text-lg font-bold uppercase tracking-[0.2em] p-2 transition-colors border-b border-white/5 last:border-0',
                     location.pathname === link.path ? 'text-accent' : 'text-white'
                   )}
                 >
@@ -112,7 +112,7 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setIsOpen(false)}
-                className="btn-premium w-full"
+                className="btn-premium w-full mt-2"
               >
                 Apply Now
               </Link>

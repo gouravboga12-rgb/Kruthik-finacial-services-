@@ -26,30 +26,30 @@ const About = () => {
   ];
 
   return (
-    <div className="pt-24 min-h-screen">
+    <div className="min-h-screen">
       {/* Hero / Vision Section */}
-      <section className="relative h-[60vh] flex items-center overflow-hidden">
+      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
-            alt="Elite Finance Office" 
-            className="w-full h-full object-cover brightness-[0.2]"
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069" 
+            alt="Kruthik Heritage" 
+            className="w-full h-full object-cover brightness-[0.25]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background"></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 text-center">
+        <div className="container relative z-10 text-center">
           <motion.span 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-accent font-bold tracking-[0.4em] uppercase mb-4 block"
+            className="text-accent font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block text-xs md:text-sm"
           >
             The Kruthik Heritage
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold mb-8"
+            className="text-4xl md:text-7xl font-bold mb-6 md:mb-8"
           >
             Redefining <span className="text-gradient">Financial Excellence</span>
           </motion.h1>
@@ -57,7 +57,7 @@ const About = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-text-secondary text-xl max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed"
           >
             Born from the union of Dhana Lakshmi and Mahandra Capital, KRUTHIK FINANCIAL SERVICES is the standard-bearer for elite lending in India.
           </motion.p>
@@ -65,8 +65,9 @@ const About = () => {
       </section>
 
       {/* Legacy & History */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-20 items-center">
+      <section className="py-16 md:py-24 overflow-hidden">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -96,46 +97,49 @@ const About = () => {
             />
           </div>
         </div>
+        </div>
       </section>
 
       {/* Mission & Vision Cards */}
-      <section className="py-24 bg-primary/20">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12">
+      <section className="py-16 md:py-24 bg-primary/20 overflow-hidden">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           <motion.div 
             whileHover={{ y: -10 }}
-            className="glass-card-premium p-12 rounded-[3.5rem] space-y-6"
+            className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] space-y-4 md:space-y-6"
           >
-            <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center text-primary">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-accent rounded-xl md:rounded-2xl flex items-center justify-center text-primary shrink-0">
               <Target size={32} />
             </div>
-            <h3 className="text-3xl font-bold">Our Mission</h3>
-            <p className="text-text-secondary text-lg leading-relaxed">
+            <h3 className="text-2xl md:text-3xl font-bold">Our Mission</h3>
+            <p className="text-text-secondary text-base md:text-lg leading-relaxed">
               To empower elite individuals and dynamic businesses by providing sophisticated financial instruments that fuel growth, foster stability, and unlock unprecedented opportunities.
             </p>
           </motion.div>
 
           <motion.div 
             whileHover={{ y: -10 }}
-            className="glass-card-premium p-12 rounded-[3.5rem] space-y-6 border-accent/20"
+            className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] space-y-4 md:space-y-6 border-accent/20"
           >
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-accent">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center text-accent shrink-0">
               <Eye size={32} />
             </div>
-            <h3 className="text-3xl font-bold italic">Our Vision</h3>
-            <p className="text-text-secondary text-lg leading-relaxed">
+            <h3 className="text-2xl md:text-3xl font-bold italic">Our Vision</h3>
+            <p className="text-text-secondary text-base md:text-lg leading-relaxed">
               To be recognized globally as India's premier boutique financial services firm, defined by our unwavering commitment to precision, integrity, and the enduring success of our clients.
             </p>
           </motion.div>
         </div>
+        </div>
       </section>
 
       {/* Values Grid */}
-      <section className="py-24">
-        <div className="container mx-auto px-4 text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">The Pillars of Kruthik</h2>
-          <p className="text-text-secondary">Excellence is not an act, but a habit.</p>
+      <section className="py-16 md:py-24 overflow-hidden">
+        <div className="container text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-6xl font-bold mb-4">The Pillars of Kruthik</h2>
+          <p className="text-text-secondary text-sm md:text-base">Excellence is not an act, but a habit.</p>
         </div>
-        <div className="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {values.map((v, i) => (
             <motion.div
               key={v.title}
@@ -143,13 +147,13 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="glass-card-premium p-10 rounded-3xl text-center space-y-6 group"
+              className="glass-card-premium p-8 md:p-10 rounded-3xl text-center space-y-6 group"
             >
-              <div className="mx-auto w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-primary transition-all duration-300">
+              <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-accent/10 rounded-full flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-primary transition-all duration-300">
                 {v.icon}
               </div>
-              <h4 className="text-2xl font-bold">{v.title}</h4>
-              <p className="text-text-secondary">{v.desc}</p>
+              <h4 className="text-xl md:text-2xl font-bold">{v.title}</h4>
+              <p className="text-text-secondary text-sm md:text-base">{v.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -157,8 +161,8 @@ const About = () => {
 
 
       {/* Director's Message Section */}
-      <section className="py-24 bg-primary/30 relative">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-primary/30 relative overflow-hidden">
+        <div className="container">
           <div className="max-w-6xl mx-auto glass-card-premium rounded-[4rem] overflow-hidden border-accent/20">
             <div className="grid lg:grid-cols-5 items-stretch">
               {/* Profile Sidebar */}
@@ -214,16 +218,16 @@ const About = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="glass-card-premium rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden bg-gradient-to-br from-primary to-background">
+      <section className="py-16 md:py-24 overflow-hidden">
+        <div className="container">
+          <div className="glass-card-premium rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden bg-gradient-to-br from-primary to-background">
             <div className="relative z-10">
-              <h2 className="text-4xl md:text-6xl font-bold mb-8 italic">Partner with Prestige</h2>
-              <p className="text-xl text-text-secondary mb-12 max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-6xl font-bold mb-6 md:mb-8 italic leading-tight text-white">Partner with Prestige</h2>
+              <p className="text-lg md:text-xl text-text-secondary mb-8 md:mb-12 max-w-2xl mx-auto">
                 Ready to elevate your financial strategy? Join the exclusive circle of Kruthik clients.
               </p>
-              <div className="flex flex-center justify-center gap-6 flex-wrap">
-                <button className="btn-premium px-12">
+              <div className="flex justify-center gap-6 flex-wrap">
+                <button className="btn-premium px-10 md:px-12 w-full sm:w-auto">
                   Request Private Consultation
                 </button>
               </div>

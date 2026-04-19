@@ -26,11 +26,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <section className="bg-primary/50 py-24 px-4 border-b border-white/5 overflow-hidden relative">
+      <section className="bg-primary/50 py-16 md:py-24 px-4 border-b border-white/5 overflow-hidden relative">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 blur-[150px] rounded-full -mr-64 -mt-64"></div>
-        <div className="container mx-auto max-w-5xl text-center relative z-10 space-y-6">
+        <div className="container max-w-5xl text-center relative z-10 space-y-6">
           <motion.span 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -56,7 +56,8 @@ const Contact = () => {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-24">
+      <section className="py-16 md:py-24 overflow-hidden">
+        <div className="container">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           
           {/* Contact Information & CTAs */}
@@ -212,7 +213,7 @@ const Contact = () => {
             )}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
