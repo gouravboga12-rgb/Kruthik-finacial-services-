@@ -1,0 +1,57 @@
+# Real-time CIBIL Score Integration Plan
+
+This plan outlines the steps to transition from a simulated CIBIL score experience to a real-time integration using a Credit Bureau API (like Razorpay/Karza or Experian).
+
+## User Review Required
+
+> [!IMPORTANT]
+> **API Keys & Compliance**: To go live, you will need a business account with a provider (e.g., Razorpay Karza). Real bureau APIs require **Business PAN & GST**.
+>
+> **Backend Proxy**: We will use **Supabase Edge Functions** to host the API logic. This is CRITICAL to keep your API keys secret and avoid exposing them in the browser.
+
+## Proposed Changes
+
+---
+
+### 1. Backend Integration (Supabase)
+
+We need a secure environment to call the external API.
+
+#### [NEW] `supabase/functions/check-cibil/index.js`
+- Acts as a proxy between your app and the Bureau (Karza/Experian).
+- Stores the API Key securely in Supabase Environment Variables.
+- **Mock Mode**: Initially, it will simulate a successful API response with a realistic delay, allowing you to test the UI flow perfectly.
+
+---
+
+### 2. Frontend Services Layer
+
+#### [NEW] [cibilService.js](file:///c:/Users/bogag/OneDrive/Desktop/Kruthik%20loan/src/services/cibilService.js)
+- A dedicated service to handle API communication.
+- Methods: `initiateCibilCheck(data)`, `verifyCibilOtp(otp, requestId)`.
+
+---
+
+### 3. UI Enhancements
+
+#### [MODIFY] [CibilScore.jsx](file:///c:/Users/bogag/OneDrive/Desktop/Kruthik%20loan/src/pages/CibilScore.jsx)
+- **State Management**: Update to handle real loading states, API errors (invalid PAN, etc.), and dynamic OTP steps.
+- **Real-time Polish**: Enhance the "Scanning" phase with meaningful status updates received from the API (e.g., "Handshaking with Experian...", "Decrypting Report...").
+- **Error Handling**: Add clear feedback for common issues (e.g., "No record found for this PAN", "Network Timeout").
+
+---
+
+## Open Questions
+
+1. **OTP Flow**: Some bureaus (like Experian) send their own OTP, while others (like CIBIL) might require you to send it via your own SMS gateway. Which bureau or aggregator are you leaning towards? (I will assume **Karza/Razorpay** for the initial implementation as it's the most standard for India).
+
+## Verification Plan
+
+### Automated Tests
+- Test the `cibilService` with Mock data.
+- Verify that Supabase secrets are correctly accessed (manual check).
+
+### Manual Verification
+- Run the full flow in the browser: Form -> (Mock) OTP -> Scanning -> Result.
+- Check Console for any leaked API keys (there should be none).
+- Verify the Gauge component updates correctly based on the API response.

@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F172A; /* Midnight Navy */
+  --color-secondary: #F8FAFC; /* Slate 50 */
+  --color-accent: #F59E0B; /* Golden Amber */
+  --color-accent-dark: #B45309; /* Darker Amber */
+  --color-background: #020617; /* Deepest Navy */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #94A3B8; /* Slate 400 */
+  
+  --font-poppins: "Poppins", "sans-serif";
+  --font-inter: "Inter", "sans-serif";
+  --font-outfit: "Outfit", "sans-serif";
+  --font-playfair: "Playfair Display", "serif";
+}
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  body {
+    @apply font-outfit bg-background text-text-primary overflow-x-hidden;
+  }
+  h1, h2, h3 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .btn-premium {
+    @apply bg-accent text-primary px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-accent-dark hover:text-white transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-accent/20;
+  }
+  .btn-outline-gold {
+    @apply border-2 border-accent/50 text-accent px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-accent hover:text-primary transition-all active:scale-95 flex items-center justify-center gap-3;
+  }
+  .glass-card-premium {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-yellow-200;
+  }
+  .whatsapp-float {
+    @apply fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-5 rounded-2xl shadow-2xl hover:scale-110 transition-transform active:scale-95;
+  }
+}
+
+/* Custom Scrollbar Premium */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dark);
+}
