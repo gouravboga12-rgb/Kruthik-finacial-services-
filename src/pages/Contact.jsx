@@ -24,7 +24,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background font-secondary">
       {/* 1. Hero Header - Bold & Guaranteed Visible */}
-      <section className="bg-primary pt-32 pb-16 md:pt-40 md:pb-24 px-4 text-center relative overflow-hidden">
+      <section className="bg-primary pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-4 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[120px] rounded-full -mr-48 -mt-48"></div>
         <div className="container max-w-4xl relative z-10 space-y-6">
           <motion.span 
@@ -53,15 +53,19 @@ const Contact = () => {
       </section>
 
       {/* 2. Main Content Grid */}
-      <section className="py-16 md:py-24 bg-background">
-        <div className="container">
-          <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-start">
+      <section className="py-12 md:py-24 bg-background flex justify-center">
+        <div 
+          className="px-6 md:px-12 w-full"
+          style={{ maxWidth: '1200px' }}
+        >
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start justify-center">
             
             {/* Left Column: Info Cards */}
-            <div className="lg:col-span-5 space-y-8 md:space-y-12">
-              <div className="space-y-6">
-                <h2 className="text-2xl md:text-4xl font-bold text-text-primary font-primary">Executive Channels</h2>
+            <div className="lg:col-span-1 space-y-8 md:space-y-12 flex flex-col items-center">
+              <div className="space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
+                <h2 className="text-2xl md:text-4xl font-bold text-text-primary font-primary px-2">Executive Channels</h2>
                 
+                <div className="w-full space-y-4 md:space-y-6">
                 {[
                   { 
                     icon: <Phone size={24} />, 
@@ -84,13 +88,12 @@ const Contact = () => {
                   <a 
                     key={item.title} 
                     href={item.link}
-                    data-aos="fade-right"
-                    data-aos-delay={i * 100}
                     target={item.link?.startsWith('http') ? "_blank" : undefined}
                     rel={item.link?.startsWith('http') ? "noopener noreferrer" : undefined}
-                    className="flex gap-6 items-center p-6 md:p-8 glass-card-premium rounded-[2rem] border-primary/5 hover:bg-primary/5 transition-all group"
+                    className="flex gap-5 md:gap-6 items-center glass-card-premium rounded-[2.5rem] border-primary/5 hover:bg-primary/5 transition-all group w-full text-left"
+                    style={{ padding: '28px' }}
                   >
-                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
+                    <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                       {item.icon}
                     </div>
                     <div className="min-w-0">
@@ -99,15 +102,15 @@ const Contact = () => {
                     </div>
                   </a>
                 ))}
+                </div>
               </div>
 
               {/* CIBIL CTA */}
               <div 
-                data-aos="zoom-in"
-                className="glass-card-premium p-8 md:p-12 rounded-[2.5rem] border-accent/20 bg-accent/5 relative overflow-hidden group"
+                className="glass-card-premium p-8 md:p-12 rounded-[2.5rem] border-accent/20 bg-accent/5 relative overflow-hidden group w-full"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-3xl"></div>
-                <div className="relative z-10 space-y-6">
+                <div className="relative z-10 space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left">
                   <BarChart4 size={32} className="text-primary" />
                   <h3 className="text-xl md:text-2xl font-bold text-text-primary font-primary">Check Your CIBIL Prestige</h3>
                   <p className="text-text-secondary text-sm md:text-base leading-relaxed">
@@ -121,34 +124,37 @@ const Contact = () => {
             </div>
 
             {/* Right Column: Formal Form */}
-            <div className="lg:col-span-7" data-aos="fade-left">
-              <div className="glass-card-premium p-8 md:p-14 rounded-[3rem] md:rounded-[4rem] border-primary/10 shadow-2xl relative">
+            <div className="lg:col-span-1 flex justify-center w-full">
+              <div 
+                className="glass-card-premium rounded-[2.5rem] md:rounded-[3.5rem] border-primary/10 shadow-2xl relative w-full"
+                style={{ padding: '32px' }}
+              >
                 {!isSubmitted ? (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                    <div className="space-y-2" data-aos="fade-up">
-                      <h3 className="text-2xl md:text-4xl font-bold text-text-primary font-primary">Formal Inquiry</h3>
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
+                    <div className="space-y-2 flex flex-col items-center lg:items-start text-center lg:text-left">
+                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary font-primary">Formal Inquiry</h3>
                       <p className="text-text-secondary text-sm md:text-base italic font-medium">Treating your financial protocol with absolute discretion.</p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                      <div className="space-y-3">
-                        <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-2">Full Legal Name</label>
-                        <input {...register("name", { required: true })} placeholder="John Doe" className="w-full bg-primary/5 border border-primary/10 rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none transition-all text-text-primary font-bold" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-1">Full Legal Name</label>
+                        <input {...register("name", { required: true })} placeholder="John Doe" className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl py-3.5 md:py-5 px-5 md:px-6 focus:border-primary outline-none transition-all text-text-primary font-bold text-sm md:text-base" />
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-2">Secure Mobile</label>
-                        <input {...register("phone", { required: true })} placeholder="+91 00000 00000" className="w-full bg-primary/5 border border-primary/10 rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none transition-all text-text-primary font-bold" />
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-1">Secure Mobile</label>
+                        <input {...register("phone", { required: true })} placeholder="+91 00000 00000" className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl py-3.5 md:py-5 px-5 md:px-6 focus:border-primary outline-none transition-all text-text-primary font-bold text-sm md:text-base" />
                       </div>
                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-2">Professional Email</label>
-                      <input {...register("email", { required: true })} placeholder="official@company.com" className="w-full bg-primary/5 border border-primary/10 rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none transition-all text-text-primary font-bold" />
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-1">Professional Email</label>
+                      <input {...register("email", { required: true })} placeholder="official@company.com" className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl py-3.5 md:py-5 px-5 md:px-6 focus:border-primary outline-none transition-all text-text-primary font-bold text-sm md:text-base" />
                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-2">Loan Segment</label>
-                      <select {...register("loanType")} className="w-full bg-primary/5 border border-primary/10 rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none transition-all appearance-none cursor-pointer text-text-primary font-bold">
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-1">Loan Segment</label>
+                      <select {...register("loanType")} className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl py-3.5 md:py-5 px-5 md:px-6 focus:border-primary outline-none transition-all appearance-none cursor-pointer text-text-primary font-bold text-sm md:text-base">
                         <option value="Personal">Personal Loan</option>
                         <option value="Business">Business Loan</option>
                         <option value="Home">Home Loan</option>
@@ -158,12 +164,12 @@ const Contact = () => {
                       </select>
                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-2">Requirements</label>
-                      <textarea rows="4" {...register("message")} placeholder="Describe your capital requirements..." className="w-full bg-primary/5 border border-primary/10 rounded-2xl p-6 focus:border-primary outline-none transition-all text-text-primary font-bold"></textarea>
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-text-secondary ml-1">Requirements</label>
+                      <textarea rows="4" {...register("message")} placeholder="Describe your capital requirements..." className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl p-5 md:p-6 focus:border-primary outline-none transition-all text-text-primary font-bold text-sm md:text-base"></textarea>
                     </div>
 
-                    <button type="submit" className="w-full btn-premium py-5 text-lg shadow-xl shadow-primary/20">
+                    <button type="submit" className="w-full btn-premium py-4 md:py-5 text-base md:text-lg shadow-xl shadow-primary/20">
                       Transmit Formal Request <Send size={20} className="ml-2" />
                     </button>
                   </form>
