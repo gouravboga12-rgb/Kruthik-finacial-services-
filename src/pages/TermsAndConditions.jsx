@@ -117,23 +117,23 @@ const TermsAndConditions = () => {
   const lastUpdated = "April 18, 2025";
 
   return (
-    <div className="pt-24 min-h-screen bg-background text-white">
+    <div className="pt-24 min-h-screen bg-background text-text-primary">
 
       {/* Hero */}
-      <section className="bg-primary/50 py-20 px-4 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 blur-[150px] rounded-full -mr-64 -mt-64"></div>
+      <section className="bg-primary/5 py-20 px-4 border-b border-primary/10 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[150px] rounded-full -mr-64 -mt-64"></div>
         <div className="container mx-auto max-w-4xl text-center relative z-10 space-y-6">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-accent font-bold tracking-[0.4em] uppercase block">
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary font-bold tracking-[0.4em] uppercase block">
             Legal Documentation
           </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-bold">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-bold text-text-primary">
             Terms & <span className="text-gradient">Conditions</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-text-secondary text-lg max-w-2xl mx-auto">
             Please read these Terms and Conditions carefully before using our services. By accessing or using Kruthik Financial Services, you agree to be bound by these terms.
           </motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-text-secondary uppercase tracking-widest">
-            <Clock size={12} className="text-accent" /> Last Updated: {lastUpdated}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full text-xs font-bold text-text-secondary uppercase tracking-widest">
+            <Clock size={12} className="text-primary" /> Last Updated: {lastUpdated}
           </motion.div>
         </div>
       </section>
@@ -164,18 +164,18 @@ const TermsAndConditions = () => {
             transition={{ delay: i * 0.05 }}
             className="glass-card-premium rounded-[2.5rem] overflow-hidden"
           >
-            <div className="flex items-center gap-4 p-8 border-b border-white/5">
-              <div className="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center text-accent shrink-0">
+            <div className="flex items-center gap-4 p-8 border-b border-primary/5">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
                 {section.icon}
               </div>
-              <h2 className="text-2xl font-bold">{section.title}</h2>
+              <h2 className="text-2xl font-bold text-text-primary">{section.title}</h2>
             </div>
             <div className="p-8 space-y-6">
               {section.content.map((item) => (
                 <div key={item.sub} className="flex gap-4">
-                  <ChevronRight size={16} className="text-accent shrink-0 mt-1" />
+                  <ChevronRight size={16} className="text-primary shrink-0 mt-1" />
                   <div>
-                    <p className="font-bold text-white mb-1">{item.sub}</p>
+                    <p className="font-bold text-text-primary mb-1">{item.sub}</p>
                     <p className="text-text-secondary leading-relaxed text-sm">{item.text}</p>
                   </div>
                 </div>
@@ -185,15 +185,15 @@ const TermsAndConditions = () => {
         ))}
 
         {/* Contact Block */}
-        <div className="glass-card-premium p-10 rounded-[2.5rem] border-accent/20 text-center space-y-6">
-          <div className="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center text-accent mx-auto">
+        <div className="glass-card-premium p-10 rounded-[2.5rem] border-primary/20 text-center space-y-6">
+          <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mx-auto">
             <Mail size={24} />
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold">Legal Queries?</h3>
+            <h3 className="text-2xl font-bold text-text-primary">Legal Queries?</h3>
             <p className="text-text-secondary">For any questions regarding these Terms, please contact our legal team. We respond to all legal queries within 5 business days.</p>
           </div>
-          <a href="mailto:SUPPORT@SUREKILL.CO.IN" className="btn-premium inline-flex">
+          <a href="mailto:kasireddykruthik@gmail.com" className="btn-premium inline-flex">
             Contact Legal Team <Mail size={18} />
           </a>
         </div>

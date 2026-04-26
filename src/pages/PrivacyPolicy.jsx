@@ -71,7 +71,7 @@ const sections = [
       },
       {
         sub: "Deletion Requests",
-        text: "You may request deletion of your personal data at any time by contacting us at SUPPORT@SUREKILL.CO.IN. We will process verified deletion requests within 7 business days."
+        text: "You may request deletion of your personal data at any time by contacting us at kasireddykruthik@gmail.com. We will process verified deletion requests within 7 business days."
       }
     ]
   },
@@ -99,37 +99,37 @@ const PrivacyPolicy = () => {
   const lastUpdated = "April 18, 2025";
 
   return (
-    <div className="pt-24 min-h-screen bg-background text-white">
+    <div className="pt-24 min-h-screen bg-background text-text-primary">
 
       {/* Hero */}
-      <section className="bg-primary/50 py-20 px-4 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 blur-[150px] rounded-full -mr-64 -mt-64"></div>
+      <section className="bg-primary/5 py-20 px-4 border-b border-primary/10 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[150px] rounded-full -mr-64 -mt-64"></div>
         <div className="container mx-auto max-w-4xl text-center relative z-10 space-y-6">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-accent font-bold tracking-[0.4em] uppercase block">
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary font-bold tracking-[0.4em] uppercase block">
             Legal Documentation
           </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-bold">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-bold text-text-primary">
             Privacy <span className="text-gradient">Policy</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-text-secondary text-lg max-w-2xl mx-auto">
             Kruthik Financial Services is committed to protecting your privacy and handling your personal data with the highest standards of care and transparency.
           </motion.p>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-text-secondary uppercase tracking-widest">
-            <Clock size={12} className="text-accent" /> Last Updated: {lastUpdated}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full text-xs font-bold text-text-secondary uppercase tracking-widest">
+            <Clock size={12} className="text-primary" /> Last Updated: {lastUpdated}
           </motion.div>
         </div>
       </section>
 
       {/* Intro Banner */}
       <section className="container mx-auto px-4 py-16 max-w-4xl">
-        <div className="glass-card-premium p-8 rounded-[2.5rem] border-accent/20 flex flex-col md:flex-row items-start gap-6">
-          <div className="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center text-accent shrink-0">
+        <div className="glass-card-premium p-8 rounded-[2.5rem] border-primary/20 flex flex-col md:flex-row items-start gap-6">
+          <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
             <ShieldCheck size={28} />
           </div>
           <div className="space-y-2">
-            <h2 className="text-xl font-bold">Our Commitment to You</h2>
+            <h2 className="text-xl font-bold text-text-primary">Our Commitment to You</h2>
             <p className="text-text-secondary leading-relaxed">
-              This Privacy Policy governs the collection, use, and protection of your personal information by <strong className="text-white">Kruthik Financial Services</strong> ("we," "us," or "our"), accessible at this website. By using our services, you agree to the terms outlined in this policy. This policy is compliant with the <strong className="text-accent">Information Technology Act, 2000</strong> and the <strong className="text-accent">Credit Information Companies (Regulation) Act (CICRA), 2005</strong>.
+              This Privacy Policy governs the collection, use, and protection of your personal information by <strong className="text-text-primary">Kruthik Financial Services</strong> ("we," "us," or "our"), accessible at this website. By using our services, you agree to the terms outlined in this policy. This policy is compliant with the <strong className="text-primary">Information Technology Act, 2000</strong> and the <strong className="text-primary">Credit Information Companies (Regulation) Act (CICRA), 2005</strong>.
             </p>
           </div>
         </div>
@@ -146,18 +146,18 @@ const PrivacyPolicy = () => {
             transition={{ delay: i * 0.05 }}
             className="glass-card-premium rounded-[2.5rem] overflow-hidden"
           >
-            <div className="flex items-center gap-4 p-8 border-b border-white/5">
-              <div className="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center text-accent shrink-0">
+            <div className="flex items-center gap-4 p-8 border-b border-primary/5">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
                 {section.icon}
               </div>
-              <h2 className="text-2xl font-bold">{section.title}</h2>
+              <h2 className="text-2xl font-bold text-text-primary">{section.title}</h2>
             </div>
             <div className="p-8 space-y-6">
               {section.content.map((item) => (
                 <div key={item.sub} className="flex gap-4">
-                  <ChevronRight size={16} className="text-accent shrink-0 mt-1" />
+                  <ChevronRight size={16} className="text-primary shrink-0 mt-1" />
                   <div>
-                    <p className="font-bold text-white mb-1">{item.sub}</p>
+                    <p className="font-bold text-text-primary mb-1">{item.sub}</p>
                     <p className="text-text-secondary leading-relaxed text-sm">{item.text}</p>
                   </div>
                 </div>
@@ -167,15 +167,15 @@ const PrivacyPolicy = () => {
         ))}
 
         {/* Contact Block */}
-        <div className="glass-card-premium p-10 rounded-[2.5rem] border-accent/20 text-center space-y-6">
-          <div className="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center text-accent mx-auto">
+        <div className="glass-card-premium p-10 rounded-[2.5rem] border-primary/20 text-center space-y-6">
+          <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mx-auto">
             <Mail size={24} />
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold">Privacy Questions?</h3>
+            <h3 className="text-2xl font-bold text-text-primary">Privacy Questions?</h3>
             <p className="text-text-secondary">For any privacy-related queries, data deletion requests, or concerns, please contact our Data Protection Officer.</p>
           </div>
-          <a href="mailto:SUPPORT@SUREKILL.CO.IN" className="btn-premium inline-flex">
+          <a href="mailto:kasireddykruthik@gmail.com" className="btn-premium inline-flex">
             Contact DPO <Mail size={18} />
           </a>
         </div>

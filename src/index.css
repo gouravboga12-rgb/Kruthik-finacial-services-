@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0F172A; /* Midnight Navy */
-  --color-secondary: #F8FAFC; /* Slate 50 */
-  --color-accent: #F59E0B; /* Golden Amber */
-  --color-accent-dark: #B45309; /* Darker Amber */
-  --color-background: #020617; /* Deepest Navy */
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #94A3B8; /* Slate 400 */
+  --color-primary: #065F46; /* Deep Forest Green */
+  --color-secondary: #F0FDF4; /* Very Light Sage */
+  --color-accent: #10B981; /* Vibrant Emerald */
+  --color-accent-dark: #059669; /* Darker Emerald */
+  --color-background: #FFFFFF; /* Pure White */
+  --color-text-primary: #111827; /* Dark Gray */
+  --color-text-secondary: #4B5563; /* Slate 600 */
   
-  --font-poppins: "Poppins", "sans-serif";
-  --font-inter: "Inter", "sans-serif";
-  --font-outfit: "Outfit", "sans-serif";
-  --font-playfair: "Playfair Display", "serif";
+  --font-primary: "Playfair Display", "serif";
+  --font-secondary: "Plus Jakarta Sans", "sans-serif";
 }
 
 @utility container {
@@ -41,33 +39,33 @@
 @layer base {
   html, 
   body {
-    @apply font-outfit bg-background text-text-primary overflow-x-hidden text-base md:text-lg w-full;
+    @apply font-secondary bg-background text-text-primary overflow-x-hidden text-[15px] md:text-[14px] w-full;
     margin: 0;
     padding: 0;
   }
   h1 {
-    @apply font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight;
+    @apply font-primary text-4xl sm:text-5xl md:text-5xl font-bold leading-tight;
   }
   h2 {
-    @apply font-playfair text-3xl sm:text-4xl md:text-5xl leading-tight;
+    @apply font-primary text-3xl sm:text-4xl md:text-4xl font-bold leading-tight;
   }
   h3 {
-    @apply font-playfair text-2xl sm:text-3xl md:text-4xl leading-tight;
+    @apply font-primary text-2xl sm:text-3xl md:text-3xl font-bold leading-tight;
   }
 }
 
 @layer components {
   .btn-premium {
-    @apply bg-accent text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold tracking-wide hover:bg-accent-dark hover:text-white transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-accent/20 text-sm md:text-base;
+    @apply bg-primary text-white px-6 py-3.5 md:px-6 md:py-3 rounded-lg font-bold tracking-wide hover:bg-accent-dark transition-all transform active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-primary/20 text-sm;
   }
   .btn-outline-gold {
-    @apply border-2 border-accent/50 text-accent px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold tracking-wide hover:bg-accent hover:text-primary transition-all active:scale-95 flex items-center justify-center gap-3 text-sm md:text-base;
+    @apply border-2 border-primary/20 text-primary px-6 py-3.5 md:px-6 md:py-3 rounded-lg font-bold tracking-wide hover:bg-primary hover:text-white transition-all active:scale-95 flex items-center justify-center gap-2 text-sm;
   }
   .glass-card-premium {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+    @apply bg-white border border-slate-100 shadow-xl shadow-primary/5 backdrop-blur-sm;
   }
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-yellow-200;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
   }
   .whatsapp-float {
     @apply fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-5 rounded-2xl shadow-2xl hover:scale-110 transition-transform active:scale-95;

@@ -36,7 +36,7 @@ const Hero = () => {
   const heroImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070";
   
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-10 overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center pt-24 md:pt-32 overflow-hidden font-secondary">
       <div className="absolute inset-0 z-0">
         <img 
           src={heroImage} 
@@ -48,30 +48,58 @@ const Hero = () => {
 
       <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
         <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: { transition: { staggerChildren: 0.05 } }
+          }}
           className="space-y-8"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/30 text-accent font-semibold text-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-semibold text-sm">
             <TrendingUp size={16} />
             <span>India's Most Trusted Financial Partner</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
-            Unlock Your <br />
-            <span className="text-gradient">Financial Potential</span>
+          
+          <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold leading-tight text-text-primary font-primary">
+            {"Unlock Your Financial Potential".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.1, delay: index * 0.05 }}
+              >
+                {char === " " ? "\u00A0" : char}
+                {index === 10 && <br />}
+              </motion.span>
+            ))}
           </h1>
-          <p className="text-lg md:text-xl text-text-secondary max-w-lg leading-relaxed">
-            Experience prestige banking with KRUTHIK FINANCIAL SERVICES. Instant approvals, tailor-made solutions, and elite service for your journey.
+
+          <p className="text-lg md:text-lg text-text-secondary max-w-md leading-relaxed border-l-4 border-accent pl-6 py-1 font-medium italic">
+            {"Experience prestige banking with KRUTHIK FINANCIAL SERVICES. Instant approvals, tailor-made solutions, and elite service for your journey.".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.01, delay: 1.5 + (index * 0.01) }}
+              >
+                {char}
+              </motion.span>
+            ))}
           </p>
-          <div className="flex flex-wrap gap-4">
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.5, duration: 0.8 }}
+            className="flex flex-wrap gap-4"
+          >
             <Link to="/cibil-score" className="btn-premium">
               Check Eligibility <ArrowRight size={20} />
             </Link>
             <Link to="/loans" className="btn-outline-gold">
               View All Loans
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div 
@@ -86,7 +114,7 @@ const Hero = () => {
               <TrendingUp size={40} />
             </div>
             <div className="space-y-4">
-              <h3 className="text-3xl font-bold">Priority Capital</h3>
+              <h3 className="text-3xl font-bold font-primary">Priority Capital</h3>
               <p className="text-text-secondary leading-relaxed tracking-wide uppercase text-xs font-bold">
                 Elite Interest Rates Starting @ 8.25%
               </p>
@@ -114,25 +142,23 @@ const AboutSection = () => {
   ];
 
   return (
-    <div className="bg-background">
+    <div className="bg-background font-secondary">
       {/* Heritage */}
-      <section id="about" className="py-16 md:py-24 overflow-hidden">
+      <section id="about" className="py-12 md:py-16 overflow-hidden">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
             <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              data-aos="fade-right"
               className="space-y-6 md:space-y-8"
             >
-              <h2 className="text-3xl md:text-5xl font-bold">A Foundation Built on <br className="hidden md:block" />Trust and Performance</h2>
-              <p className="text-text-secondary text-base md:text-lg leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-bold font-primary">A Foundation Built on <br className="hidden md:block" />Trust and Performance</h2>
+              <p className="text-text-secondary text-sm md:text-base leading-relaxed">
                 With a combined heritage of over two decades, our founding entities recognized a gap in the market for sophisticated, responsive, and truly personalized lending solutions.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {heritage.map((item) => (
-                  <div key={item.title} className="glass-card-premium p-6 rounded-2xl border-l-4 border-l-accent">
-                    <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                  <div key={item.title} data-aos="zoom-in" className="glass-card-premium p-6 rounded-2xl border-l-4 border-l-accent">
+                    <h4 className="font-bold text-lg mb-2 font-primary">{item.title}</h4>
                     <p className="text-sm text-text-secondary">{item.desc}</p>
                   </div>
                 ))}
@@ -152,31 +178,34 @@ const AboutSection = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-16 md:py-24 bg-primary/20 overflow-hidden">
+      <section className="py-12 md:py-16 bg-primary/20 overflow-hidden">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             <motion.div 
+              data-aos="fade-up"
               whileHover={{ y: -10 }}
-              className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] space-y-4 md:space-y-6"
+              className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] space-y-4 md:space-y-6 border-primary/10"
             >
               <div className="w-12 h-12 md:w-16 md:h-16 bg-accent rounded-xl md:rounded-2xl flex items-center justify-center text-primary shrink-0">
                 <Target size={32} />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold">Our Mission</h3>
-              <p className="text-text-secondary text-base md:text-lg leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-bold font-primary">Our Mission</h3>
+              <p className="text-text-secondary text-sm md:text-base leading-relaxed">
                 To empower elite individuals and dynamic businesses by providing sophisticated financial instruments that fuel growth, foster stability, and unlock unprecedented opportunities.
               </p>
             </motion.div>
 
             <motion.div 
+              data-aos="fade-up"
+              data-aos-delay="200"
               whileHover={{ y: -10 }}
               className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] space-y-4 md:space-y-6 border-accent/20"
             >
               <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center text-accent shrink-0">
                 <Eye size={32} />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold italic">Our Vision</h3>
-              <p className="text-text-secondary text-base md:text-lg leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-bold italic font-primary">Our Vision</h3>
+              <p className="text-text-secondary text-sm md:text-base leading-relaxed">
                 To be recognized globally as India's premier boutique financial services firm, defined by our unwavering commitment to precision, integrity, and the enduring success of our clients.
               </p>
             </motion.div>
@@ -185,25 +214,23 @@ const AboutSection = () => {
       </section>
 
       {/* Pillars */}
-      <section className="py-24 overflow-hidden">
+      <section className="py-16 overflow-hidden">
         <div className="container text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">The Pillars of Kruthik</h2>
-          <p className="text-text-secondary">Excellence is not an act, but a habit.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-text-primary font-primary" data-aos="fade-down">The Pillars of Kruthik</h2>
+          <p className="text-text-secondary" data-aos="fade-up">Excellence is not an act, but a habit.</p>
         </div>
         <div className="container grid md:grid-cols-3 gap-8">
           {values.map((v, i) => (
             <motion.div
               key={v.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-card-premium p-10 rounded-3xl text-center space-y-6 group"
+              data-aos="fade-up"
+              data-aos-delay={i * 100}
+              className="glass-card-premium p-10 rounded-3xl text-center space-y-6 group border-primary/5"
             >
               <div className="mx-auto w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-primary transition-all duration-300">
                 {v.icon}
               </div>
-              <h4 className="text-2xl font-bold">{v.title}</h4>
+              <h4 className="text-2xl font-bold font-primary">{v.title}</h4>
               <p className="text-text-secondary">{v.desc}</p>
             </motion.div>
           ))}
@@ -215,14 +242,14 @@ const AboutSection = () => {
 
 const DirectorMessage = () => {
   return (
-    <section className="py-16 md:py-24 bg-primary/30 relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-primary/30 relative overflow-hidden font-secondary">
       <div className="container">
         <div className="max-w-6xl mx-auto glass-card-premium rounded-3xl md:rounded-[4rem] overflow-hidden border-accent/20">
           <div className="grid grid-cols-1 lg:grid-cols-5 items-stretch">
             <div className="lg:col-span-2 bg-white/5 p-8 md:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
-              <div className="space-y-8 md:space-y-10">
+              <div className="space-y-10">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight text-white font-playfair italic">Kruthik Reddy</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary font-primary italic">Kruthik Reddy</h2>
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
                       <Briefcase size={16} /> COO & Director
@@ -232,18 +259,18 @@ const DirectorMessage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="pt-8 md:pt-10 mt-8 md:mt-10 border-t border-white/10">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-secondary mb-2">Expertise</p>
-                <p className="text-xl md:text-2xl font-black text-white">15+ Years</p>
-                <p className="text-[10px] md:text-xs text-text-secondary uppercase tracking-widest">Industry Experience</p>
+                <div className="pt-8 md:pt-10 border-t border-primary/10">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-secondary mb-2">Expertise</p>
+                  <p className="text-xl md:text-2xl font-black text-primary font-primary">15+ Years</p>
+                  <p className="text-[10px] md:text-xs text-text-secondary uppercase tracking-widest">Industry Experience</p>
+                </div>
               </div>
             </div>
             <div className="lg:col-span-3 p-8 md:p-14 relative flex flex-col justify-center">
-              <div className="absolute top-10 right-10 opacity-10 hidden md:block">
+              <div className="absolute top-10 right-10 opacity-10 hidden md:block text-primary">
                 <Quote size={120} className="rotate-180" />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 italic">Director's Message</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 italic text-text-primary font-primary">Director's Message</h3>
               <div className="space-y-4 md:space-y-6 text-text-secondary text-base md:text-lg leading-relaxed">
                 <p>With over 15 years of experience in the industry, we have built a strong foundation in providing reliable and customer-focused financial solutions. Our goal is to simplify the loan process by offering the right guidance, transparent communication, and quick turnaround times.</p>
                 <p>We continuously strive to deliver the best services and build long-term relationships with our clients.</p>
@@ -257,7 +284,6 @@ const DirectorMessage = () => {
       </div>
     </section>
   );
-
 };
 
 const LoanPortfolio = () => {
@@ -266,40 +292,54 @@ const LoanPortfolio = () => {
     {
       title: "Personal Loan",
       icon: <Banknote size={24} />,
-      image: "/service_personal_loan_premium_1776423994502.png",
-      desc: "Achieve your personal goals with our swift and transparent solutions.",
-      features: ["Fast Disbursement", "Flexible Tenure"]
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2070",
+      desc: "Achieve your personal goals with our swift and transparent personal loan solutions.",
+      features: ["Minimal Documentation", "Fast Disbursement"]
     },
     {
       title: "Business Loan",
       icon: <Building2 size={24} />,
-      image: "/service_business_loan_premium_1776423907771.png",
-      desc: "Empower your enterprise with strategic capital and competitive rates.",
-      features: ["High Loan Values", "Custom EMI plans"]
+      image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=2070",
+      desc: "Empower your enterprise with strategic capital. We provide high-value business loans.",
+      features: ["Collateral-free options", "High Loan Values"]
     },
     {
       title: "Home Loan",
       icon: <HomeIcon size={24} />,
-      image: "/service_home_loan_premium_1776423819918.png",
-      desc: "Acquire your dream property with market's lowest interest rates.",
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2070",
+      desc: "Acquire your dream property with the market's lowest interest rates.",
       features: ["Lowest ROI", "Tenure up to 30 years"]
+    },
+    {
+      title: "Project Loan",
+      icon: <Zap size={24} />,
+      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=2070",
+      desc: "Specialized funding for large-scale industrial and commercial developments.",
+      features: ["Asset-based lending", "Quick Evaluation"]
     },
     {
       title: "Loan Against Property",
       icon: <ShieldCheck size={24} />,
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=2070",
-      desc: "Unlock the value of your property with maximum liquidity.",
-      features: ["Lower Interest Rates", "Hassle-free process"]
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070",
+      desc: "Unlock the idle value of your property. Get maximum liquidity while retaining ownership.",
+      features: ["Multi-purpose usage", "Lower Interest Rates"]
+    },
+    {
+      title: "Loan Takeover / BT",
+      icon: <RefreshCw size={24} />,
+      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=2070",
+      desc: "Transfer your high-interest existing loans and save on monthly EMIs.",
+      features: ["Reduced ROI", "Additional Top-up"]
     }
   ];
 
   return (
-    <section className="py-24 bg-background overflow-hidden">
-      <div className="container text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">Elite Loan Portfolio</h2>
-        <p className="text-text-secondary max-w-2xl mx-auto">Tailored lending products designed for sophisticated requirements.</p>
+    <section className="py-16 bg-background overflow-hidden font-secondary">
+      <div className="container text-center mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold mb-4 text-text-primary font-primary">Elite Loan Portfolio</h2>
+        <p className="text-text-secondary max-w-2xl mx-auto text-sm md:text-base">Tailored lending products designed for sophisticated requirements.</p>
       </div>
-      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
@@ -307,21 +347,32 @@ const LoanPortfolio = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="glass-card-premium rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group hover:bg-white/10 transition-all duration-500"
+            className="glass-card-premium rounded-3xl md:rounded-[2.5rem] overflow-hidden group hover:bg-primary/5 transition-all duration-500 border-primary/10 shadow-lg"
           >
             <div className="h-40 md:h-48 relative overflow-hidden">
-              <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-75 group-hover:brightness-95" />
-              <div className="absolute top-4 left-4 w-9 h-9 md:w-10 md:h-10 bg-accent text-primary rounded-xl flex items-center justify-center shadow-lg">
+              <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100" />
+              <div className="absolute top-4 left-4 w-9 h-9 md:w-10 md:h-10 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg">
                 {s.icon}
               </div>
             </div>
             <div className="p-6 md:p-8 space-y-4">
-              <h3 className="text-lg md:text-xl font-bold">{s.title}</h3>
+              <h3 className="text-lg md:text-xl font-bold font-primary">{s.title}</h3>
               <p className="text-text-secondary text-xs md:text-sm line-clamp-2">{s.desc}</p>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                <button onClick={() => navigate("/loans")} className="flex items-center gap-2 text-accent font-bold text-xs md:text-sm hover:gap-3 transition-all">
-                  Explore <ChevronRight size={16} />
+              <div className="flex flex-wrap gap-2">
+                {s.features.map(f => (
+                  <span key={f} className="text-[8px] md:text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-primary/5 border border-primary/10 rounded-lg text-primary">
+                    {f}
+                  </span>
+                ))}
+              </div>
+              <div className="pt-4 border-t border-primary/10 flex items-center justify-between">
+                <button 
+                  onClick={() => navigate("/apply-loan", { state: { service: s.title } })} 
+                  className="flex items-center gap-2 text-primary font-bold text-xs md:text-sm hover:gap-3 transition-all"
+                >
+                  Apply Now <ChevronRight size={16} />
                 </button>
+                <ArrowRight size={16} className="text-primary/20 group-hover:text-primary transition-colors" />
               </div>
             </div>
           </motion.div>
@@ -348,153 +399,138 @@ const EMICalculatorSection = () => {
   const totalInterest = totalPayment - amount;
 
   return (
-    <section className="container py-24 overflow-hidden">
+    <section className="container py-16 overflow-hidden font-secondary">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">EMI <span className="text-gradient">Navigator</span></h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-text-primary font-primary">EMI <span className="text-gradient">Navigator</span></h2>
         <p className="text-text-secondary max-w-2xl mx-auto">Precision engineering for your financial future. Calculate your installments with our executive-grade planning tool.</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
         
         {/* Controls */}
         <div className="lg:col-span-12 xl:col-span-7 space-y-8 md:space-y-12 order-2 xl:order-1">
-          <div className="glass-card-premium p-6 md:p-14 rounded-3xl md:rounded-[3rem] border-white/5 space-y-8 md:space-y-12 text-white">
+          <div className="glass-card-premium p-6 md:p-14 rounded-3xl md:rounded-[3rem] border-primary/10 space-y-8 md:space-y-12 text-text-primary">
             
             {/* Loan Amount */}
             <div className="space-y-4 md:space-y-6">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 md:gap-6">
-                <label className="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[10px] md:text-sm">
-                  <Banknote size={20} className="text-accent" /> Loan Amount
+                <label className="flex items-center gap-3 text-text-primary font-bold uppercase tracking-widest text-[10px] md:text-sm">
+                  <Banknote size={20} className="text-primary" /> Loan Amount
                 </label>
                 <div className="relative group">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-accent font-bold md:text-xl">₹</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold md:text-xl">₹</span>
                   <input 
                     type="number" 
                     value={amount}
-                    min={2000}
-                    max={10000000}
                     onChange={(e) => {
-                      const val = Math.min(10000000, Math.max(0, Number(e.target.value)));
+                      const val = Number(e.target.value);
                       setAmount(val);
                     }}
-                    onBlur={() => {
-                      if (amount < 2000) setAmount(2000);
-                    }}
-                    className="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl py-3 md:py-4 pl-8 md:pl-10 pr-4 md:pr-6 w-full sm:w-56 text-right font-black text-white text-lg md:text-xl focus:border-accent outline-none transition-all" 
+                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-8 md:pl-10 pr-4 md:pr-6 w-full sm:w-56 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm" 
                   />
                 </div>
               </div>
               <input 
                 type="range"
-                min="2000"
-                max="10000000"
+                min="0"
+                max="100000000"
                 step="1000"
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
-                className="w-full h-1.5 md:h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-accent"
+                className="w-full h-1.5 md:h-2 bg-primary/10 rounded-full appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">
-                <span>₹ 2,000</span>
-                <span>1 Crore</span>
+                <span>₹ 0</span>
+                <span>No Limits</span>
               </div>
             </div>
 
             {/* Interest Rate */}
             <div className="space-y-4 md:space-y-6">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 md:gap-6">
-                <label className="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[10px] md:text-sm">
-                  <Percent size={20} className="text-accent" /> Interest Rate
+                <label className="flex items-center gap-3 text-text-primary font-bold uppercase tracking-widest text-[10px] md:text-sm">
+                  <Percent size={20} className="text-primary" /> Interest Rate
                 </label>
                 <div className="relative">
                   <input 
                     type="number" 
                     value={interest}
                     step="0.1"
-                    min={1}
-                    max={30}
                     onChange={(e) => {
-                      const val = Math.min(30, Math.max(0, Number(e.target.value)));
+                      const val = Number(e.target.value);
                       setInterest(val);
                     }}
-                    onBlur={() => {
-                      if (interest < 1) setInterest(1);
-                    }}
-                    className="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-10 md:pr-12 w-full sm:w-40 text-right font-black text-white text-lg md:text-xl focus:border-accent outline-none transition-all" 
+                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-10 md:pr-12 w-full sm:w-40 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm" 
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-accent font-bold md:text-xl">%</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-primary font-bold md:text-xl">%</span>
                 </div>
               </div>
               <input 
                 type="range"
-                min="8"
-                max="24"
+                min="0"
+                max="100"
                 step="0.1"
                 value={interest}
                 onChange={(e) => setInterest(Number(e.target.value))}
-                className="w-full h-1.5 md:h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-accent"
+                className="w-full h-1.5 md:h-2 bg-primary/10 rounded-full appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">
-                <span>8%</span>
-                <span>24%</span>
+                <span>0%</span>
+                <span>100%</span>
               </div>
             </div>
 
             {/* Tenure */}
             <div className="space-y-4 md:space-y-6">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 md:gap-6">
-                <label className="flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[10px] md:text-sm">
-                  <Calendar size={20} className="text-accent" /> Tenure (Months)
+                <label className="flex items-center gap-3 text-text-primary font-bold uppercase tracking-widest text-[10px] md:text-sm">
+                  <Calendar size={20} className="text-primary" /> Tenure (Months)
                 </label>
                 <div className="relative">
                   <input 
                     type="number" 
                     value={tenure}
-                    min={12}
-                    max={360}
                     onChange={(e) => {
-                      const val = Math.min(360, Math.max(0, Number(e.target.value)));
+                      const val = Number(e.target.value);
                       setTenure(val);
                     }}
-                    onBlur={() => {
-                      if (tenure < 12) setTenure(12);
-                    }}
-                    className="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-24 md:pr-28 w-full sm:w-52 text-right font-black text-white text-lg md:text-xl focus:border-accent outline-none transition-all" 
+                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-24 md:pr-28 w-full sm:w-52 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm" 
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-accent/50 text-[10px] font-bold tracking-widest text-xs uppercase">MONTHS</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-primary/50 text-[10px] font-bold tracking-widest text-xs uppercase">MONTHS</span>
                 </div>
               </div>
               <input 
                 type="range"
-                min="12"
-                max="360"
+                min="0"
+                max="600"
                 step="1"
                 value={tenure}
                 onChange={(e) => setTenure(Number(e.target.value))}
-                className="w-full h-1.5 md:h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-accent"
+                className="w-full h-1.5 md:h-2 bg-primary/10 rounded-full appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">
-                <span>12 Months</span>
-                <span>360 Months</span>
+                <span>0 Months</span>
+                <span>600 Months</span>
               </div>
             </div>
           </div>
 
           {/* Information Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <div className="glass-card-premium p-8 md:p-10 rounded-2xl md:rounded-3xl border-white/5 flex gap-6 md:gap-8 items-center text-white">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-accent/10 border border-accent/20 rounded-xl md:rounded-2xl flex items-center justify-center text-accent shrink-0">
+            <div className="glass-card-premium p-8 md:p-10 rounded-2xl md:rounded-3xl border-primary/10 flex gap-6 md:gap-8 items-center text-text-primary">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-primary/10 border border-primary/20 rounded-xl md:rounded-2xl flex items-center justify-center text-primary shrink-0">
                 <TrendingUp size={24} className="md:w-8 md:h-8" />
               </div>
               <div>
-                <h4 className="text-lg md:text-xl font-bold mb-1">Lowest Market Rates</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-1 font-primary">Lowest Market Rates</h4>
                 <p className="text-text-secondary text-xs md:text-sm">Starting at 8.75% for HNW individuals.</p>
               </div>
             </div>
-            <div className="glass-card-premium p-8 md:p-10 rounded-2xl md:rounded-3xl border-white/5 flex gap-6 md:gap-8 items-center text-white">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-accent/10 border border-accent/20 rounded-xl md:rounded-2xl flex items-center justify-center text-accent shrink-0">
+            <div className="glass-card-premium p-8 md:p-10 rounded-2xl md:rounded-3xl border-primary/10 flex gap-6 md:gap-8 items-center text-text-primary">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-primary/10 border border-primary/20 rounded-xl md:rounded-2xl flex items-center justify-center text-primary shrink-0">
                 <CheckCircle2 size={24} className="md:w-8 md:h-8" />
               </div>
               <div>
-                <h4 className="text-lg md:text-xl font-bold mb-1">Instant Discretion</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-1 font-primary">Instant Discretion</h4>
                 <p className="text-text-secondary text-xs md:text-sm">Approvals within 4 business hours.</p>
               </div>
             </div>
@@ -504,35 +540,35 @@ const EMICalculatorSection = () => {
         {/* Results Summary */}
         <div className="lg:col-span-12 xl:col-span-5 xl:sticky top-32 order-1 xl:order-2">
           <motion.div 
-            className="glass-card-premium p-8 md:p-10 rounded-3xl md:rounded-[2.5rem] border-accent/20 bg-gradient-to-b from-white/10 to-transparent relative overflow-hidden text-white shadow-2xl"
+            className="glass-card-premium p-8 md:p-10 rounded-3xl md:rounded-[2.5rem] border-primary/20 bg-primary/5 relative overflow-hidden text-text-primary shadow-2xl"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl"></div>
             
             <div className="space-y-6 md:space-y-8 relative z-10">
               <div className="text-center">
                 <p className="text-text-secondary uppercase font-bold tracking-[0.4em] text-[10px] md:text-xs mb-3">Estimated Monthly EMI</p>
-                <h3 className="text-4xl md:text-6xl font-black text-accent drop-shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                <h3 className="text-3xl md:text-5xl font-black text-primary drop-shadow-[0_0_20px_rgba(6,95,70,0.1)] font-primary">
                   ₹ {emi.toLocaleString()}
                 </h3>
               </div>
 
               <div className="space-y-4">
-                <div className="flex justify-between items-center p-4 bg-white/5 rounded-xl md:rounded-2xl border border-white/10">
+                <div className="flex justify-between items-center p-4 bg-primary/5 rounded-xl md:rounded-2xl border border-primary/10">
                   <span className="text-text-secondary font-bold text-xs md:text-sm">Principal Amount</span>
                   <span className="font-bold text-sm md:text-base">₹ {amount.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between items-center p-4 bg-white/5 rounded-xl md:rounded-2xl border border-white/10">
+                <div className="flex justify-between items-center p-4 bg-primary/5 rounded-xl md:rounded-2xl border border-primary/10">
                   <span className="text-text-secondary font-bold text-xs md:text-sm">Total Interest</span>
-                  <span className="font-bold text-sm md:text-base text-accent">₹ {totalInterest.toLocaleString()}</span>
+                  <span className="font-bold text-sm md:text-base text-primary">₹ {totalInterest.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between items-center p-5 md:p-6 bg-accent text-primary rounded-2xl md:rounded-3xl font-black text-lg md:text-xl shadow-lg">
+                <div className="flex justify-between items-center p-5 md:p-6 bg-primary text-white rounded-2xl md:rounded-3xl font-black text-lg md:text-xl shadow-lg">
                   <span>Total Cost</span>
                   <span>₹ {totalPayment.toLocaleString()}</span>
                 </div>
               </div>
 
               <div className="pt-2">
-                <Link to="/cibil-score" className="w-full btn-premium py-4 md:py-5 group text-base md:text-lg">
+                <Link to="/apply-loan" className="w-full btn-premium py-4 md:py-5 group text-base md:text-lg">
                   Initialize Application <ArrowRight size={20} className="md:w-6 md:h-6 group-hover:translate-x-3 transition-transform" />
                 </Link>
               </div>
@@ -557,49 +593,72 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-background overflow-hidden">
+    <section className="py-12 md:py-16 bg-background overflow-hidden font-secondary">
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
         <div className="space-y-10 md:space-y-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-white">Executive Channels</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-text-primary font-primary">Executive Channels</h2>
             <div className="space-y-4 md:space-y-6">
               {[
-                { icon: <Phone size={20} />, title: "Private Line", value: "+91 7026133444" },
-                { icon: <Mail size={20} />, title: "Secure Email", value: "SUPPORT@SUREKILL.CO.IN" },
+                { 
+                  icon: <Phone size={20} />, 
+                  title: "Private Line", 
+                  value: "+91 7026133444",
+                  link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20discuss%20a%20private%20consultation." 
+                },
+                { icon: <Mail size={20} />, title: "Secure Email", value: "kasireddykruthik@gmail.com", link: "mailto:kasireddykruthik@gmail.com" },
                 { icon: <MapPin size={20} />, title: "Hub", value: "Financial District, Bangalore" }
               ].map((item) => (
-                <div key={item.title} className="flex gap-4 items-center p-5 md:p-6 glass-card-premium rounded-2xl md:rounded-3xl hover:bg-white/10 transition-all">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-xl flex items-center justify-center text-accent shrink-0">{item.icon}</div>
+                <a 
+                  key={item.title} 
+                  href={item.link}
+                  target={item.link?.startsWith('http') ? "_blank" : undefined}
+                  rel={item.link?.startsWith('http') ? "noopener noreferrer" : undefined}
+                  className="flex gap-4 items-center p-5 md:p-6 glass-card-premium rounded-2xl md:rounded-3xl hover:bg-white/10 transition-all border-primary/5 group"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-xl flex items-center justify-center text-accent shrink-0 group-hover:bg-accent group-hover:text-primary transition-all">{item.icon}</div>
                   <div className="min-w-0">
                     <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest">{item.title}</p>
-                    <p className="text-base md:text-lg font-bold truncate">{item.value}</p>
+                    <p className="text-base md:text-lg font-bold truncate font-primary">{item.value}</p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
           <div className="glass-card-premium p-8 rounded-3xl md:rounded-[2.5rem] border-accent/20">
-            <h3 className="text-xl font-bold mb-4">Check Your CIBIL Prestige</h3>
+            <h3 className="text-xl font-bold mb-4 font-primary">Check Your CIBIL Prestige</h3>
             <p className="text-text-secondary mb-6 text-sm">Our advanced scanner analyzes your history to unlock preferential rates.</p>
             <Link to="/cibil-score" className="text-accent font-bold flex items-center gap-2 hover:gap-3 transition-all">Scanner <ChevronRight size={16} /></Link>
           </div>
         </div>
-        <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem]">
+        <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem] border-primary/5">
           {!isSubmitted ? (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 md:space-y-6">
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">Formal Inquiry</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-2 font-primary">Formal Inquiry</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <input {...register("name", { required: true })} placeholder="Name" className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base" />
                 <input {...register("phone", { required: true })} placeholder="Phone" className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base" />
               </div>
               <input {...register("email", { required: true })} placeholder="Email" className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base" />
+              <select 
+                {...register("loanType", { required: true })}
+                className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base text-text-primary font-bold appearance-none cursor-pointer"
+              >
+                <option value="" className="bg-primary text-white">Select Loan Type</option>
+                <option value="Personal Loan" className="bg-primary text-white">Personal Loan</option>
+                <option value="Business Loan" className="bg-primary text-white">Business Loan</option>
+                <option value="Home Loan" className="bg-primary text-white">Home Loan</option>
+                <option value="Project Loan" className="bg-primary text-white">Project Loan</option>
+                <option value="Loan Against Property" className="bg-primary text-white">Loan Against Property</option>
+                <option value="Loan Takeover / BT" className="bg-primary text-white">Loan Takeover / BT</option>
+              </select>
               <textarea rows="4" placeholder="Requirements..." className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base"></textarea>
               <button type="submit" className="w-full btn-premium py-4">Submit Formal Request <Send size={18} /></button>
             </form>
           ) : (
             <div className="text-center py-16 md:py-20 space-y-6">
               <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/20 rounded-full flex items-center justify-center text-accent mx-auto"><CheckCircle2 size={40} /></div>
-              <h3 className="text-2xl md:text-3xl font-bold">Inquiry Sent</h3>
+              <h3 className="text-2xl md:text-3xl font-bold font-primary">Inquiry Sent</h3>
               <p className="text-text-secondary text-sm md:text-base">We will contact you within 4 business hours.</p>
             </div>
           )}
@@ -617,9 +676,9 @@ const ProcessSteps = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-primary/20 overflow-hidden">
+    <section className="py-12 md:py-16 bg-primary/5 overflow-hidden font-secondary">
       <div className="container text-center mb-12 md:mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Our Streamlined Execution</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary font-primary">Our Streamlined Execution</h2>
         <p className="text-text-secondary text-sm md:text-base">From application to disbursement in record time.</p>
       </div>
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
@@ -629,7 +688,7 @@ const ProcessSteps = () => {
               {step.num}
             </div>
             <div className="relative z-10 pt-6 md:pt-8">
-              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white">{step.title}</h3>
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-primary font-primary">{step.title}</h3>
               <p className="text-text-secondary text-sm md:text-base leading-relaxed">{step.desc}</p>
             </div>
           </div>
@@ -647,24 +706,24 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-background overflow-hidden">
+    <section className="py-12 md:py-16 bg-background overflow-hidden font-secondary">
       <div className="container text-center mb-12 md:mb-16">
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">Executive Testimonials</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-text-primary font-primary">Executive Testimonials</h2>
         <p className="text-text-secondary text-sm md:text-base">Voices of our esteemed clientele.</p>
       </div>
-      <div className="container grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-white">
+      <div className="container grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         {testimonials.map((t, i) => (
           <div key={t.name}
-            className="glass-card-premium p-6 md:p-8 rounded-2xl md:rounded-3xl border border-white/5"
+            className="glass-card-premium p-6 md:p-8 rounded-2xl md:rounded-3xl border border-primary/10"
             data-aos="fade-up" data-aos-delay={i * 100}>
-            <p className="text-text-secondary italic text-sm md:text-base leading-relaxed mb-6 md:mb-8">"{t.text}"</p>
-            <div className="flex items-center justify-between border-t border-white/5 pt-6">
+            <p className="text-text-secondary italic text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-primary">"{t.text}"</p>
+            <div className="flex items-center justify-between border-t border-primary/5 pt-6">
               <div>
-                <p className="font-bold text-white text-sm md:text-base">{t.name}</p>
+                <p className="font-bold text-text-primary text-sm md:text-base">{t.name}</p>
                 <p className="text-text-secondary text-[10px] md:text-xs uppercase tracking-tighter">{t.location}</p>
               </div>
               <div className="text-right">
-                <p className="text-accent font-bold text-[10px] md:text-xs uppercase tracking-widest">{t.loan}</p>
+                <p className="text-primary font-bold text-[10px] md:text-xs uppercase tracking-widest">{t.loan}</p>
               </div>
             </div>
           </div>
@@ -676,12 +735,12 @@ const Testimonials = () => {
 
 const FinalCTA = () => {
   return (
-    <section className="py-16 md:py-24 bg-primary/20 overflow-hidden">
+    <section className="py-12 md:py-16 bg-primary/5 overflow-hidden font-secondary">
       <div className="container">
-        <div className="glass-card-premium rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 blur-3xl rounded-full -mr-32 -mt-32"></div>
+        <div className="glass-card-premium rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden border-primary/5">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl rounded-full -mr-32 -mt-32"></div>
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-6xl font-bold mb-6 md:mb-8 leading-tight text-white">
+            <h2 className="text-3xl md:text-6xl font-bold mb-6 md:mb-8 leading-tight text-text-primary font-primary">
               Ready to Experience <br className="hidden md:block" /><span className="text-gradient">Premium Lending?</span>
             </h2>
             <p className="text-base md:text-xl text-text-secondary mb-8 md:mb-12 max-w-2xl mx-auto">

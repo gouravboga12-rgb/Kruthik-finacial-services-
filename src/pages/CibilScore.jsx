@@ -60,10 +60,10 @@ const CibilGauge = ({ score }) => {
         <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-text-secondary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-1">
           Your Score
         </motion.span>
-        <motion.span initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, type: "spring" }} className="text-5xl md:text-7xl font-black text-white leading-none">
+        <motion.span initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, type: "spring" }} className="text-4xl md:text-6xl font-black text-text-primary leading-none">
           {score}
         </motion.span>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="mt-2 py-1 px-3 md:px-4 rounded-full bg-white/5 border border-white/10 text-[8px] md:text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="mt-2 py-1 px-3 md:px-4 rounded-full bg-primary/5 border border-primary/10 text-[8px] md:text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
           {status}
         </motion.div>
       </div>
@@ -217,7 +217,7 @@ const CibilScore = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-white font-outfit relative">
+    <div className="min-h-screen bg-background text-text-primary font-secondary relative">
 
       {/* ── SMS Toast Notification ── */}
       <AnimatePresence>
@@ -237,16 +237,16 @@ const CibilScore = () => {
       </AnimatePresence>
 
       {/* ── Hero ── */}
-      <section className="bg-primary/50 py-16 md:py-24 px-4 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-accent/10 blur-[100px] md:blur-[150px] rounded-full -mr-32 -mt-32"></div>
+      <section className="bg-primary/5 py-16 md:py-24 px-4 border-b border-primary/10 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-primary/5 blur-[100px] md:blur-[150px] rounded-full -mr-32 -mt-32"></div>
         <div className="container text-center relative z-10 space-y-6 md:space-y-8">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-accent font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase block text-xs md:text-sm">
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase block text-xs md:text-sm">
             Digital CIBIL Portfolio
           </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-7xl font-bold font-playfair">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-bold font-primary text-text-primary">
             Monitor Your <br className="hidden md:block" /><span className="text-gradient">Financial Reputation</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-base md:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
             Experience a bank-grade CIBIL diagnostic. Accurate, instantaneous, and designed to respect your privacy.
           </motion.p>
         </div>
@@ -261,12 +261,12 @@ const CibilScore = () => {
             {/* LANDING */}
             {phase === "landing" && (
               <motion.div key="landing" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} className="flex flex-col items-center text-center space-y-8 md:space-y-12">
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-accent/20 rounded-2xl md:rounded-[2.5rem] flex items-center justify-center text-accent">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-primary/10 rounded-2xl md:rounded-[2.5rem] flex items-center justify-center text-primary">
                   <TrendingUp size={40} className="md:w-12 md:h-12" />
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold italic font-playfair leading-tight">Ready to see your <br className="md:hidden" />Prestige Tier?</h2>
-                  <p className="text-text-secondary text-base md:text-lg max-w-xl">Join thousands of elite clients who monitor their CIBIL health with Kruthik.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold italic font-primary leading-tight text-text-primary">Ready to see your <br className="md:hidden" />Prestige Tier?</h2>
+                  <p className="text-text-secondary text-sm md:text-base max-w-xl">Join thousands of elite clients who monitor their CIBIL health with Kruthik.</p>
                 </div>
                 <button onClick={() => setPhase("form")} className="btn-premium px-10 md:px-12 py-4 md:py-5 text-base md:text-lg w-full sm:w-auto">
                   Check CIBIL Score <ArrowRight size={24} />
@@ -277,10 +277,10 @@ const CibilScore = () => {
             {/* FORM */}
             {phase === "form" && (
               <motion.div key="form" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="max-w-2xl mx-auto">
-                <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem] border-accent/20 space-y-10">
+                <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem] border-primary/20 space-y-10">
                   <div className="text-center space-y-2">
-                    <h3 className="text-3xl font-bold italic text-white font-playfair text-gradient">Elite Information Protocol</h3>
-                    <p className="text-text-secondary text-sm">Please provide the details required to query the bureaus safely.</p>
+                    <h3 className="text-2xl font-bold italic text-text-primary font-primary text-gradient">Elite Information Protocol</h3>
+                    <p className="text-[11px] md:text-xs text-text-secondary">Please provide the details required to query the bureaus safely.</p>
                   </div>
 
                   {apiError && (
@@ -296,7 +296,7 @@ const CibilScore = () => {
                         <label className="text-[10px] uppercase font-bold tracking-widest text-text-secondary">Full Name</label>
                         <input name="name" type="text" required placeholder="John Doe"
                           onInput={(e) => { e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, '') }}
-                          className={`w-full bg-white/5 border ${formErrors.name ? 'border-red-500/50' : 'border-white/10'} rounded-2xl py-5 px-6 focus:border-accent outline-none text-white font-bold transition-all shadow-inner`}
+                          className={`w-full bg-primary/5 border ${formErrors.name ? 'border-red-500/50' : 'border-primary/10'} rounded-2xl py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all shadow-inner`}
                         />
                         {formErrors.name && <p className="text-[10px] text-red-500 uppercase font-bold tracking-widest ml-4">{formErrors.name}</p>}
                       </div>
@@ -304,7 +304,7 @@ const CibilScore = () => {
                         <label className="text-[10px] uppercase font-bold tracking-widest text-text-secondary">PAN Number</label>
                         <input name="pan" type="text" required placeholder="ABCDE1234F" maxLength={10}
                           onInput={(e) => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '') }}
-                          className={`w-full bg-white/5 border ${formErrors.pan ? 'border-red-500/50' : 'border-white/10'} rounded-2xl py-5 px-6 focus:border-accent outline-none text-white font-bold transition-all uppercase shadow-inner`}
+                          className={`w-full bg-primary/5 border ${formErrors.pan ? 'border-red-500/50' : 'border-primary/10'} rounded-2xl py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all uppercase shadow-inner`}
                         />
                         {formErrors.pan && <p className="text-[10px] text-red-500 uppercase font-bold tracking-widest ml-4">{formErrors.pan}</p>}
                       </div>
@@ -315,7 +315,7 @@ const CibilScore = () => {
                         <label className="text-[10px] uppercase font-bold tracking-widest text-text-secondary">Mobile Number</label>
                         <input name="mobile" type="tel" required placeholder="9876543210" maxLength={10}
                           onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
-                          className={`w-full bg-white/5 border ${formErrors.mobile ? 'border-red-500/50' : 'border-white/10'} rounded-2xl py-5 px-6 focus:border-accent outline-none text-white font-bold transition-all shadow-inner`}
+                          className={`w-full bg-primary/5 border ${formErrors.mobile ? 'border-red-500/50' : 'border-primary/10'} rounded-2xl py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all shadow-inner`}
                         />
                         {formErrors.mobile && <p className="text-[10px] text-red-500 uppercase font-bold tracking-widest ml-4">{formErrors.mobile}</p>}
                       </div>
@@ -323,7 +323,7 @@ const CibilScore = () => {
                         <label className="text-[10px] uppercase font-bold tracking-widest text-text-secondary">Date of Birth</label>
                         <div className="relative cursor-pointer" onClick={() => dobRef.current?.showPicker()}>
                           <input name="dob" ref={dobRef} type="date" required
-                            className={`w-full bg-white/5 border ${formErrors.dob ? 'border-red-500/50' : 'border-white/10'} rounded-2xl py-5 px-6 focus:border-accent outline-none text-white font-bold transition-all cursor-pointer shadow-inner [color-scheme:dark]`}
+                            className={`w-full bg-primary/5 border ${formErrors.dob ? 'border-red-500/50' : 'border-primary/10'} rounded-2xl py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all cursor-pointer shadow-inner [color-scheme:light]`}
                           />
                         </div>
                         {formErrors.dob && <p className="text-[10px] text-red-500 uppercase font-bold tracking-widest ml-4">{formErrors.dob}</p>}
@@ -355,7 +355,7 @@ const CibilScore = () => {
                   <div className="absolute -inset-4 bg-accent/10 blur-2xl rounded-full animate-pulse"></div>
                 </div>
                 <div className="space-y-3">
-                  <h2 className="text-3xl font-bold font-playfair">Connecting to Bureau</h2>
+                  <h2 className="text-3xl font-bold font-primary">Connecting to Bureau</h2>
                   <p className="text-text-secondary">Establishing a secure handshake with TransUnion CIBIL...</p>
                 </div>
                 <div className="flex flex-col gap-2 text-xs font-mono text-accent/70 text-left bg-white/5 border border-white/10 rounded-2xl px-6 py-4 w-full max-w-sm">
@@ -408,7 +408,7 @@ const CibilScore = () => {
                   <div className="absolute -inset-4 bg-accent/10 blur-2xl rounded-full animate-pulse"></div>
                 </div>
                 <div className="space-y-3">
-                  <h2 className="text-3xl font-bold font-playfair">Fetching Your Report</h2>
+                  <h2 className="text-3xl font-bold font-primary">Fetching Your Report</h2>
                   <p className="text-text-secondary">Decrypting bureau data. Please wait...</p>
                 </div>
                 <div className="flex flex-col gap-2 text-xs font-mono text-accent/70 text-left bg-white/5 border border-white/10 rounded-2xl px-6 py-4 w-full max-w-sm">
@@ -443,7 +443,7 @@ const CibilScore = () => {
                       animate={{ width: `${(cibilStep + 1) * 33}%` }}
                     />
                   </div>
-                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-accent font-poppins">
+                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-accent font-secondary">
                     <span>Authenticating</span>
                     <span>{(cibilStep + 1) * 33}%</span>
                   </div>
@@ -473,17 +473,17 @@ const CibilScore = () => {
                   </div>
                   <div className="space-y-6 md:space-y-8">
                     <div className="space-y-2 text-center lg:text-left">
-                      <h2 className="text-3xl md:text-4xl font-black uppercase italic text-white leading-tight">Elite Standing</h2>
-                      <p className="text-text-secondary text-base md:text-lg">Your financial footprint places you in the <span className="text-accent font-bold">Top 5%</span> of Indian borrowers.</p>
+                      <h2 className="text-2xl md:text-3xl font-black uppercase italic text-text-primary leading-tight font-primary">Elite Standing</h2>
+                      <p className="text-text-secondary text-sm md:text-base">Your financial footprint places you in the <span className="text-primary font-bold">Top 5%</span> of Indian borrowers.</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-white/5">
+                      <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-primary/5">
                         <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Impact</p>
-                        <p className="text-base md:text-lg font-bold text-white uppercase italic">Negative to Positive</p>
+                        <p className="text-base md:text-lg font-bold text-text-primary uppercase italic">Negative to Positive</p>
                       </div>
-                      <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-white/5">
+                      <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-primary/5">
                         <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Repayment Status</p>
-                        <p className="text-base md:text-lg font-bold text-accent uppercase italic">Perfect Registry</p>
+                        <p className="text-base md:text-lg font-bold text-primary uppercase italic">Perfect Registry</p>
                       </div>
                     </div>
                     <button className="w-full btn-premium py-4 md:py-5 flex items-center justify-center gap-3 text-base md:text-lg">
@@ -520,12 +520,12 @@ const CibilScore = () => {
     </section>
 
       {/* ── Trust Badges ── */}
-      <section className="py-24 border-t border-white/5 opacity-60">
+      <section className="py-24 border-t border-primary/10 bg-primary/5 opacity-80 overflow-hidden" data-aos="fade-up">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-12 items-center text-center">
-            {['Bank-Grade Encryption', 'Soft-Pull Only', 'Zero Score Impact', 'Executive Trust'].map(item => (
-              <div key={item} className="flex-1 min-w-[200px] flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-[10px]">
-                <ShieldCheck size={18} className="text-accent" /> {item}
+            {['Bank-Grade Encryption', 'Soft-Pull Only', 'Zero Score Impact', 'Executive Trust'].map((item, i) => (
+              <div key={item} data-aos="zoom-in" data-aos-delay={i * 100} className="flex-1 min-w-[200px] flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-[10px] text-primary">
+                <ShieldCheck size={18} className="text-primary" /> {item}
               </div>
             ))}
           </div>

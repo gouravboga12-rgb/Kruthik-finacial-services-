@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0A3D62",
+        primary: "#065F46",
         secondary: "#FFFFFF",
-        accent: "#3C91E6",
-        background: "#F5F9FF",
+        accent: "#10B981",
+        background: "#FFFFFF",
         text: {
-          primary: "#1B1B1B",
-          secondary: "#555555",
+          primary: "#111827",
+          secondary: "#4B5563",
         }
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
+        primary: ["Playfair Display", "serif"],
+        secondary: ["Plus Jakarta Sans", "sans-serif"],
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

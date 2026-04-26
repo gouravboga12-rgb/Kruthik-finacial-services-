@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+import logo from '../assets/logo.png'
+
 function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
@@ -36,19 +38,17 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 py-3',
-        (scrolled || !isHome) ? 'bg-primary/95 backdrop-blur-md shadow-lg py-2' : 'bg-transparent'
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 py-2 bg-primary shadow-lg',
+        scrolled ? 'py-1' : 'py-2'
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-2 md:gap-3 group">
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-accent rounded-xl md:rounded-2xl flex items-center justify-center border border-white/20 shadow-lg shadow-accent/20 transition-transform group-hover:scale-105 shrink-0">
-            <span className="text-primary font-black text-xl md:text-2xl">K</span>
-          </div>
-          <div className="flex flex-col">
-            <span className={cn("font-extrabold text-lg md:text-xl tracking-tight transition-colors", scrolled ? "text-white" : "text-white")}>KRUTHIK</span>
-            <span className={cn("text-[8px] md:text-[10px] font-bold tracking-[0.2em] transition-colors", scrolled ? "text-accent" : "text-accent")}>FINANCIAL SERVICES</span>
-          </div>
+        <Link to="/" className="flex items-center group">
+          <img 
+            src={logo} 
+            alt="Kruthik Financial Services" 
+            className="h-16 md:h-24 w-auto object-contain transition-transform group-hover:scale-105"
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -58,8 +58,8 @@ const Navbar = () => {
               key={link.name}
               to={link.path}
               className={cn(
-                'text-sm font-bold uppercase tracking-widest transition-all hover:text-accent relative group',
-                location.pathname === link.path ? 'text-accent' : 'text-white/80'
+                'text-xs font-bold uppercase tracking-widest transition-all hover:text-accent relative group text-white/80',
+                location.pathname === link.path ? 'text-accent' : ''
               )}
             >
               {link.name}
@@ -79,7 +79,7 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className={cn("md:hidden p-2 hover:bg-white/10 rounded-xl transition-colors", scrolled ? "text-white" : "text-white")}
+          className="md:hidden p-2 hover:bg-white/10 rounded-xl transition-colors text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -93,7 +93,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl mt-4 rounded-[2rem] shadow-2xl overflow-hidden border border-white/10"
+            className="md:hidden bg-background mt-4 rounded-[2rem] shadow-2xl overflow-hidden border border-primary/5"
           >
             <div className="flex flex-col p-6 md:p-8 gap-4 md:gap-6">
               {navLinks.map((link) => (
@@ -102,8 +102,8 @@ const Navbar = () => {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    'text-base md:text-lg font-bold uppercase tracking-[0.2em] p-2 transition-colors border-b border-white/5 last:border-0',
-                    location.pathname === link.path ? 'text-accent' : 'text-white'
+                    'text-sm md:text-base font-bold uppercase tracking-[0.2em] p-2 transition-colors border-b border-primary/5 last:border-0',
+                    location.pathname === link.path ? 'text-accent' : 'text-primary'
                   )}
                 >
                   {link.name}
