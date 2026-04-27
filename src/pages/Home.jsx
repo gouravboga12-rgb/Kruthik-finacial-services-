@@ -547,7 +547,7 @@ const EMICalculatorSection = () => {
             <div className="space-y-6 md:space-y-8 relative z-10">
               <div className="text-center">
                 <p className="text-text-secondary uppercase font-bold tracking-[0.4em] text-[10px] md:text-xs mb-3">Estimated Monthly EMI</p>
-                <h3 className="text-3xl md:text-5xl font-black text-primary drop-shadow-[0_0_20px_rgba(6,95,70,0.1)] font-primary">
+                <h3 className="text-3xl md:text-5xl font-bold text-primary drop-shadow-[0_0_20px_rgba(6,95,70,0.1)] font-secondary">
                   ₹ {emi.toLocaleString()}
                 </h3>
               </div>
