@@ -181,7 +181,7 @@ const Contact = () => {
                     <div className="space-y-4">
                       <h3 className="text-3xl md:text-5xl font-bold font-primary">Protocol Initiated</h3>
                       <p className="text-text-secondary text-lg max-w-sm mx-auto leading-relaxed">
-                        Our executive architects will review your requirements and contact you within 4 business hours.
+                        Our executive architects will review your requirements and contact you within 24-48 business hours.
                       </p>
                     </div>
                     <button onClick={() => setIsSubmitted(false)} className="btn-outline-gold px-12 py-3">Submit New Protocol</button>

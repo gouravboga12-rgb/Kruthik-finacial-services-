@@ -71,7 +71,7 @@ export const verifyCibilOtp = async ({ requestId, otp, pan }) => {
 
     if (score >= 800) {
       tier = 'Elite';
-      advice = 'You qualify for our lowest 8.25% interest rate tier.';
+      advice = 'You qualify for our lowest 7.5% interest rate tier.';
     } else if (score >= 750) {
       tier = 'Good';
       advice = 'You qualify for competitive rates. Apply now for priority processing.';

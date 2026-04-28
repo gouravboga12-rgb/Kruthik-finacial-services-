@@ -249,7 +249,7 @@ const ApplyLoan = () => {
             <div className="space-y-4 md:space-y-6">
               <h3 className="text-2xl md:text-4xl font-bold font-primary italic text-text-primary">Application Priority Secured</h3>
               <p className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-                Your records for <span className="text-primary font-black border-b border-primary/40">{serviceTitle}</span> have been ingested into our private ledger. An executive advisor will initiate contact within <span className="text-primary font-bold">4 business hours</span>.
+                Your records for <span className="text-primary font-black border-b border-primary/40">{serviceTitle}</span> have been ingested into our private ledger. An executive advisor will initiate contact within <span className="text-primary font-bold">24-48 business hours</span>.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto">

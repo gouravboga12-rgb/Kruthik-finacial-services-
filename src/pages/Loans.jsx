@@ -13,50 +13,160 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import businessLoanImg from "../assets/images/Businessloan.png";
+import homeLoanImg from "../assets/images/Homeloan.png";
+import lapImg from "../assets/images/LoanAgainstProperty.png";
+import projectLoanImg from "../assets/images/Projectloan.png";
+
 const services = [
   {
     title: "Personal Loan",
     icon: <Banknote size={24} />,
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2070",
     desc: "Achieve your personal goals with our swift and transparent personal loan solutions. Whether it's a dream wedding, medical emergency, or luxury travel.",
-    features: ["Minimal Documentation", "Fast Disbursement", "Flexible Tenure"]
+    features: [
+      "Instant approval for all profiles",
+      "Loan amount up to ₹40 Lakhs",
+      "No collateral required",
+      "Rates starting from 7.5%",
+      "Tenure up to 60 months"
+    ]
   },
   {
     title: "Business Loan",
     icon: <Building2 size={24} />,
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=2070",
+    image: businessLoanImg,
     desc: "Empower your enterprise with strategic capital. We provide high-value business loans with competitive rates to fuel your expansion plans.",
-    features: ["Collateral-free options", "High Loan Values", "Custom EMI plans"]
+    features: [
+      "Funding for expansion & capital",
+      "No collateral for select limits",
+      "Quick 48-hour disbursement",
+      "Special schemes for entrepreneurs",
+      "Flexible repayment options"
+    ]
   },
   {
     title: "Home Loan",
     icon: <HomeIcon size={24} />,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2070",
+    image: homeLoanImg,
     desc: "Acquire your dream property with the market's lowest interest rates. Our home loan experts guide you throughout the entire paperwork process.",
-    features: ["Lowest ROI", "Balance Transfer available", "Tenure up to 30 years"]
+    features: [
+      "Rates starting from 7.5%",
+      "Doorstep document collection",
+      "Simplified approval process",
+      "Balance transfer with top-up",
+      "Tenure up to 30 years"
+    ]
   },
   {
     title: "Project Loan",
     icon: <Zap size={24} />,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=2070",
+    image: projectLoanImg,
     desc: "Specialized funding for large-scale industrial, commercial, and infrastructure developments. We understand project dynamics better than anyone.",
-    features: ["Asset-based lending", "Structured Repayment", "Quick Evaluation"]
+    features: [
+      "Tailored infrastructure funding",
+      "Expert project evaluation",
+      "Repayment aligned with cash flow",
+      "Greenfield & Brownfield projects",
+      "Large-scale financing terms"
+    ]
   },
   {
     title: "Loan Against Property",
     icon: <ShieldCheck size={24} />,
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070",
+    image: lapImg,
     desc: "Unlock the idle value of your residential or commercial property. Get maximum liquidity while retaining complete ownership.",
-    features: ["Multi-purpose usage", "Lower Interest Rates", "Hassle-free process"]
+    features: [
+      "High LTV ratio up to 70%",
+      "Residential & Commercial property",
+      "Lower rates than personal loans",
+      "Long tenure for easy repayment",
+      "Funds for any business need"
+    ]
   },
   {
     title: "Loan Takeover / BT",
     icon: <RefreshCw size={24} />,
     image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=2070",
     desc: "Transfer your high-interest existing loans to us and save on monthly EMIs. Reduce your financial burden with our Balance Transfer facility.",
-    features: ["Reduced ROI", "Additional Top-up", "Zero hidden charges"]
+    features: [
+      "Reduce interest rates significantly",
+      "No hidden transfer charges",
+      "Additional top-up available",
+      "Consolidate multiple EMIs",
+      "Minimal transfer paperwork"
+    ]
   }
 ];
+
+const LoanCard = ({ s, i, handleApply }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+
+  return (
+    <motion.div
+      key={s.title}
+      data-aos="fade-up"
+      data-aos-delay={i * 100}
+      className="glass-card-premium rounded-3xl md:rounded-[2.5rem] overflow-hidden group hover:bg-primary/5 transition-all duration-500 shadow-xl border-primary/10 flex flex-col"
+    >
+      <div className="h-48 md:h-64 relative overflow-hidden shrink-0">
+        <img 
+          src={s.image} 
+          alt={s.title} 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100"
+        />
+      </div>
+      <div className="p-6 md:p-8 space-y-4 flex flex-col flex-grow">
+        <h3 className="text-lg md:text-xl font-bold text-text-primary font-primary">{s.title}</h3>
+        <p className="text-text-secondary text-xs md:text-sm leading-relaxed">
+          {s.desc}
+        </p>
+
+        {/* Expandable Features */}
+        <motion.div
+          initial={false}
+          animate={{ 
+            height: isExpanded ? "auto" : 0,
+            opacity: isExpanded ? 1 : 0,
+            marginTop: isExpanded ? 16 : 0
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="overflow-hidden"
+        >
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-primary/5">
+            {s.features.map(f => (
+              <span key={f} className="w-full text-[10px] md:text-xs font-semibold py-1.5 flex items-center gap-3 text-text-secondary">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                {f}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="pt-6 border-t border-primary/10 flex flex-col gap-4 mt-auto">
+          <div className="flex items-center justify-between">
+            <button 
+              onClick={() => handleApply(s.title)} 
+              className="flex items-center gap-2 text-primary font-bold text-sm md:text-base hover:gap-3 transition-all outline-none"
+            >
+              Apply Now <ChevronRight size={18} />
+            </button>
+          </div>
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="w-full py-2.5 bg-primary/5 hover:bg-primary/10 text-primary font-bold text-[10px] md:text-xs rounded-xl transition-colors border border-primary/10 uppercase tracking-widest flex items-center justify-center gap-2"
+          >
+            {isExpanded ? "Show Less" : "View More"}
+            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}>
+              <ChevronRight size={14} className="rotate-90" />
+            </motion.div>
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Loans = () => {
   const navigate = useNavigate();
@@ -98,48 +208,10 @@ const Loans = () => {
       {/* Services Grid */}
       <section className="py-12 md:py-16 bg-background overflow-hidden">
         <div className="container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.title}
-              data-aos="fade-up"
-              data-aos-delay={i * 100}
-              className="glass-card-premium rounded-3xl md:rounded-[2.5rem] overflow-hidden group hover:bg-primary/5 transition-all duration-500 shadow-xl border-primary/10"
-            >
-              <div className="h-48 md:h-64 relative overflow-hidden">
-                <img 
-                  src={s.image} 
-                  alt={s.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100"
-                />
-                <div className="absolute top-4 md:top-6 left-4 md:left-6 w-10 h-10 md:w-12 md:h-12 bg-primary text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg">
-                  {s.icon}
-                </div>
-              </div>
-              <div className="p-6 md:p-8 space-y-4">
-                <h3 className="text-lg md:text-xl font-bold text-text-primary font-primary">{s.title}</h3>
-                <p className="text-text-secondary text-xs md:text-sm leading-relaxed line-clamp-3">
-                  {s.desc}
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {s.features.map(f => (
-                    <span key={f} className="text-[9px] md:text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-primary/5 border border-primary/10 rounded-lg text-primary">
-                      {f}
-                    </span>
-                  ))}
-                </div>
-                <div className="pt-6 border-t border-primary/10 flex items-center justify-between">
-                  <button 
-                    onClick={() => handleApply(s.title)} 
-                    className="flex items-center gap-2 text-primary font-bold text-sm md:text-base hover:gap-3 transition-all outline-none"
-                  >
-                    Apply Now <ChevronRight size={18} />
-                  </button>
-                  <ArrowRight className="text-primary/20 group-hover:text-primary transition-colors" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+            {services.map((s, i) => (
+              <LoanCard key={s.title} s={s} i={i} handleApply={handleApply} />
+            ))}
           </div>
         </div>
       </section>

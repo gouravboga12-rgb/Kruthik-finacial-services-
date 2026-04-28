@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { 
-  ArrowRight, 
-  CheckCircle2, 
-  Percent, 
-  Clock, 
-  ShieldCheck, 
-  Users, 
+import {
+  ArrowRight,
+  CheckCircle2,
+  Percent,
+  Clock,
+  ShieldCheck,
+  Users,
   ChevronRight,
   TrendingUp,
   Banknote,
@@ -32,22 +32,45 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import businessLoanImg from "../assets/images/Businessloan.png";
+import homeLoanImg from "../assets/images/Homeloan.png";
+import lapImg from "../assets/images/LoanAgainstProperty.png";
+import projectLoanImg from "../assets/images/Projectloan.png";
+
+// Partner Logos
+import tataLogo from "../assets/partners/tata.png";
+import sbiLogo from "../assets/partners/sbi.png";
+import shriramLogo from "../assets/partners/shriram.png";
+import southIndianLogo from "../assets/partners/south_indian.png";
+import vastuLogo from "../assets/partners/vastu.png";
+import ltLogo from "../assets/partners/lt.png";
+import adityaBirlaLogo from "../assets/partners/aditya_birla.png";
+import heroLogo from "../assets/partners/hero.png";
+import flexiLogo from "../assets/partners/flexi.png";
+import licLogo from "../assets/partners/lic.png";
+import dhflLogo from "../assets/partners/dhfl.png";
+import equitasLogo from "../assets/partners/equitas.png";
+import hdbLogo from "../assets/partners/hdb.png";
+import edelweissLogo from "../assets/partners/edelweiss.png";
+import lendingkartLogo from "../assets/partners/lendingkart.png";
+import firstCapitalLogo from "../assets/partners/first_capital.png";
+
 const Hero = () => {
   const heroImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070";
-  
+
   return (
     <section className="relative min-h-[85vh] flex items-center pt-24 md:pt-32 overflow-hidden font-secondary">
       <div className="absolute inset-0 z-0">
-        <img 
-          src={heroImage} 
-          alt="Premium Finance" 
+        <img
+          src={heroImage}
+          alt="Premium Finance"
           className="w-full h-full object-cover brightness-[0.3]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
       </div>
 
       <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-        <motion.div 
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={{
@@ -59,7 +82,7 @@ const Hero = () => {
             <TrendingUp size={16} />
             <span>India's Most Trusted Financial Partner</span>
           </div>
-          
+
           <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold leading-tight text-text-primary font-primary">
             {"Unlock Your Financial Potential".split("").map((char, index) => (
               <motion.span
@@ -87,7 +110,7 @@ const Hero = () => {
             ))}
           </p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 3.5, duration: 0.8 }}
@@ -102,7 +125,7 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -116,7 +139,7 @@ const Hero = () => {
             <div className="space-y-4">
               <h3 className="text-3xl font-bold font-primary">Priority Capital</h3>
               <p className="text-text-secondary leading-relaxed tracking-wide uppercase text-xs font-bold">
-                Elite Interest Rates Starting @ 8.25%
+                Elite Interest Rates Starting @ 7.5%
               </p>
             </div>
             <Link to="/cibil-score" className="w-full btn-premium py-4 block">
@@ -147,7 +170,7 @@ const AboutSection = () => {
       <section id="about" className="py-12 md:py-16 overflow-hidden">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
-            <motion.div 
+            <motion.div
               data-aos="fade-right"
               className="space-y-6 md:space-y-8"
             >
@@ -164,12 +187,12 @@ const AboutSection = () => {
                 ))}
               </div>
             </motion.div>
-            
+
             <div className="relative order-first lg:order-last" data-aos="fade-left">
               <div className="absolute -inset-4 bg-accent/20 blur-3xl rounded-full"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2078" 
-                alt="Legacy Meeting" 
+              <img
+                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2078"
+                alt="Legacy Meeting"
                 className="relative z-10 rounded-3xl md:rounded-[2.5rem] shadow-2xl brightness-90 transition-all duration-700 hover:scale-[1.02] w-full aspect-video md:aspect-auto object-cover"
               />
             </div>
@@ -181,7 +204,7 @@ const AboutSection = () => {
       <section className="py-12 md:py-16 bg-primary/20 overflow-hidden">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            <motion.div 
+            <motion.div
               data-aos="fade-up"
               whileHover={{ y: -10 }}
               className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] space-y-4 md:space-y-6 border-primary/10"
@@ -195,7 +218,7 @@ const AboutSection = () => {
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               data-aos="fade-up"
               data-aos-delay="200"
               whileHover={{ y: -10 }}
@@ -261,7 +284,7 @@ const DirectorMessage = () => {
                 </div>
                 <div className="pt-8 md:pt-10 border-t border-primary/10">
                   <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-secondary mb-2">Expertise</p>
-                  <p className="text-xl md:text-2xl font-black text-primary font-primary">15+ Years</p>
+                  <p className="text-xl md:text-2xl font-bold text-primary">15+ Years</p>
                   <p className="text-[10px] md:text-xs text-text-secondary uppercase tracking-widest">Industry Experience</p>
                 </div>
               </div>
@@ -272,17 +295,87 @@ const DirectorMessage = () => {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 italic text-text-primary font-primary">Director's Message</h3>
               <div className="space-y-4 md:space-y-6 text-text-secondary text-base md:text-lg leading-relaxed">
-                <p>With over 15 years of experience in the industry, we have built a strong foundation in providing reliable and customer-focused financial solutions. Our goal is to simplify the loan process by offering the right guidance, transparent communication, and quick turnaround times.</p>
-                <p>We continuously strive to deliver the best services and build long-term relationships with our clients.</p>
+                <p>
+                  With over 15 years of experience in the Home Loan and Loan Against Property (LAP) industry, we have built a strong foundation in providing reliable and customer-focused financial solutions. Our journey has been shaped by hands-on experience working with leading banks and NBFCs, which has given us deep insights into the lending process and customer needs.
+                </p>
+                <p>
+                  We understand that every customer's financial requirement is unique. Our goal is to simplify the loan process by offering the right guidance, transparent communication, and quick turnaround times. We are committed to helping individuals and businesses achieve their financial goals with confidence and ease.
+                </p>
+                <p>
+                  At our organization, trust, integrity, and customer satisfaction are our top priorities. We continuously strive to deliver the best services and build long-term relationships with our clients.
+                </p>
               </div>
-              <div className="pt-6 md:pt-8 mt-6 border-t border-white/10">
-                <p className="text-accent font-bold uppercase tracking-widest text-sm">— Director</p>
+              <div className="pt-6 md:pt-8 mt-6 border-t border-primary/10">
+                <p className="text-primary font-bold uppercase tracking-widest text-sm">— Director</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const HomeLoanCard = ({ s, i, navigate }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <motion.div
+      key={s.title}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.1 }}
+      className="glass-card-premium rounded-3xl md:rounded-[2.5rem] overflow-hidden group hover:bg-primary/5 transition-all duration-500 border-primary/10 shadow-lg flex flex-col"
+    >
+      <div className="h-40 md:h-48 relative overflow-hidden shrink-0">
+        <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100" />
+      </div>
+      <div className="p-6 md:p-8 space-y-4 flex flex-col flex-grow">
+        <h3 className="text-lg md:text-xl font-bold font-primary">{s.title}</h3>
+        <p className="text-text-secondary text-xs md:text-sm">{s.desc}</p>
+
+        <motion.div
+          initial={false}
+          animate={{
+            height: isExpanded ? "auto" : 0,
+            opacity: isExpanded ? 1 : 0,
+            marginTop: isExpanded ? 12 : 0
+          }}
+          transition={{ duration: 0.3 }}
+          className="overflow-hidden"
+        >
+          <div className="flex flex-col gap-2 pt-2 border-t border-primary/5">
+            {s.features.map(f => (
+              <span key={f} className="text-[10px] md:text-xs font-semibold py-1 flex items-center gap-3 text-text-secondary">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                {f}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="pt-4 border-t border-primary/10 flex flex-col gap-4 mt-auto">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => navigate("/apply-loan", { state: { service: s.title } })}
+              className="flex items-center gap-2 text-primary font-bold text-xs md:text-sm hover:gap-3 transition-all"
+            >
+              Apply Now <ChevronRight size={16} />
+            </button>
+          </div>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="w-full py-2 bg-primary/5 hover:bg-primary/10 text-primary font-bold text-[10px] md:text-xs rounded-lg transition-colors border border-primary/10 uppercase tracking-widest flex items-center justify-center gap-2"
+          >
+            {isExpanded ? "Show Less" : "View More"}
+            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}>
+              <ChevronRight size={12} className="rotate-90" />
+            </motion.div>
+          </button>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
@@ -294,42 +387,78 @@ const LoanPortfolio = () => {
       icon: <Banknote size={24} />,
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2070",
       desc: "Achieve your personal goals with our swift and transparent personal loan solutions.",
-      features: ["Minimal Documentation", "Fast Disbursement"]
+      features: [
+        "Instant approval for all profiles",
+        "Loan amount up to ₹40 Lakhs",
+        "No collateral required",
+        "Rates starting from 7.5%",
+        "Tenure up to 60 months"
+      ]
     },
     {
       title: "Business Loan",
       icon: <Building2 size={24} />,
-      image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=2070",
+      image: businessLoanImg,
       desc: "Empower your enterprise with strategic capital. We provide high-value business loans.",
-      features: ["Collateral-free options", "High Loan Values"]
+      features: [
+        "Funding for expansion & capital",
+        "No collateral for select limits",
+        "Quick 48-hour disbursement",
+        "Special schemes for entrepreneurs",
+        "Flexible repayment options"
+      ]
     },
     {
       title: "Home Loan",
       icon: <HomeIcon size={24} />,
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2070",
+      image: homeLoanImg,
       desc: "Acquire your dream property with the market's lowest interest rates.",
-      features: ["Lowest ROI", "Tenure up to 30 years"]
+      features: [
+        "Rates starting from 7.5%",
+        "Doorstep document collection",
+        "Simplified approval process",
+        "Balance transfer with top-up",
+        "Tenure up to 30 years"
+      ]
     },
     {
       title: "Project Loan",
       icon: <Zap size={24} />,
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=2070",
+      image: projectLoanImg,
       desc: "Specialized funding for large-scale industrial and commercial developments.",
-      features: ["Asset-based lending", "Quick Evaluation"]
+      features: [
+        "Tailored infrastructure funding",
+        "Expert project evaluation",
+        "Repayment aligned with cash flow",
+        "Greenfield & Brownfield projects",
+        "Large-scale financing terms"
+      ]
     },
     {
       title: "Loan Against Property",
       icon: <ShieldCheck size={24} />,
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070",
+      image: lapImg,
       desc: "Unlock the idle value of your property. Get maximum liquidity while retaining ownership.",
-      features: ["Multi-purpose usage", "Lower Interest Rates"]
+      features: [
+        "High LTV ratio up to 70%",
+        "Residential & Commercial property",
+        "Lower rates than personal loans",
+        "Long tenure for easy repayment",
+        "Funds for any business need"
+      ]
     },
     {
       title: "Loan Takeover / BT",
       icon: <RefreshCw size={24} />,
       image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=2070",
       desc: "Transfer your high-interest existing loans and save on monthly EMIs.",
-      features: ["Reduced ROI", "Additional Top-up"]
+      features: [
+        "Reduce interest rates significantly",
+        "No hidden transfer charges",
+        "Additional top-up available",
+        "Consolidate multiple EMIs",
+        "Minimal transfer paperwork"
+      ]
     }
   ];
 
@@ -339,43 +468,9 @@ const LoanPortfolio = () => {
         <h2 className="text-2xl md:text-4xl font-bold mb-4 text-text-primary font-primary">Elite Loan Portfolio</h2>
         <p className="text-text-secondary max-w-2xl mx-auto text-sm md:text-base">Tailored lending products designed for sophisticated requirements.</p>
       </div>
-      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-start">
         {services.map((s, i) => (
-          <motion.div
-            key={s.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="glass-card-premium rounded-3xl md:rounded-[2.5rem] overflow-hidden group hover:bg-primary/5 transition-all duration-500 border-primary/10 shadow-lg"
-          >
-            <div className="h-40 md:h-48 relative overflow-hidden">
-              <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100" />
-              <div className="absolute top-4 left-4 w-9 h-9 md:w-10 md:h-10 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg">
-                {s.icon}
-              </div>
-            </div>
-            <div className="p-6 md:p-8 space-y-4">
-              <h3 className="text-lg md:text-xl font-bold font-primary">{s.title}</h3>
-              <p className="text-text-secondary text-xs md:text-sm line-clamp-2">{s.desc}</p>
-              <div className="flex flex-wrap gap-2">
-                {s.features.map(f => (
-                  <span key={f} className="text-[8px] md:text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-primary/5 border border-primary/10 rounded-lg text-primary">
-                    {f}
-                  </span>
-                ))}
-              </div>
-              <div className="pt-4 border-t border-primary/10 flex items-center justify-between">
-                <button 
-                  onClick={() => navigate("/apply-loan", { state: { service: s.title } })} 
-                  className="flex items-center gap-2 text-primary font-bold text-xs md:text-sm hover:gap-3 transition-all"
-                >
-                  Apply Now <ChevronRight size={16} />
-                </button>
-                <ArrowRight size={16} className="text-primary/20 group-hover:text-primary transition-colors" />
-              </div>
-            </div>
-          </motion.div>
+          <HomeLoanCard key={s.title} s={s} i={i} navigate={navigate} />
         ))}
       </div>
     </section>
@@ -405,11 +500,11 @@ const EMICalculatorSection = () => {
         <p className="text-text-secondary max-w-2xl mx-auto">Precision engineering for your financial future. Calculate your installments with our executive-grade planning tool.</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
-        
+
         {/* Controls */}
         <div className="lg:col-span-12 xl:col-span-7 space-y-8 md:space-y-12 order-2 xl:order-1">
           <div className="glass-card-premium p-6 md:p-14 rounded-3xl md:rounded-[3rem] border-primary/10 space-y-8 md:space-y-12 text-text-primary">
-            
+
             {/* Loan Amount */}
             <div className="space-y-4 md:space-y-6">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 md:gap-6">
@@ -418,18 +513,18 @@ const EMICalculatorSection = () => {
                 </label>
                 <div className="relative group">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold md:text-xl">₹</span>
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     value={amount}
                     onChange={(e) => {
                       const val = Number(e.target.value);
                       setAmount(val);
                     }}
-                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-8 md:pl-10 pr-4 md:pr-6 w-full sm:w-56 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm" 
+                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-8 md:pl-10 pr-4 md:pr-6 w-full sm:w-56 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm"
                   />
                 </div>
               </div>
-              <input 
+              <input
                 type="range"
                 min="0"
                 max="100000000"
@@ -451,20 +546,20 @@ const EMICalculatorSection = () => {
                   <Percent size={20} className="text-primary" /> Interest Rate
                 </label>
                 <div className="relative">
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     value={interest}
                     step="0.1"
                     onChange={(e) => {
                       const val = Number(e.target.value);
                       setInterest(val);
                     }}
-                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-10 md:pr-12 w-full sm:w-40 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm" 
+                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-10 md:pr-12 w-full sm:w-40 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-primary font-bold md:text-xl">%</span>
                 </div>
               </div>
-              <input 
+              <input
                 type="range"
                 min="0"
                 max="100"
@@ -486,19 +581,19 @@ const EMICalculatorSection = () => {
                   <Calendar size={20} className="text-primary" /> Tenure (Months)
                 </label>
                 <div className="relative">
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     value={tenure}
                     onChange={(e) => {
                       const val = Number(e.target.value);
                       setTenure(val);
                     }}
-                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-24 md:pr-28 w-full sm:w-52 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm" 
+                    className="bg-white border border-primary/20 rounded-xl md:rounded-2xl py-3 md:py-4 pl-4 md:pl-6 pr-24 md:pr-28 w-full sm:w-52 text-right font-black text-text-primary text-lg md:text-xl focus:border-primary outline-none transition-all shadow-sm"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-primary/50 text-[10px] font-bold tracking-widest text-xs uppercase">MONTHS</span>
                 </div>
               </div>
-              <input 
+              <input
                 type="range"
                 min="0"
                 max="600"
@@ -522,7 +617,7 @@ const EMICalculatorSection = () => {
               </div>
               <div>
                 <h4 className="text-lg md:text-xl font-bold mb-1 font-primary">Lowest Market Rates</h4>
-                <p className="text-text-secondary text-xs md:text-sm">Starting at 8.75% for HNW individuals.</p>
+                <p className="text-text-secondary text-xs md:text-sm">Starting at 7.5% for HNW individuals.</p>
               </div>
             </div>
             <div className="glass-card-premium p-8 md:p-10 rounded-2xl md:rounded-3xl border-primary/10 flex gap-6 md:gap-8 items-center text-text-primary">
@@ -531,7 +626,7 @@ const EMICalculatorSection = () => {
               </div>
               <div>
                 <h4 className="text-lg md:text-xl font-bold mb-1 font-primary">Instant Discretion</h4>
-                <p className="text-text-secondary text-xs md:text-sm">Approvals within 4 business hours.</p>
+                <p className="text-text-secondary text-xs md:text-sm">Approvals within 24-48 business hours.</p>
               </div>
             </div>
           </div>
@@ -539,11 +634,11 @@ const EMICalculatorSection = () => {
 
         {/* Results Summary */}
         <div className="lg:col-span-12 xl:col-span-5 xl:sticky top-32 order-1 xl:order-2">
-          <motion.div 
+          <motion.div
             className="glass-card-premium p-8 md:p-10 rounded-3xl md:rounded-[2.5rem] border-primary/20 bg-primary/5 relative overflow-hidden text-text-primary shadow-2xl"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl"></div>
-            
+
             <div className="space-y-6 md:space-y-8 relative z-10">
               <div className="text-center">
                 <p className="text-text-secondary uppercase font-bold tracking-[0.4em] text-[10px] md:text-xs mb-3">Estimated Monthly EMI</p>
@@ -572,7 +667,7 @@ const EMICalculatorSection = () => {
                   Initialize Application <ArrowRight size={20} className="md:w-6 md:h-6 group-hover:translate-x-3 transition-transform" />
                 </Link>
               </div>
-              
+
               <p className="text-center text-[9px] md:text-[10px] text-text-secondary font-bold uppercase tracking-[0.3em] opacity-50">
                 *Indicative values based on current market trends
               </p>
@@ -600,17 +695,17 @@ const ContactSection = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-text-primary font-primary">Executive Channels</h2>
             <div className="space-y-4 md:space-y-6">
               {[
-                { 
-                  icon: <Phone size={20} />, 
-                  title: "Private Line", 
+                {
+                  icon: <Phone size={20} />,
+                  title: "Private Line",
                   value: "+91 7026133444",
-                  link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20discuss%20a%20private%20consultation." 
+                  link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20discuss%20a%20private%20consultation."
                 },
                 { icon: <Mail size={20} />, title: "Secure Email", value: "kasireddykruthik@gmail.com", link: "mailto:kasireddykruthik@gmail.com" },
                 { icon: <MapPin size={20} />, title: "Hub", value: "Financial District, Bangalore" }
               ].map((item) => (
-                <a 
-                  key={item.title} 
+                <a
+                  key={item.title}
                   href={item.link}
                   target={item.link?.startsWith('http') ? "_blank" : undefined}
                   rel={item.link?.startsWith('http') ? "noopener noreferrer" : undefined}
@@ -640,7 +735,7 @@ const ContactSection = () => {
                 <input {...register("phone", { required: true })} placeholder="Phone" className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base" />
               </div>
               <input {...register("email", { required: true })} placeholder="Email" className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base" />
-              <select 
+              <select
                 {...register("loanType", { required: true })}
                 className="w-full bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-4 outline-none focus:border-accent text-sm md:text-base text-text-primary font-bold appearance-none cursor-pointer"
               >
@@ -659,7 +754,7 @@ const ContactSection = () => {
             <div className="text-center py-16 md:py-20 space-y-6">
               <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/20 rounded-full flex items-center justify-center text-accent mx-auto"><CheckCircle2 size={40} /></div>
               <h3 className="text-2xl md:text-3xl font-bold font-primary">Inquiry Sent</h3>
-              <p className="text-text-secondary text-sm md:text-base">We will contact you within 4 business hours.</p>
+              <p className="text-text-secondary text-sm md:text-base">We will contact you within 24-48 business hours.</p>
             </div>
           )}
         </div>
@@ -698,36 +793,72 @@ const ProcessSteps = () => {
   );
 };
 
-const Testimonials = () => {
-  const testimonials = [
-    { name: 'Rajesh K.', location: 'Bangalore', text: 'Elite service. The turnaround time for my business capital was exceptional.', loan: 'Business Loan' },
-    { name: 'Priya S.', location: 'Hyderabad', text: 'Transformative experience. They understood my complex requirements immediately.', loan: 'Home Loan' },
-    { name: 'Anil M.', location: 'Chennai', text: 'Absolute transparency and prestige. Highly recommended for HNW individuals.', loan: 'Loan Takeover' },
+const Partners = () => {
+  const partners = [
+    { name: "TATA CAPITAL", logo: tataLogo },
+    { name: "SBI", logo: sbiLogo },
+    { name: "SRI RAM HOUSING FINANCE", logo: shriramLogo },
+    { name: "South Indian Bank", logo: southIndianLogo },
+    { name: "VASTU FINSERVE", logo: vastuLogo },
+    { name: "L&T Finance", logo: ltLogo },
+    { name: "ADITYA BIRLA GROUP", logo: adityaBirlaLogo },
+    { name: "Hero FINCROP", logo: heroLogo },
+    { name: "Flexi Loans India", logo: flexiLogo },
+    { name: "LIC HFL", logo: licLogo },
+    { name: "DHFL", logo: dhflLogo },
+    { name: "EQUITAS", logo: equitasLogo },
+    { name: "HDB FINANCIAL SERVICES", logo: hdbLogo },
+    { name: "EDELWEISS", logo: edelweissLogo },
+    { name: "Lendingkart", logo: lendingkartLogo },
+    { name: "FIRST CAPITAL BANK", logo: firstCapitalLogo },
   ];
 
+  // Double the array for seamless infinite scroll
+  const scrollPartners = [...partners, ...partners, ...partners];
+
   return (
-    <section className="py-12 md:py-16 bg-background overflow-hidden font-secondary">
-      <div className="container text-center mb-12 md:mb-16">
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-text-primary font-primary">Executive Testimonials</h2>
-        <p className="text-text-secondary text-sm md:text-base">Voices of our esteemed clientele.</p>
+    <section className="py-16 md:py-24 bg-background overflow-hidden font-secondary border-t border-primary/5">
+      <div className="container text-center mb-12">
+        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-text-primary font-primary">Our Partners</h2>
+        <div className="w-24 h-1.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto rounded-full"></div>
       </div>
-      <div className="container grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        {testimonials.map((t, i) => (
-          <div key={t.name}
-            className="glass-card-premium p-6 md:p-8 rounded-2xl md:rounded-3xl border border-primary/10"
-            data-aos="fade-up" data-aos-delay={i * 100}>
-            <p className="text-text-secondary italic text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-primary">"{t.text}"</p>
-            <div className="flex items-center justify-between border-t border-primary/5 pt-6">
-              <div>
-                <p className="font-bold text-text-primary text-sm md:text-base">{t.name}</p>
-                <p className="text-text-secondary text-[10px] md:text-xs uppercase tracking-tighter">{t.location}</p>
+      
+      <div className="relative">
+        {/* Gradient Overlays for smooth edges */}
+        <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-10"></div>
+        <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10"></div>
+
+        <div className="flex overflow-hidden">
+          <motion.div 
+            className="flex whitespace-nowrap gap-16 md:gap-24 py-8 items-center"
+            animate={{
+              x: ["0%", "-33.33%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 40,
+                ease: "linear",
+              },
+            }}
+          >
+            {scrollPartners.map((p, i) => (
+              <div key={i} className="flex flex-col items-center justify-center group">
+                <div className="h-20 md:h-28 w-48 md:w-64 bg-white rounded-2xl md:rounded-[2.5rem] p-2 md:p-3 border border-primary/10 hover:border-primary/30 transition-all duration-500 flex items-center justify-center shadow-md hover:shadow-2xl hover:-translate-y-2">
+                  <img 
+                    src={p.logo} 
+                    alt={p.name} 
+                    className="h-full w-full object-contain" 
+                  />
+                </div>
+                <span className="mt-4 text-[10px] md:text-xs font-bold text-primary uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  {p.name}
+                </span>
               </div>
-              <div className="text-right">
-                <p className="text-primary font-bold text-[10px] md:text-xs uppercase tracking-widest">{t.loan}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -770,7 +901,7 @@ const Home = () => {
       <LoanPortfolio />
       <EMICalculatorSection />
       <ProcessSteps />
-      <Testimonials />
+      <Partners />
       <ContactSection />
       <FinalCTA />
     </div>

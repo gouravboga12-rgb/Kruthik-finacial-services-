@@ -29,7 +29,8 @@ const Navbar = () => {
     { name: 'About', path: '/about' },
     { name: 'Loans', path: '/loans' },
     { name: 'EMI Calculator', path: '/emi-calculator' },
-    { name: 'CIBIL Score', path: '/cibil-score' },
+    { name: 'Free CIBIL Score', path: '/cibil-score' },
+    { name: 'Become Partner', path: '/become-partner' },
     { name: 'Contact', path: '/contact' },
   ]
 
@@ -38,16 +39,17 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 py-2 bg-primary shadow-lg',
-        scrolled ? 'py-1' : 'py-2'
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 py-2 bg-gradient-to-r from-secondary via-white to-secondary border-b border-primary/10 shadow-sm',
+        scrolled ? 'py-1' : 'py-3'
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center group">
+        <Link to="/" className="flex items-center group relative">
+          <div className="absolute -inset-2 bg-primary/5 rounded-2xl blur-xl group-hover:bg-primary/10 transition-all"></div>
           <img 
             src={logo} 
             alt="Kruthik Financial Services" 
-            className="h-16 md:h-24 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-20 md:h-32 w-auto object-contain relative z-10 transition-all group-hover:scale-110 filter contrast-125 brightness-105 drop-shadow-[0_0_20px_rgba(16,185,129,0.2)]"
           />
         </Link>
 
@@ -58,8 +60,8 @@ const Navbar = () => {
               key={link.name}
               to={link.path}
               className={cn(
-                'text-xs font-bold uppercase tracking-widest transition-all hover:text-accent relative group text-white/80',
-                location.pathname === link.path ? 'text-accent' : ''
+                'text-xs font-bold uppercase tracking-widest transition-all hover:text-primary relative group text-text-primary',
+                location.pathname === link.path ? 'text-primary' : ''
               )}
             >
               {link.name}
@@ -79,7 +81,7 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden p-2 hover:bg-white/10 rounded-xl transition-colors text-white"
+          className="md:hidden p-2 hover:bg-primary/5 rounded-xl transition-colors text-text-primary"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}

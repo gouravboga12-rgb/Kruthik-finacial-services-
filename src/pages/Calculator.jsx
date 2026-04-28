@@ -178,7 +178,7 @@ const Calculator = () => {
                 </div>
                 <div>
                   <h4 className="text-lg md:text-xl font-bold mb-1">Lowest Market Rates</h4>
-                  <p className="text-text-secondary text-xs md:text-sm">Starting at 8.75% for HNW individuals.</p>
+                  <p className="text-text-secondary text-xs md:text-sm">Starting at 7.5% for HNW individuals.</p>
                 </div>
               </div>
               <div className="glass-card-premium p-6 md:p-10 rounded-2xl md:rounded-3xl border-primary/10 flex gap-4 md:gap-8 items-center text-text-primary" data-aos="zoom-in" data-aos-delay="100">
@@ -187,7 +187,7 @@ const Calculator = () => {
                 </div>
                 <div>
                   <h4 className="text-lg md:text-xl font-bold mb-1">Instant Discretion</h4>
-                  <p className="text-text-secondary text-xs md:text-sm">Approvals within 4 business hours.</p>
+                  <p className="text-text-secondary text-xs md:text-sm">Approvals within 24-48 business hours.</p>
                 </div>
               </div>
             </div>

@@ -180,7 +180,7 @@ const About = () => {
                   </div>
                   <div className="pt-10 border-t border-primary/10">
                     <p className="text-xs font-bold uppercase tracking-[0.3em] text-text-secondary mb-2">Expertise</p>
-                    <p className="text-2xl font-black text-primary font-primary">15+ Years</p>
+                    <p className="text-2xl font-bold text-primary">15+ Years</p>
                     <p className="text-xs text-text-secondary uppercase tracking-widest">Industry Experience</p>
                   </div>
                 </div>

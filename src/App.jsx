@@ -13,6 +13,7 @@ import Calculator from './pages/Calculator'
 import ApplyLoan from './pages/ApplyLoan'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
+import BecomePartner from './pages/BecomePartner'
 
 // Components
 import Navbar from './components/Navbar'
@@ -54,6 +55,7 @@ function AppContent() {
           <Route path="/apply-loan" element={<ApplyLoan />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/become-partner" element={<BecomePartner />} />
         </Routes>
       </main>
       <Footer />

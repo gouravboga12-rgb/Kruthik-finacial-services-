@@ -241,10 +241,10 @@ const CibilScore = () => {
         <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-primary/5 blur-[100px] md:blur-[150px] rounded-full -mr-32 -mt-32"></div>
         <div className="container text-center relative z-10 space-y-6 md:space-y-8">
           <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase block text-xs md:text-sm">
-            Digital CIBIL Portfolio
+            Free CIBIL Score Check
           </motion.span>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-bold font-primary text-text-primary">
-            Monitor Your <br className="hidden md:block" /><span className="text-gradient">Financial Reputation</span>
+            Get Your <br className="hidden md:block" /><span className="text-gradient">Free CIBIL Score Check</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-base md:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
             Experience a bank-grade CIBIL diagnostic. Accurate, instantaneous, and designed to respect your privacy.
@@ -269,7 +269,7 @@ const CibilScore = () => {
                   <p className="text-text-secondary text-sm md:text-base max-w-xl">Join thousands of elite clients who monitor their CIBIL health with Kruthik.</p>
                 </div>
                 <button onClick={() => setPhase("form")} className="btn-premium px-10 md:px-12 py-4 md:py-5 text-base md:text-lg w-full sm:w-auto">
-                  Check CIBIL Score <ArrowRight size={24} />
+                  Free CIBIL Score Check <ArrowRight size={24} />
                 </button>
               </motion.div>
             )}
@@ -495,7 +495,7 @@ const CibilScore = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-10 md:pt-16 border-t border-white/5">
                   {[
                     { label: "Loan Eligibility", val: "₹ 50L+", color: "bg-emerald-500/20 text-emerald-500" },
-                    { label: "Interest Rate", val: "8.75%*", color: "bg-accent/20 text-accent" },
+                    { label: "Interest Rate", val: "7.5%*", color: "bg-accent/20 text-accent" },
                     { label: "Credit Health", val: "Excellent", color: "bg-blue-500/20 text-blue-500" },
                     { label: "Profile Power", val: "92/100", color: "bg-purple-500/20 text-purple-500" }
                   ].map(stat => (
