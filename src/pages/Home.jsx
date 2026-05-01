@@ -113,7 +113,7 @@ const BankOffers = () => {
               <img
                 src={offers[imageIndex]}
                 alt={`Bank Offer ${imageIndex + 1}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </motion.div>
           </AnimatePresence>
@@ -462,7 +462,7 @@ const LoanPortfolio = () => {
   ];
 
   return (
-    <section className="py-16 bg-background overflow-hidden font-secondary">
+    <section className="pt-8 pb-16 md:py-24 bg-background overflow-hidden font-secondary">
       <div className="container text-center mb-12">
         <h2 className="text-2xl md:text-4xl font-bold mb-4 text-text-primary font-primary">Elite Loan Portfolio</h2>
         <p className="text-text-secondary max-w-2xl mx-auto text-sm md:text-base">Tailored lending products designed for sophisticated requirements.</p>

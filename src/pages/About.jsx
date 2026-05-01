@@ -29,7 +29,7 @@ const About = () => {
   return (
     <div className="min-h-screen font-secondary">
       {/* Hero / Vision Section */}
-      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden pt-24 md:pt-40">
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden pt-40 md:pt-40">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069" 
