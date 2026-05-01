@@ -33,7 +33,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import businessLoanImg from "../assets/images/Businessloan.png";
+import businessLoanImg from "../assets/images/Businessloan2.png";
 import homeLoanImg from "../assets/images/Homeloan.png";
 import lapImg from "../assets/images/LoanAgainstProperty.png";
 import projectLoanImg from "../assets/images/Projectloan.png";
