@@ -17,6 +17,7 @@ import businessLoanImg from "../assets/images/Businessloan.png";
 import homeLoanImg from "../assets/images/Homeloan.png";
 import lapImg from "../assets/images/LoanAgainstProperty.png";
 import projectLoanImg from "../assets/images/Projectloan.png";
+import fundingExpImg from "../assets/images/funding-experience.png";
 
 const services = [
   {
@@ -176,7 +177,7 @@ const Loans = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-text-primary pt-20">
+    <div className="min-h-screen bg-background text-text-primary pt-28 md:pt-40">
       {/* Header */}
       <section className="bg-primary/5 py-12 md:py-16 px-4 text-center overflow-hidden border-b border-primary/10">
         <div className="container space-y-4 md:space-y-6">
@@ -227,7 +228,7 @@ const Loans = () => {
             </h2>
             <div className="space-y-4">
               <p className="text-text-secondary text-base md:text-lg">
-                We eliminate the traditional bureaucracy associated with bank loans. Our digital-first approach ensures that your applications are processed with priority and speed.
+                Enjoy a simplified funding experience for complex needs with quick approvals, minimal documentation, flexible repayment options, and reliable support—making financing fast, easy, and stress-free.
               </p>
               <ul className="space-y-3 md:space-y-4">
                 {['Direct access to lenders', 'Tailored EMI structure', 'Transparent fee structure'].map(item => (
@@ -247,7 +248,7 @@ const Loans = () => {
           <div className="relative order-first lg:order-last">
             <div className="absolute inset-0 bg-primary/10 blur-[80px] md:blur-[100px] rounded-full"></div>
             <img 
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=2074" 
+              src={fundingExpImg} 
               alt="Elite Financial Consultation" 
               className="relative z-10 rounded-3xl md:rounded-[2.5rem] shadow-2xl brightness-100 hover:scale-[1.05] transition-all duration-700 w-full object-cover aspect-video md:aspect-auto"
             />

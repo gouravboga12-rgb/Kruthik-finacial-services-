@@ -236,8 +236,8 @@ const CibilScore = () => {
         )}
       </AnimatePresence>
 
-      {/* ── Hero ── */}
-      <section className="bg-primary/5 py-16 md:py-24 px-4 border-b border-primary/10 relative overflow-hidden">
+      {/* ── Header Section ── */}
+      <section className="bg-primary/5 pt-32 md:pt-48 pb-16 md:pb-24 px-4 border-b border-primary/10 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-primary/5 blur-[100px] md:blur-[150px] rounded-full -mr-32 -mt-32"></div>
         <div className="container text-center relative z-10 space-y-6 md:space-y-8">
           <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-primary font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase block text-xs md:text-sm">
@@ -247,7 +247,7 @@ const CibilScore = () => {
             Get Your <br className="hidden md:block" /><span className="text-gradient">Free CIBIL Score Check</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-base md:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Experience a bank-grade CIBIL diagnostic. Accurate, instantaneous, and designed to respect your privacy.
+            At Kruthik Financial Services, check your CIBIL score for free and take control of your financial future. Get instant results, improve loan eligibility, and access better interest rates. Our secure, hassle-free process ensures quick verification and reliable insights with expert guidance. Start today and make smarter financial decisions confidently.
           </motion.p>
         </div>
       </section>
@@ -265,7 +265,7 @@ const CibilScore = () => {
                   <TrendingUp size={40} className="md:w-12 md:h-12" />
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-2xl md:text-3xl font-bold italic font-primary leading-tight text-text-primary">Ready to see your <br className="md:hidden" />Prestige Tier?</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold font-primary leading-tight text-text-primary">Ready to see your <br className="md:hidden" />Prestige Tier?</h2>
                   <p className="text-text-secondary text-sm md:text-base max-w-xl">Join thousands of elite clients who monitor their CIBIL health with Kruthik.</p>
                 </div>
                 <button onClick={() => setPhase("form")} className="btn-premium px-10 md:px-12 py-4 md:py-5 text-base md:text-lg w-full sm:w-auto">
@@ -279,7 +279,7 @@ const CibilScore = () => {
               <motion.div key="form" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="max-w-2xl mx-auto">
                 <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem] border-primary/20 space-y-10">
                   <div className="text-center space-y-2">
-                    <h3 className="text-2xl font-bold italic text-text-primary font-primary text-gradient">Elite Information Protocol</h3>
+                    <h3 className="text-2xl font-bold text-text-primary font-primary text-gradient">Elite Information Protocol</h3>
                     <p className="text-[11px] md:text-xs text-text-secondary">Please provide the details required to query the bureaus safely.</p>
                   </div>
 
@@ -473,17 +473,17 @@ const CibilScore = () => {
                   </div>
                   <div className="space-y-6 md:space-y-8">
                     <div className="space-y-2 text-center lg:text-left">
-                      <h2 className="text-2xl md:text-3xl font-black uppercase italic text-text-primary leading-tight font-primary">Elite Standing</h2>
+                      <h2 className="text-2xl md:text-3xl font-black uppercase text-text-primary leading-tight font-primary">Elite Standing</h2>
                       <p className="text-text-secondary text-sm md:text-base">Your financial footprint places you in the <span className="text-primary font-bold">Top 5%</span> of Indian borrowers.</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-primary/5">
                         <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Impact</p>
-                        <p className="text-base md:text-lg font-bold text-text-primary uppercase italic">Negative to Positive</p>
+                        <p className="text-base md:text-lg font-bold text-text-primary uppercase">Negative to Positive</p>
                       </div>
                       <div className="glass-card-premium p-5 md:p-6 rounded-2xl border-primary/5">
                         <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Repayment Status</p>
-                        <p className="text-base md:text-lg font-bold text-primary uppercase italic">Perfect Registry</p>
+                        <p className="text-base md:text-lg font-bold text-primary uppercase">Perfect Registry</p>
                       </div>
                     </div>
                     <button className="w-full btn-premium py-4 md:py-5 flex items-center justify-center gap-3 text-base md:text-lg">

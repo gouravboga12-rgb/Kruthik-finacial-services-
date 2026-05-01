@@ -31,7 +31,7 @@ const Footer = () => {
 
           {/* Premium Services */}
           <div className="space-y-6 md:space-y-8">
-            <h4 className="text-text-primary font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs italic">Premium Services</h4>
+            <h4 className="text-text-primary font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs">Premium Services</h4>
             <ul className="space-y-3 md:space-y-4">
               {['Personal Prestige', 'Commercial Capital', 'Luxury Mortgages', 'EMI Navigator', 'CIBIL Diagnostic'].map(item => (
                 <li key={item}>
@@ -46,7 +46,7 @@ const Footer = () => {
 
           {/* Contact Details */}
           <div className="space-y-6 md:space-y-8">
-            <h4 className="text-text-primary font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs italic">Contact Info</h4>
+            <h4 className="text-text-primary font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs">Contact Info</h4>
             <div className="space-y-4 md:space-y-6">
               {[
                 { icon: <MapPin size={18} />, text: "Financial District, Bangalore, KA" },

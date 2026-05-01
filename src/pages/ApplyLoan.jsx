@@ -63,7 +63,7 @@ const ApplyLoan = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="container py-8 md:py-16 overflow-hidden"
+            className="container pt-32 pb-8 md:pt-48 md:pb-16 overflow-hidden"
           >
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
               
@@ -74,7 +74,7 @@ const ApplyLoan = () => {
                     <ShieldCheck size={32} className="md:w-10 md:h-10" />
                   </div>
                   <div className="space-y-4">
-                    <h3 className="text-lg md:text-xl font-bold font-primary italic text-text-primary">Executive Protocol</h3>
+                    <h3 className="text-lg md:text-xl font-bold font-primary text-text-primary">Executive Protocol</h3>
                     <p className="text-sm md:text-base text-text-secondary leading-relaxed">
                       Your application is prioritized by our senior lending board. All data is protected by bank-level 256-bit encryption.
                     </p>
@@ -107,7 +107,7 @@ const ApplyLoan = () => {
                     <Link to="/loans" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[10px] md:text-xs hover:gap-3 transition-all mb-4">
                       <ArrowLeft size={14} /> Back to Loans
                     </Link>
-                    <h2 className="text-2xl md:text-4xl font-bold font-primary italic mb-3 text-text-primary">Initialize <span className="text-gradient">Application</span></h2>
+                    <h2 className="text-2xl md:text-4xl font-bold font-primary mb-3 text-text-primary">Initialize <span className="text-gradient">Application</span></h2>
                     <p className="text-text-secondary text-sm md:text-base uppercase tracking-widest font-bold">
                       Initialization <span className="text-primary border-b border-primary/30">Protocol</span>
                     </p>
@@ -247,7 +247,7 @@ const ApplyLoan = () => {
               <CheckCircle2 size={48} className="md:w-16 md:h-16 animate-pulse" />
             </div>
             <div className="space-y-4 md:space-y-6">
-              <h3 className="text-2xl md:text-4xl font-bold font-primary italic text-text-primary">Application Priority Secured</h3>
+              <h3 className="text-2xl md:text-4xl font-bold font-primary text-text-primary">Application Priority Secured</h3>
               <p className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
                 Your records for <span className="text-primary font-black border-b border-primary/40">{serviceTitle}</span> have been ingested into our private ledger. An executive advisor will initiate contact within <span className="text-primary font-bold">24-48 business hours</span>.
               </p>

@@ -24,7 +24,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background font-secondary">
       {/* 1. Hero Header - Bold & Guaranteed Visible */}
-      <section className="bg-primary pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-4 text-center relative overflow-hidden">
+      <section className="bg-primary pt-36 pb-16 md:pt-48 md:pb-24 px-6 md:px-4 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[120px] rounded-full -mr-48 -mt-48"></div>
         <div className="container max-w-4xl relative z-10 space-y-6">
           <motion.span 
@@ -32,14 +32,14 @@ const Contact = () => {
             animate={{ opacity: 1 }}
             className="text-accent font-bold tracking-[0.4em] uppercase block text-xs md:text-sm"
           >
-            Priority Concierge
+            Contact Us
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-7xl font-bold text-white font-primary italic"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white font-primary"
           >
-            Begin Your <span className="text-accent">Elite Journey</span>
+            Get in Touch with <br className="hidden md:block" /> <span className="text-accent">Kruthik Financial Services</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -47,7 +47,7 @@ const Contact = () => {
             transition={{ delay: 0.2 }}
             className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
-            Connect with Kruthik's executive financial architects for a private consultation or get an instant eligibility scan.
+            We’re here to make your funding journey simple and stress-free. Whether you have questions about loans, need expert guidance, or want to apply, our team is ready to assist you.
           </motion.p>
         </div>
       </section>
@@ -63,25 +63,25 @@ const Contact = () => {
             {/* Left Column: Info Cards */}
             <div className="lg:col-span-1 space-y-8 md:space-y-12 flex flex-col items-center">
               <div className="space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-                <h2 className="text-2xl md:text-4xl font-bold text-text-primary font-primary px-2">Executive Channels</h2>
+                <h2 className="text-2xl md:text-4xl font-bold text-text-primary font-primary px-2">Contact Info</h2>
                 
                 <div className="w-full space-y-4 md:space-y-6">
                 {[
                   { 
                     icon: <Phone size={24} />, 
-                    title: "Private Line", 
+                    title: "Phone", 
                     value: "+91 7026133444",
                     link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20request%20a%20private%20consultation."
                   },
                   { 
                     icon: <Mail size={24} />, 
-                    title: "Secure Email", 
+                    title: "Email", 
                     value: "kasireddykruthik@gmail.com",
                     link: "mailto:kasireddykruthik@gmail.com"
                   },
                   { 
                     icon: <MapPin size={24} />, 
-                    title: "Global Hub", 
+                    title: "Location", 
                     value: "Financial District, Bangalore, India" 
                   }
                 ].map((item, i) => (
@@ -98,7 +98,7 @@ const Contact = () => {
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] md:text-xs text-text-secondary font-bold uppercase tracking-widest mb-1">{item.title}</p>
-                      <p className="text-lg md:text-xl font-bold text-text-primary truncate font-primary">{item.value}</p>
+                      <p className="text-lg md:text-xl text-text-primary truncate font-secondary font-normal">{item.value}</p>
                     </div>
                   </a>
                 ))}
@@ -133,7 +133,7 @@ const Contact = () => {
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
                     <div className="space-y-2 flex flex-col items-center lg:items-start text-center lg:text-left">
                       <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary font-primary">Formal Inquiry</h3>
-                      <p className="text-text-secondary text-sm md:text-base italic font-medium">Treating your financial protocol with absolute discretion.</p>
+                      <p className="text-text-secondary text-sm md:text-base font-medium">Treating your financial protocol with absolute discretion.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">

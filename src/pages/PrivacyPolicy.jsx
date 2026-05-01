@@ -99,7 +99,7 @@ const PrivacyPolicy = () => {
   const lastUpdated = "April 18, 2025";
 
   return (
-    <div className="pt-24 min-h-screen bg-background text-text-primary">
+    <div className="pt-32 md:pt-48 min-h-screen bg-background text-text-primary">
 
       {/* Hero */}
       <section className="bg-primary/5 py-20 px-4 border-b border-primary/10 relative overflow-hidden">

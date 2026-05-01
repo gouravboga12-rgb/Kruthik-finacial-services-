@@ -12,23 +12,24 @@ import {
   GraduationCap,
   Briefcase
 } from "lucide-react";
+import teamImg from "../assets/images/team-discussing.png";
 
 const About = () => {
-  const heritage = [
-    { title: "Dhana Lakshmi Foundation", desc: "A legacy of personal finance empowerment." },
-    { title: "Mahandra Capital", desc: "Strategic enterprise lending excellence." }
+  const pillars = [
+    { title: "Direct Access to Capital", desc: "Connecting you with top-tier lending institutions and private capital pools." },
+    { title: "Tailored Financial Strategy", desc: "Bespoke solutions designed for your unique requirements and future goals." }
   ];
 
   const values = [
-    { icon: <ShieldCheck size={28} />, title: "Unwavering Integrity", desc: "Absolute transparency in every transaction." },
-    { icon: <Award size={28} />, title: "Elite Service", desc: "A white-glove experience for every client." },
-    { icon: <Target size={28} />, title: "Precision Funding", desc: "Locating the exact capital structure for your needs." }
+    { icon: <ShieldCheck size={28} />, title: "Unwavering Integrity", desc: "We believe trust is earned through actions. At Kruthik Financial Services, we operate with complete transparency and accountability, ensuring every decision and service reflects our commitment to ethical business practices and long-term client relationships." },
+    { icon: <Award size={28} />, title: "Elite Service", desc: "We go beyond standard service. Our team is dedicated to delivering fast, reliable, and result-driven solutions while maintaining the highest standards of professionalism and client care." },
+    { icon: <Target size={28} />, title: "Precision Funding", desc: "We analyze your needs and provide customized funding solutions that match your goals. Our streamlined process ensures quick response, clear communication, and hassle-free disbursement." }
   ];
 
   return (
     <div className="min-h-screen font-secondary">
       {/* Hero / Vision Section */}
-      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden pt-24 md:pt-40">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069" 
@@ -44,7 +45,7 @@ const About = () => {
             animate={{ opacity: 1 }}
             className="text-white font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block text-xs md:text-sm"
           >
-            The Kruthik Heritage
+            Our Core Commitment
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
@@ -59,7 +60,7 @@ const About = () => {
             transition={{ delay: 0.2 }}
             className="text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed"
           >
-            Born from the union of Dhana Lakshmi and Mahandra Capital, KRUTHIK FINANCIAL SERVICES is the standard-bearer for elite lending in India.
+            Dedicated to simplifying access to premium financial services, Kruthik Financial Services is your trusted partner for growth and stability.
           </motion.p>
         </div>
       </section>
@@ -74,11 +75,19 @@ const About = () => {
               className="space-y-8"
             >
               <h2 className="text-3xl md:text-4xl font-bold font-primary">A Foundation Built on <br />Trust and Performance</h2>
-              <p className="text-text-secondary text-lg leading-relaxed">
-                With a combined heritage of over two decades, our founding entities recognized a gap in the market for sophisticated, responsive, and truly personalized lending solutions.
-              </p>
+              <div className="space-y-6">
+                <p className="text-text-secondary text-lg leading-relaxed">
+                  At Kruthik Financial Services, we believe that financial success begins with trust and is sustained through consistent performance. We are committed to providing reliable, transparent, and result-driven financial solutions tailored to meet individual and business needs.
+                </p>
+                <div className="pt-4">
+                  <h3 className="text-xl md:text-2xl font-bold font-primary mb-3">Who We Are</h3>
+                  <p className="text-text-secondary text-lg leading-relaxed">
+                    Kruthik Financial Services is a growing financial solutions provider dedicated to helping clients achieve their goals with confidence. With a customer-first approach, we ensure every service is delivered with integrity, clarity, and efficiency.
+                  </p>
+                </div>
+              </div>
               <div className="grid sm:grid-cols-2 gap-6">
-                {heritage.map((item) => (
+                {pillars.map((item) => (
                   <div key={item.title} data-aos="zoom-in" className="glass-card-premium p-6 rounded-2xl border-l-4 border-l-accent">
                     <h4 className="font-bold text-lg mb-2 font-primary">{item.title}</h4>
                     <p className="text-sm text-text-secondary">{item.desc}</p>
@@ -90,7 +99,7 @@ const About = () => {
             <div className="relative" data-aos="fade-left">
               <div className="absolute -inset-4 bg-accent/20 blur-3xl rounded-full"></div>
               <img 
-                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2078" 
+                src={teamImg} 
                 alt="Legacy Meeting" 
                 className="relative z-10 rounded-[2.5rem] shadow-2xl brightness-90 transition-all duration-700 hover:scale-[1.02]"
               />
@@ -113,7 +122,7 @@ const About = () => {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-text-primary font-primary">Our Mission</h3>
               <p className="text-text-secondary text-sm md:text-base leading-relaxed">
-                To empower elite individuals and dynamic businesses by providing sophisticated financial instruments that fuel growth, foster stability, and unlock unprecedented opportunities.
+                To simplify access to financial services by delivering fast, trustworthy, and result-driven solutions, while ensuring every client experiences clarity, confidence, and complete support throughout their financial journey.
               </p>
             </motion.div>
 
@@ -126,9 +135,9 @@ const About = () => {
               <div className="w-12 h-12 md:w-16 md:h-16 bg-primary/10 rounded-xl md:rounded-2xl flex items-center justify-center text-primary shrink-0">
                 <Eye size={32} />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold italic text-text-primary font-primary">Our Vision</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-text-primary font-primary">Our Vision</h3>
               <p className="text-text-secondary text-sm md:text-base leading-relaxed">
-                To be recognized globally as India's premier boutique financial services firm, defined by our unwavering commitment to precision, integrity, and the enduring success of our clients.
+                To become a trusted and leading financial services provider, recognized for delivering reliable solutions, building strong client relationships, and setting benchmarks in trust and performance.
               </p>
             </motion.div>
           </div>
@@ -168,7 +177,7 @@ const About = () => {
               <div className="lg:col-span-2 bg-primary/5 p-10 md:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-primary/10">
                 <div className="space-y-10">
                   <div className="space-y-4">
-                    <h2 className="text-3xl font-bold uppercase tracking-tight text-primary font-primary italic">Kruthik Reddy</h2>
+                    <h2 className="text-3xl font-bold uppercase tracking-tight text-primary font-primary">Kruthik Reddy</h2>
                     <div className="flex flex-col gap-3">
                       <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.2em] text-xs">
                         <Briefcase size={16} /> COO & Director
@@ -192,7 +201,7 @@ const About = () => {
                   <Quote size={120} className="rotate-180" />
                 </div>
                 
-                <h3 className="text-3xl font-bold mb-8 italic text-text-primary font-primary">Director's Message</h3>
+                <h3 className="text-3xl font-bold mb-8 text-text-primary font-primary">Director's Message</h3>
                 
                 <div className="space-y-6 text-text-secondary text-lg leading-relaxed">
                   <p>
@@ -248,7 +257,7 @@ const About = () => {
           <div className="glass-card-premium rounded-3xl md:rounded-[4rem] p-8 md:p-24 text-center relative overflow-hidden bg-primary/5 border-primary/10">
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[120px] rounded-full -mr-48 -mt-48"></div>
             <div className="relative z-10 space-y-8">
-              <h2 className="text-3xl md:text-6xl font-bold italic leading-tight text-text-primary font-primary">Partner with <span className="text-gradient">Prestige</span></h2>
+              <h2 className="text-3xl md:text-6xl font-bold leading-tight text-text-primary font-primary">Partner with <span className="text-gradient">Prestige</span></h2>
               <p className="text-lg md:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
                 Ready to elevate your financial strategy? Join the exclusive circle of Kruthik clients and experience the pinnacle of Indian lending.
               </p>

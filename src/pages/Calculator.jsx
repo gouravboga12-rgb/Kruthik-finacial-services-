@@ -28,9 +28,9 @@ const Calculator = () => {
   const totalInterest = totalPayment - amount;
 
   return (
-    <div className="pt-24 min-h-screen bg-background text-text-primary font-secondary">
+    <div className="min-h-screen bg-background text-text-primary font-secondary">
       {/* Hero Section */}
-      <section className="bg-primary/10 py-16 md:py-24 px-4 border-b border-primary/10 relative overflow-hidden text-text-primary">
+      <section className="bg-primary/10 pt-32 md:pt-48 pb-16 md:pb-24 px-4 border-b border-primary/10 relative overflow-hidden text-text-primary">
         <div className="absolute top-0 right-0 w-[400px] md:w-[500px] h-[400px] md:h-[500px] bg-primary/10 blur-[100px] md:blur-[120px] rounded-full -mr-24 -mt-24"></div>
         <div className="container text-center relative z-10 space-y-6 md:space-y-8">
           <motion.span 

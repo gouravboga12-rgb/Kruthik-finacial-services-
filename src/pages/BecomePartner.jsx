@@ -100,7 +100,7 @@ const BecomePartner = () => {
   return (
     <div className="min-h-screen bg-background text-text-primary font-secondary">
       {/* Hero Section */}
-      <section className="bg-primary pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-4 text-center relative overflow-hidden">
+      <section className="bg-primary pt-36 pb-16 md:pt-48 md:pb-24 px-6 md:px-4 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[120px] rounded-full -mr-48 -mt-48"></div>
         <div className="container max-w-4xl relative z-10 space-y-6">
           <motion.span 
@@ -113,7 +113,7 @@ const BecomePartner = () => {
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white font-primary italic"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white font-primary"
           >
             Become A <span className="text-accent">Partner</span>
           </motion.h1>
@@ -143,7 +143,7 @@ const BecomePartner = () => {
                   className="glass-card-premium p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] border-primary/20 shadow-xl"
                 >
                   <div className="mb-10">
-                    <h2 className="text-2xl md:text-4xl font-bold font-primary italic mb-3 text-text-primary">
+                    <h2 className="text-2xl md:text-4xl font-bold font-primary mb-3 text-text-primary">
                       Partnership <span className="text-gradient">Application</span>
                     </h2>
                     <p className="text-text-secondary text-sm md:text-base uppercase tracking-widest font-bold">
@@ -232,7 +232,7 @@ const BecomePartner = () => {
                     <CheckCircle2 size={48} className="animate-pulse" />
                   </div>
                   <div className="space-y-4">
-                    <h3 className="text-2xl md:text-4xl font-bold font-primary italic text-text-primary">Application Received</h3>
+                    <h3 className="text-2xl md:text-4xl font-bold font-primary text-text-primary">Application Received</h3>
                     <p className="text-text-secondary text-base md:text-lg max-w-md mx-auto leading-relaxed">
                       Your partnership request has been logged. An executive will contact you shortly to complete the onboarding protocol.
                     </p>
@@ -248,7 +248,7 @@ const BecomePartner = () => {
           {/* Sidebar Area */}
           <div className="lg:col-span-5 order-1 lg:order-2 space-y-8">
             <div className="glass-card-premium p-8 md:p-10 rounded-3xl md:rounded-[2.5rem] border-primary/10">
-              <h3 className="text-xl md:text-2xl font-bold font-primary italic text-text-primary mb-6">Who Can Become A Partner?</h3>
+              <h3 className="text-xl md:text-2xl font-bold font-primary text-text-primary mb-6">Who Can Become A Partner?</h3>
               <p className="text-text-secondary mb-8 text-sm md:text-base">
                 Professionals with strong networks can significantly elevate their earning potential with us.
               </p>
@@ -289,7 +289,7 @@ const BecomePartner = () => {
       <section className="py-16 md:py-24 bg-primary/5">
         <div className="container max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold font-primary italic text-text-primary mb-4">Frequently Asked <span className="text-gradient">Questions</span></h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-primary text-text-primary mb-4">Frequently Asked <span className="text-gradient">Questions</span></h2>
             <p className="text-text-secondary uppercase tracking-widest font-bold text-xs md:text-sm">Partnership Details</p>
           </div>
 

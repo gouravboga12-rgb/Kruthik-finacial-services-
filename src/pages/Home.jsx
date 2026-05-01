@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle2,
@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Users,
   ChevronRight,
+  ChevronLeft,
   TrendingUp,
   Banknote,
   Target,
@@ -36,6 +37,10 @@ import businessLoanImg from "../assets/images/Businessloan.png";
 import homeLoanImg from "../assets/images/Homeloan.png";
 import lapImg from "../assets/images/LoanAgainstProperty.png";
 import projectLoanImg from "../assets/images/Projectloan.png";
+import offer1 from "../assets/images/offer1.png";
+import offer2 from "../assets/images/offer2.png";
+import offer3 from "../assets/images/offer3.png";
+import teamImg from "../assets/images/team-discussing.png";
 
 // Partner Logos
 import tataLogo from "../assets/partners/tata.png";
@@ -55,113 +60,99 @@ import edelweissLogo from "../assets/partners/edelweiss.png";
 import lendingkartLogo from "../assets/partners/lendingkart.png";
 import firstCapitalLogo from "../assets/partners/first_capital.png";
 
-const Hero = () => {
-  const heroImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070";
+const BankOffers = () => {
+  const [[page, direction], setPage] = useState([0, 0]);
+  const offers = [offer1, offer2, offer3];
+
+  const imageIndex = ((page % offers.length) + offers.length) % offers.length;
+
+  const paginate = (newDirection) => {
+    setPage([page + newDirection, newDirection]);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => paginate(1), 5000);
+    return () => clearInterval(timer);
+  }, [page]);
+
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction) => ({
+      zIndex: 0,
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+  };
 
   return (
-    <section className="relative min-h-[85vh] flex items-center pt-24 md:pt-32 overflow-hidden font-secondary">
-      <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="Premium Finance"
-          className="w-full h-full object-cover brightness-[0.3]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
-      </div>
+    <section className="relative w-full overflow-hidden bg-background pt-28 md:pt-40">
+      <div className="relative w-full aspect-[16/9] md:aspect-[21/7] lg:aspect-[3/1] group bg-secondary">
+        <div className="absolute inset-0 overflow-hidden">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={page}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
+              }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <img
+                src={offers[imageIndex]}
+                alt={`Bank Offer ${imageIndex + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-      <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: { transition: { staggerChildren: 0.05 } }
-          }}
-          className="space-y-8"
+        {/* Navigation Arrows - Match surekill.co.in style */}
+        <button
+          onClick={() => paginate(-1)}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-14 md:h-14 bg-black/40 text-white flex items-center justify-center hover:bg-primary transition-colors duration-300"
+          aria-label="Previous slide"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-semibold text-sm">
-            <TrendingUp size={16} />
-            <span>India's Most Trusted Financial Partner</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold leading-tight text-text-primary font-primary">
-            {"Unlock Your Financial Potential".split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.1, delay: index * 0.05 }}
-              >
-                {char === " " ? "\u00A0" : char}
-                {index === 10 && <br />}
-              </motion.span>
-            ))}
-          </h1>
-
-          <p className="text-lg md:text-lg text-text-secondary max-w-md leading-relaxed border-l-4 border-accent pl-6 py-1 font-medium italic">
-            {"Experience prestige banking with KRUTHIK FINANCIAL SERVICES. Instant approvals, tailor-made solutions, and elite service for your journey.".split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.01, delay: 1.5 + (index * 0.01) }}
-              >
-                {char}
-              </motion.span>
-            ))}
-          </p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 3.5, duration: 0.8 }}
-            className="flex flex-wrap gap-4"
-          >
-            <Link to="/cibil-score" className="btn-premium">
-              Check Eligibility <ArrowRight size={20} />
-            </Link>
-            <Link to="/loans" className="btn-outline-gold">
-              View All Loans
-            </Link>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative hidden lg:block"
+          <ChevronLeft size={32} />
+        </button>
+        <button
+          onClick={() => paginate(1)}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-14 md:h-14 bg-black/40 text-white flex items-center justify-center hover:bg-primary transition-colors duration-300"
+          aria-label="Next slide"
         >
-          <div className="absolute -inset-4 bg-accent/20 blur-3xl rounded-full"></div>
-          <div className="glass-card-premium p-10 rounded-[3rem] border-accent/20 relative overflow-hidden text-center space-y-8">
-            <div className="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto text-accent">
-              <TrendingUp size={40} />
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-3xl font-bold font-primary">Priority Capital</h3>
-              <p className="text-text-secondary leading-relaxed tracking-wide uppercase text-xs font-bold">
-                Elite Interest Rates Starting @ 7.5%
-              </p>
-            </div>
-            <Link to="/cibil-score" className="w-full btn-premium py-4 block">
-              Analyze Your Eligibility
-            </Link>
-          </div>
-        </motion.div>
+          <ChevronRight size={32} />
+        </button>
+
+        {/* Decorative Overlay */}
+        <div className="absolute inset-0 pointer-events-none border-b border-primary/10"></div>
       </div>
     </section>
   );
 };
 
+
 const AboutSection = () => {
-  const heritage = [
-    { title: "Dhana Lakshmi Foundation", desc: "A legacy of personal finance empowerment." },
-    { title: "Mahandra Capital", desc: "Strategic enterprise lending excellence." }
+  const pillars = [
+    { title: "Direct Access to Capital", desc: "Connecting you with top-tier lending institutions and private capital pools." },
+    { title: "Tailored Financial Strategy", desc: "Bespoke solutions designed for your unique requirements and future goals." }
   ];
 
   const values = [
-    { icon: <ShieldCheck size={28} />, title: "Unwavering Integrity", desc: "Absolute transparency in every transaction." },
-    { icon: <Award size={28} />, title: "Elite Service", desc: "A white-glove experience for every client." },
-    { icon: <Target size={28} />, title: "Precision Funding", desc: "Locating the exact capital structure for your needs." }
+    { icon: <ShieldCheck size={28} />, title: "Unwavering Integrity", desc: "We believe trust is earned through actions. At Kruthik Financial Services, we operate with complete transparency and accountability, ensuring every decision and service reflects our commitment to ethical business practices and long-term client relationships." },
+    { icon: <Award size={28} />, title: "Elite Service", desc: "We go beyond standard service. Our team is dedicated to delivering fast, reliable, and result-driven solutions while maintaining the highest standards of professionalism and client care." },
+    { icon: <Target size={28} />, title: "Precision Funding", desc: "We analyze your needs and provide customized funding solutions that match your goals. Our streamlined process ensures quick response, clear communication, and hassle-free disbursement." }
   ];
 
   return (
@@ -175,11 +166,19 @@ const AboutSection = () => {
               className="space-y-6 md:space-y-8"
             >
               <h2 className="text-3xl md:text-4xl font-bold font-primary">A Foundation Built on <br className="hidden md:block" />Trust and Performance</h2>
-              <p className="text-text-secondary text-sm md:text-base leading-relaxed">
-                With a combined heritage of over two decades, our founding entities recognized a gap in the market for sophisticated, responsive, and truly personalized lending solutions.
-              </p>
+              <div className="space-y-6">
+                <p className="text-text-secondary text-sm md:text-base leading-relaxed">
+                  At Kruthik Financial Services, we believe that financial success begins with trust and is sustained through consistent performance. We are committed to providing reliable, transparent, and result-driven financial solutions tailored to meet individual and business needs.
+                </p>
+                <div className="pt-4">
+                  <h3 className="text-xl md:text-2xl font-bold font-primary mb-3">Who We Are</h3>
+                  <p className="text-text-secondary text-sm md:text-base leading-relaxed">
+                    Kruthik Financial Services is a growing financial solutions provider dedicated to helping clients achieve their goals with confidence. With a customer-first approach, we ensure every service is delivered with integrity, clarity, and efficiency.
+                  </p>
+                </div>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                {heritage.map((item) => (
+                {pillars.map((item) => (
                   <div key={item.title} data-aos="zoom-in" className="glass-card-premium p-6 rounded-2xl border-l-4 border-l-accent">
                     <h4 className="font-bold text-lg mb-2 font-primary">{item.title}</h4>
                     <p className="text-sm text-text-secondary">{item.desc}</p>
@@ -191,7 +190,7 @@ const AboutSection = () => {
             <div className="relative order-first lg:order-last" data-aos="fade-left">
               <div className="absolute -inset-4 bg-accent/20 blur-3xl rounded-full"></div>
               <img
-                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2078"
+                src={teamImg}
                 alt="Legacy Meeting"
                 className="relative z-10 rounded-3xl md:rounded-[2.5rem] shadow-2xl brightness-90 transition-all duration-700 hover:scale-[1.02] w-full aspect-video md:aspect-auto object-cover"
               />
@@ -214,7 +213,7 @@ const AboutSection = () => {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold font-primary">Our Mission</h3>
               <p className="text-text-secondary text-sm md:text-base leading-relaxed">
-                To empower elite individuals and dynamic businesses by providing sophisticated financial instruments that fuel growth, foster stability, and unlock unprecedented opportunities.
+                To simplify access to financial services by delivering fast, trustworthy, and result-driven solutions, while ensuring every client experiences clarity, confidence, and complete support throughout their financial journey.
               </p>
             </motion.div>
 
@@ -227,9 +226,9 @@ const AboutSection = () => {
               <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center text-accent shrink-0">
                 <Eye size={32} />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold italic font-primary">Our Vision</h3>
+              <h3 className="text-2xl md:text-3xl font-bold font-primary">Our Vision</h3>
               <p className="text-text-secondary text-sm md:text-base leading-relaxed">
-                To be recognized globally as India's premier boutique financial services firm, defined by our unwavering commitment to precision, integrity, and the enduring success of our clients.
+                To become a trusted and leading financial services provider, recognized for delivering reliable solutions, building strong client relationships, and setting benchmarks in trust and performance.
               </p>
             </motion.div>
           </div>
@@ -272,7 +271,7 @@ const DirectorMessage = () => {
             <div className="lg:col-span-2 bg-white/5 p-8 md:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
               <div className="space-y-10">
                 <div className="space-y-4">
-                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary font-primary italic">Kruthik Reddy</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary font-primary">Kruthik Reddy</h2>
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-accent font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
                       <Briefcase size={16} /> COO & Director
@@ -293,7 +292,7 @@ const DirectorMessage = () => {
               <div className="absolute top-10 right-10 opacity-10 hidden md:block text-primary">
                 <Quote size={120} className="rotate-180" />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 italic text-text-primary font-primary">Director's Message</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-text-primary font-primary">Director's Message</h3>
               <div className="space-y-4 md:space-y-6 text-text-secondary text-base md:text-lg leading-relaxed">
                 <p>
                   With over 15 years of experience in the Home Loan and Loan Against Property (LAP) industry, we have built a strong foundation in providing reliable and customer-focused financial solutions. Our journey has been shaped by hands-on experience working with leading banks and NBFCs, which has given us deep insights into the lending process and customer needs.
@@ -494,7 +493,7 @@ const EMICalculatorSection = () => {
   const totalInterest = totalPayment - amount;
 
   return (
-    <section className="container py-16 overflow-hidden font-secondary">
+    <section className="container pt-32 pb-8 md:pt-48 md:pb-16 overflow-hidden font-secondary">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-text-primary font-primary">EMI <span className="text-gradient">Navigator</span></h2>
         <p className="text-text-secondary max-w-2xl mx-auto">Precision engineering for your financial future. Calculate your installments with our executive-grade planning tool.</p>
@@ -692,17 +691,17 @@ const ContactSection = () => {
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
         <div className="space-y-10 md:space-y-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-text-primary font-primary">Executive Channels</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-text-primary font-primary">Contact Info</h2>
             <div className="space-y-4 md:space-y-6">
               {[
                 {
                   icon: <Phone size={20} />,
-                  title: "Private Line",
+                  title: "Phone",
                   value: "+91 7026133444",
                   link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20discuss%20a%20private%20consultation."
                 },
-                { icon: <Mail size={20} />, title: "Secure Email", value: "kasireddykruthik@gmail.com", link: "mailto:kasireddykruthik@gmail.com" },
-                { icon: <MapPin size={20} />, title: "Hub", value: "Financial District, Bangalore" }
+                { icon: <Mail size={20} />, title: "Email", value: "kasireddykruthik@gmail.com", link: "mailto:kasireddykruthik@gmail.com" },
+                { icon: <MapPin size={20} />, title: "Location", value: "Financial District, Bangalore" }
               ].map((item) => (
                 <a
                   key={item.title}
@@ -714,16 +713,18 @@ const ContactSection = () => {
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-xl flex items-center justify-center text-accent shrink-0 group-hover:bg-accent group-hover:text-primary transition-all">{item.icon}</div>
                   <div className="min-w-0">
                     <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest">{item.title}</p>
-                    <p className="text-base md:text-lg font-bold truncate font-primary">{item.value}</p>
+                    <p className="text-base md:text-lg truncate font-secondary font-normal">{item.value}</p>
                   </div>
                 </a>
               ))}
             </div>
           </div>
           <div className="glass-card-premium p-8 rounded-3xl md:rounded-[2.5rem] border-accent/20">
-            <h3 className="text-xl font-bold mb-4 font-primary">Check Your CIBIL Prestige</h3>
-            <p className="text-text-secondary mb-6 text-sm">Our advanced scanner analyzes your history to unlock preferential rates.</p>
-            <Link to="/cibil-score" className="text-accent font-bold flex items-center gap-2 hover:gap-3 transition-all">Scanner <ChevronRight size={16} /></Link>
+            <h3 className="text-xl font-bold mb-4 font-primary">Get Your Free CIBIL Score Check</h3>
+            <p className="text-text-secondary mb-6 text-sm">
+              At Kruthik Financial Services, check your CIBIL score for free and take control of your financial future. Get instant results, improve loan eligibility, and access better interest rates.
+            </p>
+            <Link to="/cibil-score" className="text-accent font-bold flex items-center gap-2 hover:gap-3 transition-all">Start Today <ChevronRight size={16} /></Link>
           </div>
         </div>
         <div className="glass-card-premium p-8 md:p-14 rounded-3xl md:rounded-[3.5rem] border-primary/5">
@@ -766,7 +767,7 @@ const ContactSection = () => {
 const ProcessSteps = () => {
   const steps = [
     { num: "01", title: "Check Eligibility", desc: "Submit basic details online in 2 minutes." },
-    { num: "02", title: "Instant Approval", desc: "Get your loan processed within 24 hours." },
+    { num: "02", title: "Instant Approval", desc: "Get your loan processed within 24 - 48 hours." },
     { num: "03", title: "Get Funds", desc: "Digital verification and direct disbursement." },
   ];
 
@@ -822,14 +823,14 @@ const Partners = () => {
         <h2 className="text-3xl md:text-5xl font-bold mb-4 text-text-primary font-primary">Our Partners</h2>
         <div className="w-24 h-1.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto rounded-full"></div>
       </div>
-      
+
       <div className="relative">
         {/* Gradient Overlays for smooth edges */}
         <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-10"></div>
         <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10"></div>
 
         <div className="flex overflow-hidden">
-          <motion.div 
+          <motion.div
             className="flex whitespace-nowrap gap-16 md:gap-24 py-8 items-center"
             animate={{
               x: ["0%", "-33.33%"],
@@ -846,10 +847,10 @@ const Partners = () => {
             {scrollPartners.map((p, i) => (
               <div key={i} className="flex flex-col items-center justify-center group">
                 <div className="h-20 md:h-28 w-48 md:w-64 bg-white rounded-2xl md:rounded-[2.5rem] p-2 md:p-3 border border-primary/10 hover:border-primary/30 transition-all duration-500 flex items-center justify-center shadow-md hover:shadow-2xl hover:-translate-y-2">
-                  <img 
-                    src={p.logo} 
-                    alt={p.name} 
-                    className="h-full w-full object-contain" 
+                  <img
+                    src={p.logo}
+                    alt={p.name}
+                    className="h-full w-full object-contain"
                   />
                 </div>
                 <span className="mt-4 text-[10px] md:text-xs font-bold text-primary uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -895,7 +896,7 @@ const FinalCTA = () => {
 const Home = () => {
   return (
     <div className="overflow-x-hidden">
-      <Hero />
+      <BankOffers />
       <AboutSection />
       <DirectorMessage />
       <LoanPortfolio />
