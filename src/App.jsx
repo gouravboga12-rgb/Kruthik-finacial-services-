@@ -18,7 +18,7 @@ import BecomePartner from './pages/BecomePartner'
 // Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import WhatsAppCTA from './components/WhatsAppCTA'
+import WhatsAppChatbot from './components/WhatsAppChatbot'
 import ScrollToTop from './components/ScrollToTop'
 
 function AppContent() {
@@ -59,7 +59,7 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
-      <WhatsAppCTA />
+      <WhatsAppChatbot />
     </div>
   )
 }

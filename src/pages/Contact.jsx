@@ -71,7 +71,7 @@ const Contact = () => {
                     icon: <Phone size={24} />, 
                     title: "Phone", 
                     value: "+91 7026133444",
-                    link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20request%20a%20private%20consultation."
+                    link: "https://wa.me/917026133444?text=Welcome%20to%20Kruthik%20Financial%20Services%20How%20can%20we%20assist%20you%20today%20with%20your%20financial%20needs%3F"
                   },
                   { 
                     icon: <Mail size={24} />, 
@@ -179,9 +179,9 @@ const Contact = () => {
                       <CheckCircle2 size={48} />
                     </div>
                     <div className="space-y-4">
-                      <h3 className="text-3xl md:text-5xl font-bold font-primary">Protocol Initiated</h3>
+                      <h3 className="text-3xl md:text-5xl font-bold font-primary text-primary">Thank you for contacting us.</h3>
                       <p className="text-text-secondary text-lg max-w-sm mx-auto leading-relaxed">
-                        Our executive architects will review your requirements and contact you within 24-48 business hours.
+                        Your message has been successfully submitted. Our team will get back to you shortly.
                       </p>
                     </div>
                     <button onClick={() => setIsSubmitted(false)} className="btn-outline-gold px-12 py-3">Submit New Protocol</button>

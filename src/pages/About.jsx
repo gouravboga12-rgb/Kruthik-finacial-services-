@@ -263,7 +263,7 @@ const About = () => {
               </p>
               <div className="flex justify-center pt-4">
                 <a 
-                  href="https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20request%20a%20private%20consultation."
+                  href="https://wa.me/917026133444?text=Welcome%20to%20Kruthik%20Financial%20Services%20How%20can%20we%20assist%20you%20today%20with%20your%20financial%20needs%3F"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-premium px-12 md:px-20 py-5 text-xl shadow-2xl shadow-primary/20"

@@ -232,9 +232,9 @@ const BecomePartner = () => {
                     <CheckCircle2 size={48} className="animate-pulse" />
                   </div>
                   <div className="space-y-4">
-                    <h3 className="text-2xl md:text-4xl font-bold font-primary text-text-primary">Application Received</h3>
+                    <h3 className="text-2xl md:text-4xl font-bold font-primary text-primary">Thank you for your partnership request.</h3>
                     <p className="text-text-secondary text-base md:text-lg max-w-md mx-auto leading-relaxed">
-                      Your partnership request has been logged. An executive will contact you shortly to complete the onboarding protocol.
+                      It has been successfully logged, and one of our executives will connect with you shortly to proceed with onboarding.
                     </p>
                   </div>
                   <button onClick={() => setPhase("form")} className="btn-outline-gold px-10 py-3 mt-4">

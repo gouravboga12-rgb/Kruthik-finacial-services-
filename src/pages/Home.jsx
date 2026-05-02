@@ -698,7 +698,7 @@ const ContactSection = () => {
                   icon: <Phone size={20} />,
                   title: "Phone",
                   value: "+91 7026133444",
-                  link: "https://wa.me/917026133444?text=Hello,%20I%20would%20like%20to%20discuss%20a%20private%20consultation."
+                  link: "https://wa.me/917026133444?text=Welcome%20to%20Kruthik%20Financial%20Services%20How%20can%20we%20assist%20you%20today%20with%20your%20financial%20needs%3F"
                 },
                 { icon: <Mail size={20} />, title: "Email", value: "kasireddykruthik@gmail.com", link: "mailto:kasireddykruthik@gmail.com" },
                 { icon: <MapPin size={20} />, title: "Location", value: "Financial District, Bangalore" }
@@ -754,8 +754,10 @@ const ContactSection = () => {
           ) : (
             <div className="text-center py-16 md:py-20 space-y-6">
               <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/20 rounded-full flex items-center justify-center text-accent mx-auto"><CheckCircle2 size={40} /></div>
-              <h3 className="text-2xl md:text-3xl font-bold font-primary">Inquiry Sent</h3>
-              <p className="text-text-secondary text-sm md:text-base">We will contact you within 24-48 business hours.</p>
+              <h3 className="text-2xl md:text-3xl font-bold font-primary text-primary">Thank you for contacting us.</h3>
+              <p className="text-text-secondary text-sm md:text-base max-w-xs mx-auto leading-relaxed">
+                Your message has been successfully submitted. Our team will get back to you shortly.
+              </p>
             </div>
           )}
         </div>
