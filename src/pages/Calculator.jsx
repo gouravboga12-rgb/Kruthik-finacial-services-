@@ -224,7 +224,7 @@ const Calculator = () => {
                 </div>
 
                 <div className="pt-2 md:pt-4">
-                  <Link to="/apply-loan" className="w-full btn-premium py-4 md:py-5 group text-base md:text-lg">
+                  <Link to={`/loans?amount=${amount}`} className="w-full btn-premium py-4 md:py-5 group text-base md:text-lg">
                     Initialize Application <ArrowRight size={24} className="group-hover:translate-x-3 transition-transform" />
                   </Link>
                 </div>

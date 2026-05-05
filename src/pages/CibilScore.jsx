@@ -11,10 +11,12 @@ import {
   MessageSquare,
   Loader2,
   AlertTriangle,
-  CheckCircle2
+  CheckCircle2,
+  Database
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { initiateCibilCheck, verifyCibilOtp } from "../services/cibilService";
+import { supabase } from "../lib/supabase";
 
 // ─── Score Gauge ────────────────────────────────────────────
 const CibilGauge = ({ score }) => {
@@ -86,6 +88,9 @@ const CibilScore = () => {
   const [apiError, setApiError] = useState(null);
   const [requestId, setRequestId] = useState(null);
   const [userPan, setUserPan] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userPhone, setUserPhone] = useState('');
+  const [userDob, setUserDob] = useState('');
   const otpRefs = useRef([]);
   const dobRef = useRef();
 
@@ -127,6 +132,9 @@ const CibilScore = () => {
     setFormErrors({});
     setApiError(null);
     setUserPan(data.pan.toUpperCase());
+    setUserName(data.name);
+    setUserPhone(data.mobile);
+    setUserDob(data.dob);
     setPhase("initiating");
 
     try {
@@ -155,6 +163,27 @@ const CibilScore = () => {
       const report = await verifyCibilOtp({ requestId, otp: enteredOtp, pan: userPan });
       setCibilScore(report.score);
       setCibilReport(report);
+      
+      // Save to Supabase
+      try {
+        if (supabase) {
+          await supabase
+            .from('cibil_checks')
+            .insert([
+              {
+                name: userName,
+                pan: userPan,
+                phone: userPhone,
+                dob: userDob,
+                score: report.score,
+                tier: report.tier
+              }
+            ]);
+        }
+      } catch (dbErr) {
+        console.error("Error saving CIBIL check to database:", dbErr);
+      }
+
       setPhase("scanning");
     } catch (err) {
       if (err.code === 'INVALID_OTP') {

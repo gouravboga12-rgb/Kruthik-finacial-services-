@@ -15,6 +15,18 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
 import BecomePartner from './pages/BecomePartner'
 
+// Admin Pages
+import AdminLayout from './components/admin/AdminLayout'
+import AdminLogin from './pages/admin/Login'
+import AdminDashboard from './pages/admin/Dashboard'
+import LoanApplications from './pages/admin/LoanApplications'
+import ContactInquiries from './pages/admin/ContactInquiries'
+import PartnerRequests from './pages/admin/PartnerRequests'
+import CibilHistory from './pages/admin/CibilHistory'
+import ServiceManager from './pages/admin/ServiceManager'
+import FormFieldManager from './pages/admin/FormFieldManager'
+import BannerManager from './pages/admin/BannerManager'
+
 // Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -43,7 +55,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <Navbar />
+      {!location.pathname.startsWith('/admin') && <Navbar />}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -56,10 +68,23 @@ function AppContent() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/become-partner" element={<BecomePartner />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="banners" element={<BannerManager />} />
+            <Route path="loans" element={<LoanApplications />} />
+            <Route path="services" element={<ServiceManager />} />
+            <Route path="services/:serviceId/form" element={<FormFieldManager />} />
+            <Route path="contacts" element={<ContactInquiries />} />
+            <Route path="partners" element={<PartnerRequests />} />
+            <Route path="cibil" element={<CibilHistory />} />
+          </Route>
         </Routes>
       </main>
-      <Footer />
-      <WhatsAppChatbot />
+      {!location.pathname.startsWith('/admin') && <Footer />}
+      {!location.pathname.startsWith('/admin') && <WhatsAppChatbot />}
     </div>
   )
 }

@@ -18,31 +18,68 @@ import {
   UserPlus
 } from "lucide-react";
 
+import { supabase } from "../lib/supabase";
+
 const BecomePartner = () => {
   const [phase, setPhase] = useState("form");
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     const errors = {};
 
     if (!/^[A-Za-z\s]+$/.test(data.name)) errors.name = "Letters only";
-    if (!/^[6-9]\d{9}$/.test(data.phone)) errors.phone = "Valid 10-digit required";
+    if (!/^(?:\+91|91)?[6-9]\d{9}$/.test(data.phone.replace(/\s/g, ''))) errors.phone = "Invalid Phone";
     if (!/\S+@\S+\.\S+/.test(data.email)) errors.email = "Invalid Email";
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
       setFormErrors({});
-      setPhase("success");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setIsSubmitting(true);
+      
+      try {
+        const normalizedName = data.name.trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+        const normalizedEmail = data.email.trim().toLowerCase();
+
+        if (supabase) {
+          const { error } = await supabase
+            .from('partner_applications')
+            .insert([
+              {
+                name: normalizedName,
+                phone: data.phone,
+                email: normalizedEmail,
+                profession: data.profession,
+                status: 'Pending'
+              }
+            ]);
+
+          if (error) throw error;
+
+          // --- WhatsApp Direct Redirection ---
+          const adminPhone = "917026133444"; 
+          const waMessage = encodeURIComponent(`🛎️ *New Partnership Update!*\n\nYou received a new partnership request. Please check your admin panel for details.\n\n*Review:* https://kruthik.com/admin/partners`);
+          window.location.href = `https://wa.me/${adminPhone}?text=${waMessage}`;
+          return;
+        }
+        
+        setPhase("success");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        console.error('Error submitting partner application:', error);
+        alert('Submission failed. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -212,8 +249,13 @@ const BecomePartner = () => {
                     </div>
 
                     <div className="pt-6">
-                      <button type="submit" className="w-full btn-premium py-5 md:py-6 text-lg group shadow-2xl">
-                        Submit Application <ChevronRight size={24} className="group-hover:translate-x-2 transition-transform" />
+                      <button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="w-full btn-premium py-5 md:py-6 text-lg group shadow-2xl disabled:opacity-70"
+                      >
+                        {isSubmitting ? "Submitting..." : "Submit Application"} 
+                        {!isSubmitting && <ChevronRight size={24} className="group-hover:translate-x-2 transition-transform" />}
                       </button>
                       <div className="flex items-center justify-center gap-3 mt-6 text-[10px] text-text-secondary font-bold uppercase tracking-[0.2em]">
                         <Lock size={12} className="text-primary" /> Secure Transmission

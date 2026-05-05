@@ -62,18 +62,60 @@ import firstCapitalLogo from "../assets/partners/first_capital.png";
 
 const BankOffers = () => {
   const [[page, direction], setPage] = useState([0, 0]);
-  const offers = [offer1, offer2, offer3];
+  const [banners, setBanners] = useState([]);
+  const [loadingBanners, setLoadingBanners] = useState(true);
+  const navigate = useNavigate();
 
-  const imageIndex = ((page % offers.length) + offers.length) % offers.length;
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('banners')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+
+        if (error) throw error;
+        if (data && data.length > 0) {
+          setBanners(data);
+        } else {
+          // Fallback to static offers if DB is empty
+          setBanners([
+            { image_url: offer1, redirect_url: "/loans" },
+            { image_url: offer2, redirect_url: "/cibil-score" },
+            { image_url: offer3, redirect_url: "/emi-calculator" }
+          ]);
+        }
+      } catch (err) {
+        console.error("Error fetching banners:", err);
+      } finally {
+        setLoadingBanners(false);
+      }
+    };
+    fetchBanners();
+  }, []);
+
+  const imageIndex = ((page % banners.length) + banners.length) % banners.length;
 
   const paginate = (newDirection) => {
+    if (banners.length === 0) return;
     setPage([page + newDirection, newDirection]);
   };
 
   useEffect(() => {
+    if (banners.length === 0) return;
     const timer = setInterval(() => paginate(1), 5000);
     return () => clearInterval(timer);
-  }, [page]);
+  }, [page, banners.length]);
+
+  const handleBannerClick = (url) => {
+    if (!url) return;
+    if (url.startsWith('http')) {
+      window.open(url, '_blank');
+    } else {
+      navigate(url);
+    }
+  };
 
   const variants = {
     enter: (direction) => ({
@@ -92,9 +134,15 @@ const BankOffers = () => {
     }),
   };
 
+  if (loadingBanners && banners.length === 0) return (
+    <div className="pt-28 md:pt-40 bg-background w-full aspect-[16/9] md:aspect-[21/7] lg:aspect-[3/1] animate-pulse bg-slate-100 flex items-center justify-center">
+      <div className="text-slate-300 font-bold uppercase tracking-widest text-xs">Synchronizing Portfolio...</div>
+    </div>
+  );
+
   return (
-    <section className="relative w-full overflow-hidden bg-background pt-28 md:pt-40">
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/7] lg:aspect-[3/1] group bg-secondary">
+    <section className="relative w-full overflow-hidden bg-background pt-32 md:pt-48">
+      <div className="relative w-full aspect-[16/9] md:aspect-[16/6] lg:aspect-[16/5] group bg-secondary">
         <div className="absolute inset-0 overflow-hidden">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -108,12 +156,23 @@ const BankOffers = () => {
                 x: { type: "spring", stiffness: 300, damping: 30 },
                 opacity: { duration: 0.2 },
               }}
-              className="absolute inset-0 w-full h-full"
+              onClick={() => handleBannerClick(banners[imageIndex]?.redirect_url)}
+              className={`absolute inset-0 w-full h-full flex items-center justify-center ${banners[imageIndex]?.redirect_url ? 'cursor-pointer' : ''}`}
             >
+              {/* Blurred background to fill gaps */}
+              <div className="absolute inset-0 overflow-hidden">
+                <img
+                  src={banners[imageIndex]?.image_url}
+                  alt=""
+                  className="w-full h-full object-cover blur-3xl opacity-30 scale-110"
+                />
+              </div>
+              
+              {/* Main fully visible image */}
               <img
-                src={offers[imageIndex]}
-                alt={`Bank Offer ${imageIndex + 1}`}
-                className="w-full h-full object-contain"
+                src={banners[imageIndex]?.image_url}
+                alt={banners[imageIndex]?.title || `Bank Offer ${imageIndex + 1}`}
+                className="relative z-10 w-full h-full object-contain"
               />
             </motion.div>
           </AnimatePresence>
@@ -315,6 +374,8 @@ const DirectorMessage = () => {
   );
 };
 
+import { supabase } from "../lib/supabase";
+
 const HomeLoanCard = ({ s, i, navigate }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -328,11 +389,11 @@ const HomeLoanCard = ({ s, i, navigate }) => {
       className="glass-card-premium rounded-3xl md:rounded-[2.5rem] overflow-hidden group hover:bg-primary/5 transition-all duration-500 border-primary/10 shadow-lg flex flex-col"
     >
       <div className="h-40 md:h-48 relative overflow-hidden shrink-0">
-        <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100" />
+        <img src={s.image_url || s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-95 group-hover:brightness-100" />
       </div>
       <div className="p-6 md:p-8 space-y-4 flex flex-col flex-grow">
         <h3 className="text-lg md:text-xl font-bold font-primary">{s.title}</h3>
-        <p className="text-text-secondary text-xs md:text-sm">{s.desc}</p>
+        <p className="text-text-secondary text-xs md:text-sm">{s.description || s.desc}</p>
 
         <motion.div
           initial={false}
@@ -345,7 +406,7 @@ const HomeLoanCard = ({ s, i, navigate }) => {
           className="overflow-hidden"
         >
           <div className="flex flex-col gap-2 pt-2 border-t border-primary/5">
-            {s.features.map(f => (
+            {(s.features || []).map(f => (
               <span key={f} className="text-[10px] md:text-xs font-semibold py-1 flex items-center gap-3 text-text-secondary">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                 {f}
@@ -357,7 +418,7 @@ const HomeLoanCard = ({ s, i, navigate }) => {
         <div className="pt-4 border-t border-primary/10 flex flex-col gap-4 mt-auto">
           <div className="flex items-center justify-between">
             <button
-              onClick={() => navigate("/apply-loan", { state: { service: s.title } })}
+              onClick={() => navigate("/apply-loan", { state: { service: s.title, serviceId: s.id } })}
               className="flex items-center gap-2 text-primary font-bold text-xs md:text-sm hover:gap-3 transition-all"
             >
               Apply Now <ChevronRight size={16} />
@@ -380,7 +441,7 @@ const HomeLoanCard = ({ s, i, navigate }) => {
 
 const LoanPortfolio = () => {
   const navigate = useNavigate();
-  const services = [
+  const [services, setServices] = useState([
     {
       title: "Personal Loan",
       icon: <Banknote size={24} />,
@@ -459,7 +520,27 @@ const LoanPortfolio = () => {
         "Minimal transfer paperwork"
       ]
     }
-  ];
+  ]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('loan_services')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+
+        if (error) throw error;
+        if (data && data.length > 0) {
+          setServices(data);
+        }
+      } catch (err) {
+        console.error("Error fetching dynamic services:", err);
+      }
+    };
+    fetchServices();
+  }, []);
 
   return (
     <section className="pt-8 pb-16 md:py-24 bg-background overflow-hidden font-secondary">
@@ -493,7 +574,7 @@ const EMICalculatorSection = () => {
   const totalInterest = totalPayment - amount;
 
   return (
-    <section className="container pt-32 pb-8 md:pt-48 md:pb-16 overflow-hidden font-secondary">
+    <section className="container pt-24 pb-8 md:pt-32 md:pb-16 overflow-hidden font-secondary">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-text-primary font-primary">EMI <span className="text-gradient">Navigator</span></h2>
         <p className="text-text-secondary max-w-2xl mx-auto">Precision engineering for your financial future. Calculate your installments with our executive-grade planning tool.</p>
@@ -662,7 +743,7 @@ const EMICalculatorSection = () => {
               </div>
 
               <div className="pt-2">
-                <Link to="/apply-loan" className="w-full btn-premium py-4 md:py-5 group text-base md:text-lg">
+                <Link to={`/loans?amount=${amount}`} className="w-full btn-premium py-4 md:py-5 group text-base md:text-lg">
                   Initialize Application <ArrowRight size={20} className="md:w-6 md:h-6 group-hover:translate-x-3 transition-transform" />
                 </Link>
               </div>

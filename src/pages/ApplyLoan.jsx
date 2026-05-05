@@ -18,39 +18,216 @@ import {
   Lock
 } from "lucide-react";
 
+import { supabase } from "../lib/supabase";
+import { uploadToCloudinary } from "../lib/cloudinary";
+import { 
+  FileUp
+} from "lucide-react";
+
 const ApplyLoan = () => {
   const location = useLocation();
   const serviceTitle = location.state?.service || "Direct Application";
+  const serviceId = location.state?.serviceId;
   
   const [phase, setPhase] = useState("form"); // form, success
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dynamicFields, setDynamicFields] = useState([]);
+  const [loadingFields, setLoadingFields] = useState(true);
+  const [employmentType, setEmploymentType] = useState("");
+
+  const documentChecklists = {
+    "Salaried": [
+      { field_name: "photo", label: "Live Photo", field_type: "file", is_required: true },
+      { field_name: "pan_card", label: "PAN Card", field_type: "file", is_required: true },
+      { field_name: "aadhaar_card", label: "Aadhaar Card", field_type: "file", is_required: true },
+      { field_name: "salary_slips", label: "3 Months Salary Slips", field_type: "file", is_required: true },
+      { field_name: "bank_statement_6m", label: "6 Months Bank Statement", field_type: "file", is_required: true },
+    ],
+    "Self Employed Professional": [
+      { field_name: "photo", label: "Live Photo", field_type: "file", is_required: true },
+      { field_name: "aadhaar_card", label: "Aadhaar Card", field_type: "file", is_required: true },
+      { field_name: "pan_card", label: "PAN Card", field_type: "file", is_required: true },
+      { field_name: "itr_3yr", label: "ITR for 3 Years", field_type: "file", is_required: true },
+      { field_name: "gst_copy", label: "GST Copy", field_type: "file", is_required: true },
+      { field_name: "msme_cert", label: "MSME Certificate", field_type: "file", is_required: true },
+      { field_name: "current_bank_1y", label: "Current Account Bank Statement (1 Year)", field_type: "file", is_required: true },
+      { field_name: "saving_bank_1y", label: "Saving Account Statement (1 Year)", field_type: "file", is_required: true },
+    ],
+    "Self Employed Non-Professional": [
+      { field_name: "live_photo", label: "Live Photo", field_type: "file", is_required: true },
+      { field_name: "pan_card", label: "PAN Card", field_type: "file", is_required: true },
+      { field_name: "aadhaar_card", label: "Aadhaar Card", field_type: "file", is_required: true },
+      { field_name: "rental_agreement", label: "Rental Agreement", field_type: "file", is_required: true },
+      { field_name: "bank_statement_1y", label: "Bank Statement (1 Year)", field_type: "file", is_required: true },
+      { field_name: "income_source", label: "Source of Income Documents", field_type: "file", is_required: true },
+    ]
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    fetchFields();
+  }, [serviceId]);
 
-  const handleFormSubmit = (e) => {
+  const fetchFields = async () => {
+    if (!serviceId) {
+      setLoadingFields(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('loan_service_fields')
+        .select('*')
+        .eq('service_id', serviceId)
+        .order('display_order', { ascending: true });
+
+      if (error) throw error;
+      if (data && data.length > 0) {
+        setDynamicFields(data);
+      }
+    } catch (err) {
+      console.error("Error fetching dynamic fields:", err);
+    } finally {
+      setLoadingFields(false);
+    }
+  };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formElement = e.target;
+    const formData = new FormData(formElement);
     const data = Object.fromEntries(formData.entries());
     const errors = {};
 
-    // Strict Validations
-    if (!/^[A-Za-z\s]+$/.test(data.name)) errors.name = "Letters only";
-    if (!data.age || Number(data.age) < 18 || Number(data.age) > 100) errors.age = "Invalid Age (18+)";
-    if (!data.income || Number(data.income) <= 0) errors.income = "Required";
-    if (!data.requirement || Number(data.requirement) <= 0) errors.requirement = "Required";
-    if (!data.cibil || Number(data.cibil) < 300 || Number(data.cibil) > 900) errors.cibil = "300 - 900 only";
-    if (!/^[6-9]\d{9}$/.test(data.phone)) errors.phone = "Valid 10-digit required";
-    if (!/\S+@\S+\.\S+/.test(data.email)) errors.email = "Invalid Gmail/Email";
+    // Standard fields for validation if dynamicFields is empty
+    const baseFields = [
+      { field_name: 'name', label: 'Name', is_required: true, field_type: 'text' },
+      { field_name: 'phone', label: 'Phone', is_required: true, field_type: 'tel' },
+      { field_name: 'email', label: 'Email', is_required: true, field_type: 'email' },
+      { field_name: 'requirement', label: 'Requirement', is_required: true, field_type: 'number' },
+      { field_name: 'employment_type', label: 'Employment Type', is_required: true, field_type: 'select' }
+    ];
+
+    const docFields = employmentType ? documentChecklists[employmentType] : [];
+    const fieldsToValidate = [...(dynamicFields.length > 0 ? dynamicFields : baseFields), ...docFields];
+
+    fieldsToValidate.forEach(field => {
+      const value = data[field.field_name];
+      if (field.is_required) {
+        if (field.field_type === 'file') {
+          const file = formElement[field.field_name]?.files?.[0];
+          if (!file) {
+            errors[field.field_name] = "File Required";
+          } else {
+            // File Size Validation
+            const fileSizeMB = file.size / (1024 * 1024);
+            const isPDF = file.type === 'application/pdf';
+            const isImage = file.type.startsWith('image/');
+
+            if (isImage && fileSizeMB > 2) {
+              errors[field.field_name] = "Image must be under 2MB";
+            } else if (isPDF && fileSizeMB > 10) {
+              errors[field.field_name] = "PDF must be under 10MB";
+            } else if (!isImage && !isPDF && fileSizeMB > 10) {
+              errors[field.field_name] = "File must be under 10MB";
+            }
+          }
+        } else if (!value || value === "") {
+          errors[field.field_name] = "Required";
+        }
+      }
+      
+      if (value && field.field_type !== 'file' && field.field_type !== 'select') {
+        if (field.field_type === 'tel' && !/^(?:\+91|91)?[6-9]\d{9}$/.test(value.replace(/\s/g, ''))) {
+          errors[field.field_name] = "Invalid Phone";
+        }
+        if (field.field_type === 'email' && !/\S+@\S+\.\S+/.test(value)) {
+          errors[field.field_name] = "Invalid Email";
+        }
+      }
+    });
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       setFormErrors({});
-      setPhase("success");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setIsSubmitting(true);
+      
+      try {
+        // Handle File Uploads to Cloudinary in PARALLEL for speed
+        const updatedData = { ...data };
+        const fileFields = fieldsToValidate.filter(f => f.field_type === 'file');
+        
+        const uploadPromises = fileFields.map(async (field) => {
+          const file = formElement[field.field_name]?.files?.[0];
+          if (file) {
+            const uploadUrl = await uploadToCloudinary(file, "customer_documents");
+            return { name: field.field_name, url: uploadUrl };
+          }
+          return null;
+        });
+
+        const uploadResults = await Promise.all(uploadPromises);
+        uploadResults.forEach(result => {
+          if (result) updatedData[result.name] = result.url;
+        });
+
+        if (supabase) {
+          // Destructure main fields and collect the rest as custom data
+          const { name, phone, email, requirement, income, age, cibil, loanType, ...customData } = updatedData;
+          
+          const normalizedName = (name || "N/A").trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+          const normalizedEmail = (email || "N/A").trim().toLowerCase();
+
+          const payload = {
+            name: normalizedName,
+            phone: phone || "N/A",
+            email: normalizedEmail,
+            requirement: Number(requirement) || 0,
+            income: Number(income) || 0,
+            age: Number(age) || 0,
+            cibil: Number(cibil) || 0,
+            loan_type: loanType || serviceTitle,
+            form_data: { ...customData, employment_type: data.employment_type }, 
+            status: 'Pending'
+          };
+
+          const { error } = await supabase
+            .from('loan_applications')
+            .insert([payload]);
+
+          if (error) throw error;
+
+          // --- WhatsApp Direct Redirection ---
+          const adminPhone = "917026133444"; 
+          const waMessage = encodeURIComponent(`🛎️ *New Loan Update!*\n\nYou received a new loan application. Please check your admin panel for details.\n\n*Review:* https://kruthik.com/admin/loans`);
+          const waUrl = `https://wa.me/${adminPhone}?text=${waMessage}`;
+          
+          // Redirect the CURRENT tab to WhatsApp (this bypasses popup blockers)
+          window.location.href = waUrl;
+          return; // Exit early as we are redirecting
+        }
+        
+        setPhase("success");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        alert('Error: ' + error.message);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  const renderIcon = (type) => {
+    switch(type) {
+      case 'tel': return <Smartphone size={14} className="text-primary" />;
+      case 'email': return <Mail size={14} className="text-primary" />;
+      case 'number': return <Banknote size={14} className="text-primary" />;
+      case 'file': return <FileUp size={14} className="text-primary" />;
+      default: return <User size={14} className="text-primary" />;
     }
   };
 
@@ -107,131 +284,133 @@ const ApplyLoan = () => {
                     <Link to="/loans" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[10px] md:text-xs hover:gap-3 transition-all mb-4">
                       <ArrowLeft size={14} /> Back to Loans
                     </Link>
-                    <h2 className="text-2xl md:text-4xl font-bold font-primary mb-3 text-text-primary">Initialize <span className="text-gradient">Application</span></h2>
-                    <p className="text-text-secondary text-sm md:text-base uppercase tracking-widest font-bold">
-                      Initialization <span className="text-primary border-b border-primary/30">Protocol</span>
-                    </p>
+                    <h2 className="text-2xl md:text-4xl font-bold font-primary mb-3 text-text-primary">Apply for <span className="text-gradient">{serviceTitle}</span></h2>
                   </div>
 
-                  <form className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10" onSubmit={handleFormSubmit}>
-                    {/* Name */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <User size={14} className="text-primary" /> Full Name
-                      </label>
-                      <input 
-                        name="name" required placeholder="Legal Name" 
-                        onInput={(e) => { e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, '') }}
-                        className={`w-full bg-primary/5 border ${formErrors.name ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                      />
-                      {formErrors.name && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors.name}</p>}
+                  {loadingFields ? (
+                    <div className="py-20 flex flex-col items-center gap-4">
+                      <div className="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Constructing Secure Interface...</p>
                     </div>
+                  ) : (
+                    <form className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10" onSubmit={handleFormSubmit}>
+                      <input type="hidden" name="loanType" value={serviceTitle} />
+                      
+                      {/* Standard Basic Fields */}
+                      {(dynamicFields.length > 0 ? dynamicFields : [
+                        { field_name: 'name', label: 'Full Name', field_type: 'text', placeholder: 'Legal Name', is_required: true },
+                        { field_name: 'phone', label: 'Phone Number', field_type: 'tel', placeholder: '10 Digits', is_required: true },
+                        { field_name: 'email', label: 'Email Address', field_type: 'email', placeholder: 'official@email.com', is_required: true },
+                        { field_name: 'requirement', label: 'Loan Requirement', field_type: 'number', placeholder: 'Loan Amount', is_required: true },
+                      ]).map((field) => (
+                        <div key={field.field_name} className={`${field.field_type === 'textarea' || field.field_name === 'email' ? 'md:col-span-2' : ''} space-y-3`}>
+                          <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
+                            {renderIcon(field.field_type)} {field.label}
+                          </label>
+                          
+                          {field.field_type === 'textarea' ? (
+                            <textarea
+                              name={field.field_name}
+                              required={field.is_required}
+                              placeholder={field.placeholder}
+                              rows="4"
+                              className={`w-full bg-primary/5 border ${formErrors[field.field_name] ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`}
+                            ></textarea>
+                          ) : field.field_type === 'file' ? (
+                            <div className="relative">
+                              <input 
+                                name={field.field_name}
+                                type="file"
+                                required={field.is_required}
+                                className={`w-full bg-primary/5 border ${formErrors[field.field_name] ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-primary file:text-white cursor-pointer`} 
+                              />
+                            </div>
+                          ) : (
+                            <div className="relative">
+                              {field.field_type === 'number' && <span className="absolute left-6 top-1/2 -translate-y-1/2 text-primary font-bold md:text-lg">₹</span>}
+                              <input 
+                                name={field.field_name}
+                                type={field.field_type}
+                                required={field.is_required}
+                                defaultValue={field.field_name === 'requirement' ? new URLSearchParams(location.search).get('amount') : ''}
+                                placeholder={field.placeholder}
+                                className={`w-full bg-primary/5 border ${formErrors[field.field_name] ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 ${field.field_type === 'number' ? 'pl-12 md:pl-14' : 'px-6'} pr-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
+                              />
+                            </div>
+                          )}
+                          {formErrors[field.field_name] && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors[field.field_name]}</p>}
+                        </div>
+                      ))}
 
-                    {/* Age */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <Calendar size={14} className="text-primary" /> Age
-                      </label>
-                      <input 
-                        name="age" type="number" required placeholder="18+" 
-                        className={`w-full bg-primary/5 border ${formErrors.age ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                      />
-                      {formErrors.age && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors.age}</p>}
-                    </div>
-
-                    {/* Income */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <Wallet size={14} className="text-primary" /> Monthly Income
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-primary font-bold md:text-lg">₹</span>
-                        <input 
-                          name="income" type="number" required placeholder="Monthly Salary" 
-                          className={`w-full bg-primary/5 border ${formErrors.income ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 md:pl-14 pr-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                        />
+                      {/* Employment Type Dropdown */}
+                      <div className="md:col-span-2 space-y-3 pt-4 border-t border-primary/5">
+                        <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
+                          <Wallet size={14} className="text-primary" /> Employment Type
+                        </label>
+                        <select
+                          name="employment_type"
+                          required
+                          value={employmentType}
+                          onChange={(e) => setEmploymentType(e.target.value)}
+                          className={`w-full bg-primary/5 border ${formErrors['employment_type'] ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all appearance-none cursor-pointer`}
+                        >
+                          <option value="">Select Employment Type</option>
+                          <option value="Salaried">Salaried</option>
+                          <option value="Self Employed Professional">Self Employed Professional</option>
+                          <option value="Self Employed Non-Professional">Self Employed Non-Professional</option>
+                        </select>
+                        {formErrors['employment_type'] && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors['employment_type']}</p>}
                       </div>
-                    </div>
 
-                    {/* Requirement */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <Banknote size={14} className="text-primary" /> Loan Requirement
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-primary font-bold md:text-lg">₹</span>
-                        <input 
-                          name="requirement" type="number" required placeholder="Loan Amount" 
-                          className={`w-full bg-primary/5 border ${formErrors.requirement ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 md:pl-14 pr-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                        />
+                      {/* Conditional Document Uploads */}
+                      {employmentType && (
+                        <div className="md:col-span-2 space-y-6 pt-6 animate-in fade-in slide-in-from-top-4 duration-500">
+                          <div className="flex items-center gap-4">
+                            <div className="h-px bg-primary/10 flex-grow"></div>
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary whitespace-nowrap">Document Protocol: {employmentType}</h4>
+                            <div className="h-px bg-primary/10 flex-grow"></div>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {documentChecklists[employmentType].map((field) => (
+                              <div key={field.field_name} className="space-y-3">
+                                <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center justify-between gap-2">
+                                  <span className="flex items-center gap-2">
+                                    <FileUp size={14} className="text-primary" /> {field.label}
+                                  </span>
+                                  <span className="text-[9px] opacity-60 font-black">
+                                    {field.label.toLowerCase().includes('photo') || field.label.toLowerCase().includes('card') ? 'Max 2MB' : 'Max 10MB'}
+                                  </span>
+                                </label>
+                                <div className="relative">
+                                  <input 
+                                    name={field.field_name}
+                                    type="file"
+                                    required={field.is_required}
+                                    className={`w-full bg-primary/5 border ${formErrors[field.field_name] ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-primary file:text-white cursor-pointer`} 
+                                  />
+                                </div>
+                                {formErrors[field.field_name] && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors[field.field_name]}</p>}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="md:col-span-2 pt-6 md:pt-10">
+                        <button 
+                          type="submit" 
+                          disabled={isSubmitting}
+                          className="w-full btn-premium py-5 md:py-6 text-lg md:text-2xl group shadow-2xl disabled:opacity-70 cursor-pointer"
+                        >
+                           {isSubmitting ? "Submitting..." : "Apply Now"} 
+                           {!isSubmitting && <ChevronRight size={32} className="group-hover:translate-x-2 transition-transform" />}
+                        </button>
+                        <div className="flex items-center justify-center gap-3 mt-6 text-[10px] text-text-secondary font-bold uppercase tracking-[0.2em]">
+                          <Lock size={12} className="text-primary" /> Secure AES-256 Bit Transmission
+                        </div>
                       </div>
-                    </div>
-
-                    {/* CIBIL */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <TrendingUp size={14} className="text-primary" /> CIBIL Score
-                      </label>
-                      <input 
-                        name="cibil" type="number" required placeholder="300-900" 
-                        className={`w-full bg-primary/5 border ${formErrors.cibil ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                      />
-                      {formErrors.cibil && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors.cibil}</p>}
-                    </div>
-
-                    {/* Phone */}
-                    <div className="space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <Smartphone size={14} className="text-primary" /> Phone Number
-                      </label>
-                      <input 
-                        name="phone" type="tel" required placeholder="10 Digits" maxLength={10}
-                        onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
-                        className={`w-full bg-primary/5 border ${formErrors.phone ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                      />
-                      {formErrors.phone && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors.phone}</p>}
-                    </div>
-
-                    {/* Loan Type */}
-                    <div className="md:col-span-2 space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <CheckCircle2 size={14} className="text-primary" /> Select Loan Type
-                      </label>
-                      <select 
-                        name="loanType" required
-                        defaultValue={serviceTitle}
-                        className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all appearance-none cursor-pointer"
-                      >
-                        <option value="Personal Loan">Personal Loan</option>
-                        <option value="Business Loan">Business Loan</option>
-                        <option value="Home Loan">Home Loan</option>
-                        <option value="Project Loan">Project Loan</option>
-                        <option value="Loan Against Property">Loan Against Property</option>
-                        <option value="Loan Takeover / BT">Loan Takeover / BT</option>
-                      </select>
-                    </div>
-
-                    {/* Email */}
-                    <div className="md:col-span-2 space-y-3">
-                      <label className="text-[10px] md:text-xs uppercase font-bold tracking-widest text-text-secondary flex items-center gap-2">
-                        <Mail size={14} className="text-primary" /> Gmail / Email Address
-                      </label>
-                      <input 
-                        name="email" type="email" required placeholder="official@email.com" 
-                        className={`w-full bg-primary/5 border ${formErrors.email ? 'border-red-500/50' : 'border-primary/10'} rounded-xl md:rounded-2xl py-4 md:py-5 px-6 focus:border-primary outline-none text-text-primary font-bold transition-all placeholder:text-text-secondary/50`} 
-                      />
-                      {formErrors.email && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-1">{formErrors.email}</p>}
-                    </div>
-
-                    <div className="md:col-span-2 pt-6 md:pt-10">
-                      <button type="submit" className="w-full btn-premium py-5 md:py-6 text-lg md:text-2xl group shadow-2xl">
-                         Initialize Application <ChevronRight size={32} className="group-hover:translate-x-2 transition-transform" />
-                      </button>
-                      <div className="flex items-center justify-center gap-3 mt-6 text-[10px] text-text-secondary font-bold uppercase tracking-[0.2em]">
-                        <Lock size={12} className="text-primary" /> Secure AES-256 Bit Transmission
-                      </div>
-                    </div>
-                  </form>
+                    </form>
+                  )}
                 </div>
               </div>
             </div>
@@ -253,10 +432,18 @@ const ApplyLoan = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto">
-              <Link to="/" className="btn-premium px-12 py-4 md:py-5 text-base md:text-lg">
+              {window.whatsappUrl && (
+                <button 
+                  onClick={() => window.open(window.whatsappUrl, '_blank')}
+                  className="btn-premium px-12 py-4 md:py-5 text-base md:text-lg bg-emerald-600 hover:bg-emerald-700 border-none cursor-pointer"
+                >
+                  Send WhatsApp Update
+                </button>
+              )}
+              <Link to="/" className="btn-premium px-12 py-4 md:py-5 text-base md:text-lg cursor-pointer">
                 Back to Portfolio
               </Link>
-              <Link to="/loans" className="px-12 py-4 md:py-5 text-base md:text-lg font-bold border border-primary/10 rounded-2xl hover:bg-primary/5 transition-all text-center text-primary">
+              <Link to="/loans" className="px-12 py-4 md:py-5 text-base md:text-lg font-bold border border-primary/10 rounded-2xl hover:bg-primary/5 transition-all text-center text-primary cursor-pointer">
                 View More Loans
               </Link>
             </div>

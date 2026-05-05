@@ -12,13 +12,51 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import { supabase } from "../lib/supabase";
+
 const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Elite Lead Received:", data);
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    
+    try {
+      const normalizedName = data.name.trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+      const normalizedEmail = data.email.trim().toLowerCase();
+
+      if (supabase) {
+        const { error } = await supabase
+          .from('contact_inquiries')
+          .insert([
+            {
+              name: normalizedName,
+              phone: data.phone,
+              email: normalizedEmail,
+              loan_segment: data.loanType,
+              message: data.message,
+              status: 'New'
+            }
+          ]);
+
+        if (error) throw error;
+
+        // --- WhatsApp Direct Redirection ---
+        const adminPhone = "917026133444"; 
+        const waMessage = encodeURIComponent(`🛎️ *New Contact Update!*\n\nYou received a new contact request. Please check your admin panel for details.\n\n*Review:* https://kruthik.com/admin/contacts`);
+        window.location.href = `https://wa.me/${adminPhone}?text=${waMessage}`;
+        return;
+      }
+      
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -169,8 +207,13 @@ const Contact = () => {
                       <textarea rows="4" {...register("message")} placeholder="Describe your capital requirements..." className="w-full bg-primary/5 border border-primary/10 rounded-xl md:rounded-2xl p-5 md:p-6 focus:border-primary outline-none transition-all text-text-primary font-bold text-sm md:text-base"></textarea>
                     </div>
 
-                    <button type="submit" className="w-full btn-premium py-4 md:py-5 text-base md:text-lg shadow-xl shadow-primary/20">
-                      Transmit Formal Request <Send size={20} className="ml-2" />
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full btn-premium py-4 md:py-5 text-base md:text-lg shadow-xl shadow-primary/20 disabled:opacity-70"
+                    >
+                      {isSubmitting ? "Transmitting..." : "Transmit Formal Request"} 
+                      {!isSubmitting && <Send size={20} className="ml-2" />}
                     </button>
                   </form>
                 ) : (
